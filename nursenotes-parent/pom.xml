@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>hu.unideb</groupId>
+    <artifactId>nursenotes-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.10.RELEASE</version>
+    </parent>
+
+    <name>NurseNotes</name>
+
+    <description>Stores information about nursing.</description>
+
+    <developers>
+        <developer>
+            <name>Nikolett Szentmiklósi</name>
+            <email>sz.niki05@live.com</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <modules>
+        <module>nursenotes-persistence</module>
+        <module>nursenotes-service-api</module>
+        <module>nursenotes-service-imp</module>
+        <module>nursenotes-backend</module>
+    </modules>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <nursenotes.project.version>0.0.1-SNAPSHOT</nursenotes.project.version>
+
+    </properties>
+
+    <scm>
+        <connection>scm:https://github.com/PRT-PRK-LEV-NurseNotes-ANDROID/NurseNotes-Backend.git</connection>
+        <url>scm:https://github.com/PRT-PRK-LEV-NurseNotes-ANDROID/NurseNotes-Backend.git</url>
+        <developerConnection>scm:git:git@github.com:PRT-PRK-LEV-NurseNotes-ANDROID/NurseNotes-Backend.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+        </license>
+    </licenses>
+
+    <inceptionYear>2018</inceptionYear>
+    <organization>
+        <name>Debreceni Egyetem Informatika Kar</name>
+    </organization>
+
+
+        <dependencies>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.16.20</version>
+            </dependency>
+            <dependency>
+                <groupId>hu.unideb</groupId>
+                <artifactId>nursenotes-shared-parent</artifactId>
+                <version>${nursenotes.project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>hu.unideb</groupId>
+                <artifactId>nursenotes-commons-path</artifactId>
+                <version>${nursenotes.project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>hu.unideb</groupId>
+                <artifactId>nursenotes-commons-pojo</artifactId>
+                <version>${nursenotes.project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>1.5.10.RELEASE</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-tomcat</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-security</artifactId>
+                <version>1.5.10.RELEASE</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.apache.tomcat</groupId>
+                        <artifactId>tomcat-jdbc</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-thymeleaf</artifactId>
+                <version>1.5.10.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.mobile</groupId>
+                <artifactId>spring-mobile-device</artifactId>
+                <version>1.1.5.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.4</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-configuration-processor</artifactId>
+                <optional>true</optional>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security.oauth</groupId>
+                <artifactId>spring-security-oauth2</artifactId>
+                <version>2.2.1.RELEASE</version>
+            </dependency>
+        </dependencies>
+
+</project>

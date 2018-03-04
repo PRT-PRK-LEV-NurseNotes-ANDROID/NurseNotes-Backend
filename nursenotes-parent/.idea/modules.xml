@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/nursenotes-backend/nursenotes-backend.iml" filepath="$PROJECT_DIR$/nursenotes-backend/nursenotes-backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/nursenotes-parent.iml" filepath="$PROJECT_DIR$/nursenotes-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/nursenotes-persistence/nursenotes-persistence.iml" filepath="$PROJECT_DIR$/nursenotes-persistence/nursenotes-persistence.iml" />
+      <module fileurl="file://$PROJECT_DIR$/nursenotes-service-api/nursenotes-service-api.iml" filepath="$PROJECT_DIR$/nursenotes-service-api/nursenotes-service-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/nursenotes-service-imp/nursenotes-service-imp.iml" filepath="$PROJECT_DIR$/nursenotes-service-imp/nursenotes-service-imp.iml" />
+    </modules>
+  </component>
+</project>
