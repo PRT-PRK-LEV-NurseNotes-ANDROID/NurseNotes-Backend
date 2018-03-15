@@ -69,11 +69,11 @@
                 <artifactId>lombok</artifactId>
                 <version>1.16.20</version>
             </dependency>
-            <dependency>
-                <groupId>hu.unideb</groupId>
-                <artifactId>nursenotes-shared-parent</artifactId>
-                <version>${nursenotes.project.version}</version>
-            </dependency>
+            <!--<dependency>-->
+                <!--<groupId>hu.unideb</groupId>-->
+                <!--<artifactId>nursenotes-commons-parent</artifactId>-->
+                <!--<version>${nursenotes.project.version}</version>-->
+            <!--</dependency>-->
             <dependency>
                 <groupId>hu.unideb</groupId>
                 <artifactId>nursenotes-commons-path</artifactId>

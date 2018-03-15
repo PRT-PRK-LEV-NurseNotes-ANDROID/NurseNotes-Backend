@@ -9,6 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <artifactId>nursenotes-backend</artifactId>
+
     <dependencies>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -22,11 +24,8 @@
         <dependency>
             <groupId>hu.unideb</groupId>
             <artifactId>nursenotes-persistence</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${nursenotes.project.version}</version>
         </dependency>
     </dependencies>
-
-    <artifactId>nursenotes-backend</artifactId>
-
 
 </project>

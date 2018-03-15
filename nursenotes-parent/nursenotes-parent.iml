@@ -12,7 +12,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.16.20" level="project" />
-    <orderEntry type="library" name="Maven: hu.unideb:nursenotes-shared-parent:0.0.1-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: hu.unideb:nursenotes-commons-path:0.0.1-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: hu.unideb:nursenotes-commons-pojo:0.0.1-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-web:1.5.10.RELEASE" level="project" />

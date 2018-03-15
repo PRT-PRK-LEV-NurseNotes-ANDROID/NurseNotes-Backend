@@ -1,27 +1,27 @@
 package hu.unideb.nursenotes.persistence.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.ClientdataColumName.*;
-import static hu.unideb.nursenotes.commons.pojo.table.TableName.TABLE_NAME_CLIENTS;
+import static hu.unideb.nursenotes.commons.pojo.table.TableName.*;
 
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
-@Table(name = TABLE_NAME_CLIENTS)
+@Table(name = TABLE_NAME_CLIENT)
 public class ClientEntity extends BaseEntity<Long>{
 
-    @Column(name = COLUMN_NAME_CLIENTDATA_NAME)
-    private String name;
+    @Column(name = COLUMN_NAME_CLIENTDATA_CLIENTFIRSTNAME)
+    private String firstName;
+
+    @Column(name = COLUMN_NAME_CLIENTDATA_CLIENTLASTNAME)
+    private String lastName;
 
     @Column(name = COLUMN_NAME_CLIENTDATA_AGE)
     private int age;
@@ -32,12 +32,20 @@ public class ClientEntity extends BaseEntity<Long>{
     @Column(name = COLUMN_NAME_CLIENTDATA_PHONE_NUMBER)
     private String phoneNumber;
 
+    @Column(name = COLUMN_NAME_CLIENTDATA_WAGE)
+    private int wage;
+
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = TABLE_NAME_CLIENT)
+    private List<ActivityEntity> activity;
+
     @Builder
-    public ClientEntity(Long id, String name, int age, String signature, String phoneNumber) {
+    public ClientEntity(Long id, String firstName, String lastName, int age, String signature, String phoneNumber, int wage) {
         super(id);
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.age = age;
         this.signature = signature;
         this.phoneNumber = phoneNumber;
+        this.wage = wage;
     }
 }
