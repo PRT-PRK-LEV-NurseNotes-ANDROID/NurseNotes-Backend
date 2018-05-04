@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.AcitivityColumName.*;
 import static hu.unideb.nursenotes.commons.pojo.table.TableName.*;
@@ -16,7 +17,7 @@ import static hu.unideb.nursenotes.commons.pojo.table.TableName.*;
 public class ActivityEntity extends BaseEntity<Long> {
 
     @Column(name = COLUMN_NAME_ACTIVITY_TRAVELTIME)
-    private LocalDate travelTime;
+    private LocalDateTime travelTime;
 
     @Column(name = COLUMN_NAME_ACTIVITY_TIMESPENT)
     private String timeSpent;
@@ -34,7 +35,7 @@ public class ActivityEntity extends BaseEntity<Long> {
     private ClientEntity client;
 
     @Builder
-    public ActivityEntity(Long id, LocalDate travelTime, String timeSpent, String type, LocalDate date) {
+    public ActivityEntity(Long id, LocalDateTime travelTime, String timeSpent, String type, LocalDate date) {
         super(id);
         this.travelTime = travelTime;
         this.timeSpent = timeSpent;

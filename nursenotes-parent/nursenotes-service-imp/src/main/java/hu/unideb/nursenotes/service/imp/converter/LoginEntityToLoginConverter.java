@@ -1,0 +1,23 @@
+package hu.unideb.nursenotes.service.imp.converter;
+
+import hu.unideb.nursenotes.persistence.entity.LoginEntity;
+import hu.unideb.nursenotes.service.api.domain.Login;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
+
+@Component
+public class LoginEntityToLoginConverter implements Converter<LoginEntity, Login> {
+
+
+    @Override
+    public Login convert(LoginEntity source) {
+        return Login.builder()
+                .id(source.getId())
+                .userName(source.getUserName())
+                .password(source.getPassword())
+                .email(source.getEmail())
+                .firstName(source.getFirstName())
+                .lastName(source.getLastName())
+                .build();
+    }
+}
