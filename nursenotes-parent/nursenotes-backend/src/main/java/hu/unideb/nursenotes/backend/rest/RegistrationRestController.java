@@ -4,12 +4,15 @@ import hu.unideb.nursenotes.commons.pojo.exceptions.BaseException;
 import hu.unideb.nursenotes.service.api.domain.Login;
 import hu.unideb.nursenotes.service.api.exception.ServiceException;
 import hu.unideb.nursenotes.service.api.service.LoginService;
+import hu.unideb.nursenotes.service.imp.rules.registration.username.UserNameNotBlankRule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 import static path.register.RegisterPath.REGISTER_PATH;
 
@@ -32,6 +35,7 @@ public class RegistrationRestController {
         }
         return responseEntity;
     }
+
 
     @GetMapping("/login")
     @PreAuthorize("hasRole('USER')")

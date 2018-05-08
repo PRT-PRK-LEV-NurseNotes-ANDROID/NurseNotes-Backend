@@ -9,13 +9,13 @@ public interface ClientService {
 
     Client addClient(Client client) throws BaseException;
 
-  //  Client updateClient(Client client) throws BaseException;
+    Client updateClient(Client client) throws BaseException;
 
-  //  void deleteClient(Long id) throws BaseException;
+    void deleteClient(Long id) throws BaseException;
 
-  //  Client findById(Long id) throws BaseException;
+    Client findById(Long id) throws BaseException;
 
-   // List<Client> findAll();
+    List<Client> findAllClient();
 
-  //  Long countClients();
+    Long countClients();
 }

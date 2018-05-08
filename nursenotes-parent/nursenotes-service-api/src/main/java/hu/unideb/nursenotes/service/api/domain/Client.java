@@ -19,6 +19,7 @@ public class Client implements Serializable{
     private int age;
     private String signature;
     private String phoneNumber;
+    private String address;
     private int wage;
 
 

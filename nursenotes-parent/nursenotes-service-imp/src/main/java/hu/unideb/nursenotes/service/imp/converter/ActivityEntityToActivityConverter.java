@@ -6,7 +6,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ActivityEntityToActivityCoverter implements Converter<ActivityEntity,Activity> {
+public class ActivityEntityToActivityConverter implements Converter<ActivityEntity,Activity> {
     @Override
     public Activity convert(ActivityEntity source) {
         return Activity.builder()

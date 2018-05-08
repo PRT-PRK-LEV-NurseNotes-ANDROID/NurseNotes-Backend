@@ -14,11 +14,15 @@ public interface ClientRepository extends JpaRepository<ClientEntity, Long> {
 //    @Query("SELECT  c FROM  ClientEntity c WHERE c.email = :email")
 //    ClientEntity findByEmail(@Param("email") String email);
 //
-//    @Query("SELECT  c FROM  ClientEntity c WHERE c.id = :id")
-//    ClientEntity findById(@Param("id") long id);
-//
-//    @Query("SELECT  count(c) from ClientEntity c")
-//    Long countClients();
+    @Query("SELECT  c FROM  ClientEntity c WHERE c.id = :id")
+    ClientEntity findById(@Param("id") long id);
+
+    @Query("SELECT  count(c) from ClientEntity c")
+    Long countClients();
+
+    @Query("SELECT  count(c) from ClientEntity c")
+    List<ClientEntity> findAllClient();
+
 //
 //    @Query("SELECT  count(c) from ClientEntity c")
 //    List<String> getAllEmail();

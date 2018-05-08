@@ -48,7 +48,6 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
         jsonConverter.setObjectMapper(objectMapper);
         return jsonConverter;
     }
-
 //    @Bean
 //    public WebMvcConfigurer corsConfigurer() {
 //        return new WebMvcConfigurerAdapter() {

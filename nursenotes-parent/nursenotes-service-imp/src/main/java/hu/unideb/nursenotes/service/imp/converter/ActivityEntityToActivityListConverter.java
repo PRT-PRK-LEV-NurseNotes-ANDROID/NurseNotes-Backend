@@ -13,9 +13,9 @@ import java.util.stream.Collectors;
 public class ActivityEntityToActivityListConverter implements Converter<List<ActivityEntity>, List<Activity>> {
 
     @Autowired
-    private ActivityEntityToActivityCoverter activityEntityToActivityCoverter;
+    private ActivityEntityToActivityConverter activityEntityToActivityConverter;
 
     public List<Activity> convert(List<ActivityEntity> source){
-        return source.stream().map(activity -> activityEntityToActivityCoverter.convert(activity)).collect(Collectors.toList());
+        return source.stream().map(activity -> activityEntityToActivityConverter.convert(activity)).collect(Collectors.toList());
     }
 }

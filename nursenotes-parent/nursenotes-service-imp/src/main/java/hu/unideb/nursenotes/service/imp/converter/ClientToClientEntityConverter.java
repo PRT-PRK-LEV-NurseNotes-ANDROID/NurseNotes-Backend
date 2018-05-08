@@ -16,6 +16,7 @@ public class ClientToClientEntityConverter implements Converter<Client,ClientEnt
                 .age(source.getAge())
                 .signature(source.getSignature())
                 .phoneNumber(source.getPhoneNumber())
+                .address(source.getAddress())
                 .wage(source.getWage())
                 .build();
     }

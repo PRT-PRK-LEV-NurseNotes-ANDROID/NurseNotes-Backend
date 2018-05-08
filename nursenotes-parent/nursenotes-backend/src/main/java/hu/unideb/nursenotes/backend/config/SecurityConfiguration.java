@@ -51,33 +51,29 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();http.httpBasic().and().exceptionHandling().authenticationEntryPoint(delegatingAuthenticationEntryPoint());
+        http.csrf().disable();
+        http.httpBasic().and().exceptionHandling().authenticationEntryPoint(delegatingAuthenticationEntryPoint());
     }
-
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService());
     }
-
     @Bean
     public AuthenticationEntryPoint delegatingAuthenticationEntryPoint() {
         DelegatingAuthenticationEntryPoint delegatingAuthenticationEntryPoint = new DelegatingAuthenticationEntryPoint(entryPoints());
         delegatingAuthenticationEntryPoint.setDefaultEntryPoint(loginUrlAuthenticationEntryPoint());
         return delegatingAuthenticationEntryPoint;
     }
-
     @Bean
     public AuthenticationEntryPoint basicAuthenticationEntryPoint() {
         BasicAuthenticationEntryPoint basicAuthenticationEntryPoint = new BasicAuthenticationEntryPoint();
         basicAuthenticationEntryPoint.setRealmName(BASIC_AUTH_REALM_NAME);
         return basicAuthenticationEntryPoint;
     }
-
     @Bean
     public AuthenticationEntryPoint loginUrlAuthenticationEntryPoint() {
         return new LoginUrlAuthenticationEntryPoint(LOGIN_FORM_PATH);
     }
-
     @Bean
     public RequestMatcher basicAuthenticationRequestMatcher() {
         return new AntPathRequestMatcher(REST_PATH_PREFIX);

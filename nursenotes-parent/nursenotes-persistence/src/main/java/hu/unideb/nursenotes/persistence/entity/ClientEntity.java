@@ -32,6 +32,9 @@ public class ClientEntity extends BaseEntity<Long>{
     @Column(name = COLUMN_NAME_CLIENTDATA_PHONE_NUMBER)
     private String phoneNumber;
 
+    @Column(name = COLUMN_NAME_CLIENTDATA_ADDRESS)
+    private String address;
+
     @Column(name = COLUMN_NAME_CLIENTDATA_WAGE)
     private int wage;
 
@@ -39,13 +42,14 @@ public class ClientEntity extends BaseEntity<Long>{
     private List<ActivityEntity> activity;
 
     @Builder
-    public ClientEntity(Long id, String firstName, String lastName, int age, String signature, String phoneNumber, int wage) {
+    public ClientEntity(Long id, String firstName, String lastName, int age, String signature, String phoneNumber, String address, int wage) {
         super(id);
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
         this.signature = signature;
         this.phoneNumber = phoneNumber;
+        this.address = address;
         this.wage = wage;
     }
 }

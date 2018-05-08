@@ -14,7 +14,6 @@ import java.util.List;
 @Component
 public class ActivityNotBlankRule implements Rule<Activity> {
 
-
     @Override
     public List<Violation> validate(Activity request) throws BaseException {
         return Strings.isNullOrEmpty(request.getType())
