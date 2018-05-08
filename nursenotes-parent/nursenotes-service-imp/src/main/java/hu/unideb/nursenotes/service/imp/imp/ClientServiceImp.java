@@ -64,11 +64,12 @@ public class ClientServiceImp implements ClientService {
     private ClientEntityToClientListConverter clientEntityToClientListConverter;
 
     /**
+     * In this implementation, in the method with the help of {@link org.springframework.data.repository.CrudRepository#save(Object) }
+     * method, the client is stored in the DB with a generated ID. This method returns the stored client with its ID.
      *
      * @param client
      * @return It returns the result of the conversion via conversionService.
-     * In this implementation, in the method with the help of {@link org.springframework.data.repository.CrudRepository#save(Object) }
-     * method, the client is stored in the DB with a generated ID. This method returns the stored client with its ID.
+     *
      * @throws BaseException
      */
     @Override
@@ -82,11 +83,12 @@ public class ClientServiceImp implements ClientService {
     }
 
     /**
+     * In this implementation, in the method with the help of {@link org.springframework.data.repository.CrudRepository#save(Object) }
+     * method, the client is saved and already has an ID. So no new member will be created, but updated via its ID.
      *
      * @param client
      * @return It returns the result of the conversion via conversionService.
-     * In this implementation, in the method with the help of {@link org.springframework.data.repository.CrudRepository#save(Object) }
-     * method, the client is saved and already has an ID. So no new member will be created, but updated via its ID.
+     *
      * @throws BaseException
      */
     @Override
@@ -99,10 +101,11 @@ public class ClientServiceImp implements ClientService {
         return convert;
     }
     /**
+     * In this implementation a client can be deleted by finding it by its ID.
      *
      * @param id
      * @throws BaseException
-     * In this implementation a client can be deleted by finding it by its ID.
+     *
      */
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -127,10 +130,11 @@ public class ClientServiceImp implements ClientService {
         }
     }
     /**
+     *The {@Link hu.unideb.inf.nursenotes.persistence.repository.ClientRepository#findById} method gives back the result.
      *
      * @param id
      * @return It returns the result of findById method, that returns the desired client by its ID from the DB.
-     * The {@Link hu.unideb.inf.nursenotes.persistence.repository.ClientRepository#findById} method gives back the result.
+     *
      * @throws BaseException
      */
     @Override
@@ -157,6 +161,7 @@ public class ClientServiceImp implements ClientService {
     /**
      * In this implementation the method looks for all the Clients by
      * {@Link hu.unideb.inf.nursenotes.persistence.repository.ClientRepository#findAllClient} method.
+     *
      * @return It returns a list of Clients.
      */
     @Override

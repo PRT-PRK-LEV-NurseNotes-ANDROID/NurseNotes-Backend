@@ -19,18 +19,33 @@ import static hu.unideb.nursenotes.commons.pojo.table.TableName.TABLE_NAME_LOGIN
 @Table(name = TABLE_NAME_LOGIN)
 public class LoginEntity extends BaseEntity<Long>{
 
+    /**
+     * User name of the employee.
+     */
     @Column(name = COLUMN_NAME_USER)
     private String userName;
 
+    /**
+     * Password of the employee.
+     */
     @Column(name = COLUMN_NAME_PASSWORD)
     private String password;
 
+    /**
+     * E-mail address of the employee.
+     */
     @Column(name = COLUMN_NAME_EMAIL)
     private String email;
 
+    /**
+     * First name of the employee.
+     */
     @Column(name = COLUMN_NAME_FIRSTNAME)
     private String firstName;
 
+    /**
+     * Last name of the employee.
+     */
     @Column(name = COLUMN_NAME_LASTNAME)
     private String lastName;
 

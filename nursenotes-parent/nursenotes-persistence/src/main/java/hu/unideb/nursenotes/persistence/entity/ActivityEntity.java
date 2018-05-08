@@ -16,15 +16,27 @@ import static hu.unideb.nursenotes.commons.pojo.table.TableName.*;
 @Table(name = TABLE_NAME_ACTIVITY)
 public class ActivityEntity extends BaseEntity<Long> {
 
+    /**
+     * Traveling time to a Client.
+     */
     @Column(name = COLUMN_NAME_ACTIVITY_TRAVELTIME)
     private LocalDateTime travelTime;
 
+    /**
+     * Spent time at a Client.
+     */
     @Column(name = COLUMN_NAME_ACTIVITY_TIMESPENT)
     private String timeSpent;
 
+    /**
+     * Type of Activity at a Client.
+     */
     @Column(name = COLUMN_NAME_ACTIVITY_TYPE)
     private String type;
 
+    /**
+     * Date of Activity.
+     */
     @Column(name = COLUMN_NAME_ACTIVITY_DATE)
     private LocalDate date;
 

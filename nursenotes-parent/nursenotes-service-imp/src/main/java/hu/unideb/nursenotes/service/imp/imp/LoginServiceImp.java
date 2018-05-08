@@ -56,11 +56,12 @@ public class LoginServiceImp implements LoginService {
     private LoginValidator loginValidator;
 
     /**
+     * In this implementation, in the method with the help of {@link org.springframework.data.repository.CrudRepository#save(Object) }
+     * method, the employee is stored in the DB with a generated ID. This method returns the stored employee with its ID.
      *
      * @param login
      * @return It returns the result of the conversion via conversionService.
-     * In this implementation, in the method with the help of {@link org.springframework.data.repository.CrudRepository#save(Object) }
-     * method, the employee is stored in the DB with a generated ID. This method returns the stored employee with its ID.
+     *
      * @throws BaseException
      */
     @Override
@@ -75,6 +76,7 @@ public class LoginServiceImp implements LoginService {
     /**
      *  It returns the result of findByUsername method, that returns the desired employee by its ID from the DB.
      *  The {@Link hu.unideb.inf.nursenotes.persistence.repository.LoginRepository#findByUsername} method gives back the result.
+     *
      * @param login
      * @return
      */

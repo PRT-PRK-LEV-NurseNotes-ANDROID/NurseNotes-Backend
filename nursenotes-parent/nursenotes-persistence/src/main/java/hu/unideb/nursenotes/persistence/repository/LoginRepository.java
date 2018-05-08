@@ -9,6 +9,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface LoginRepository extends JpaRepository<LoginEntity, Long> {
 
+    /**
+     *
+     * @param userName is the employee's name.
+     * @return It returns the employee by userName.
+     */
     @Query("select u from LoginEntity u where u.userName = :userName")
     LoginEntity findByUserName(@Param("userName") String userName);
 

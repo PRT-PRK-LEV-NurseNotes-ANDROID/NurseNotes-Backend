@@ -68,11 +68,12 @@ public class ActivityServiceImp implements ActivityService{
     private ActivityEntityToActivityListConverter activityEntityToActivityListConverter;
 
     /**
+     * In this implementation, in the method with the help of {@link org.springframework.data.repository.CrudRepository#save(Object) }
+     * method, the activity is stored in the DB with a generated ID. This method returns the stored activity with its ID.
      *
      * @param activity
      * @return It returns the result of the conversion via conversionService.
-     * In this implementation, in the method with the help of {@link org.springframework.data.repository.CrudRepository#save(Object) }
-     * method, the activity is stored in the DB with a generated ID. This method returns the stored activity with its ID.
+     *
      * @throws BaseException
      */
     @Override
@@ -96,10 +97,11 @@ public class ActivityServiceImp implements ActivityService{
 //    }
 
     /**
+     * In this implementation an activity can be deleted by finding it by its ID.
      *
      * @param id
      * @throws BaseException
-     * In this implementation an activity can be deleted by finding it by its ID.
+     *
      */
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -125,7 +127,6 @@ public class ActivityServiceImp implements ActivityService{
         }
 
     /**
-     *
       * @param name
      * @return It returns the result of findByName method, that returns the desired activity by its name from the DB.
      * @throws BaseException
@@ -149,10 +150,11 @@ public class ActivityServiceImp implements ActivityService{
     }
 
     /**
+     * The {@Link hu.unideb.inf.nursenotes.persistence.repository.ActivityRepository#findById} method gives back the result.
      *
      * @param id
      * @return It returns the result of findById method, that returns the desired activity by its ID from the DB.
-     * The {@Link hu.unideb.inf.nursenotes.persistence.repository.ActivityRepository#findById} method gives back the result.
+     *
      * @throws BaseException
      */
     @Override
@@ -178,10 +180,10 @@ public class ActivityServiceImp implements ActivityService{
     }
 
     /**
+     * The {@Link hu.unideb.inf.nursenotes.persistence.repository.ActivityRepository#findByClientId} method gives back the result.
      *
      * @param client
      * @return It returns a list of activities, of a chosen Client.
-     * The {@Link hu.unideb.inf.nursenotes.persistence.repository.ActivityRepository#findByClientId} method gives back the result.
      */
     @Override
     public List<Activity> findByClientActivity(Client client) {
@@ -192,6 +194,7 @@ public class ActivityServiceImp implements ActivityService{
     /**
      * In this implementation the method looks for all the Activities by
      * {@Link hu.unideb.inf.nursenotes.persistence.repository.ActivityRepository#findAll} method.
+     *
      * @return It returns a list of Activities by all Client.
      */
     @Override

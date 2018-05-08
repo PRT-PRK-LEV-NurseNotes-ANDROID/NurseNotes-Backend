@@ -20,10 +20,29 @@ import java.time.LocalDateTime;
 @JsonFormat
 public class Activity implements Serializable{
 
+    /**
+     * ID of an activity.
+     */
     private Long id;
+
+    /**
+     * Traveling time to a Client.
+     */
     private LocalDateTime travelTime;
+
+    /**
+     * Time spent during the activities at a Client.
+     */
     private String timeSpent;
+
+    /**
+     * The type of the activities.
+     */
     private String type;
+
+    /**
+     * The date of the activities.
+     */
     private LocalDate date;
 
 }
