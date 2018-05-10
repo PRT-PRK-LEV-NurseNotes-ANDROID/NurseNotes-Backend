@@ -11,6 +11,9 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+/**
+ * Client domain class.
+ */
 public class Client implements Serializable{
 
     /**

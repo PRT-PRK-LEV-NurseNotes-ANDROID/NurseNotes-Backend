@@ -17,6 +17,9 @@ import static hu.unideb.nursenotes.commons.pojo.table.TableName.TABLE_NAME_LOGIN
 @NoArgsConstructor
 @Entity
 @Table(name = TABLE_NAME_LOGIN)
+/**
+ * Login Entity class contains the values of a Login.
+ */
 public class LoginEntity extends BaseEntity<Long>{
 
     /**

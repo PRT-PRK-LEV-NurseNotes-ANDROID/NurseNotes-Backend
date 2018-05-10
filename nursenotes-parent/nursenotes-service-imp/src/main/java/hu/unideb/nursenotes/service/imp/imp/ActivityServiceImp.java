@@ -36,7 +36,7 @@ import java.util.Objects;
 public class ActivityServiceImp implements ActivityService{
 
     /**
-     * The ActivityRepository derives from {@Link hu.inf.unideb.nursenotes.persistence.repository.ActivityRepository} ActivityRepository.
+     * The ActivityRepository derives from {@Link hu.unideb.nursenotes.persistence.repository.ActivityRepository} ActivityRepository.
      * This data member is wired with the help of {@link org.springframework.beans.factory.annotation.Autowired} annotation, by Spring.
      * The needful operations of an activity can be reached by via this data member.
      */

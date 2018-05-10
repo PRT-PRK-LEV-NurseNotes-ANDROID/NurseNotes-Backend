@@ -15,6 +15,10 @@ import java.io.Serializable;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @MappedSuperclass
+
+/**
+ * Base Entity which provides the primary key.
+ */
 public class BaseEntity <T extends Serializable> implements  Serializable{
 
     @Id

@@ -1,7 +1,9 @@
 package hu.unideb.nursenotes.service.api.service;
 
 import hu.unideb.nursenotes.commons.pojo.exceptions.BaseException;
+import hu.unideb.nursenotes.commons.pojo.exceptions.ViolationException;
 import hu.unideb.nursenotes.service.api.domain.Login;
+import hu.unideb.nursenotes.service.api.exception.ServiceException;
 
 public interface LoginService {
 
@@ -13,7 +15,7 @@ public interface LoginService {
      * @return It saves the employee in the DB.
      * @throws BaseException
      */
-    Login register(Login login) throws BaseException;
+    Login register(Login login) throws ViolationException, ServiceException, BaseException;
 
     /**
      *

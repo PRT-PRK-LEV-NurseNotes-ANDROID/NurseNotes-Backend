@@ -7,6 +7,8 @@ import hu.unideb.nursenotes.service.api.domain.Login;
 import hu.unideb.nursenotes.service.api.exception.EntityNotFoundException;
 import hu.unideb.nursenotes.service.api.exception.ServiceException;
 import hu.unideb.nursenotes.service.api.service.LoginService;
+import hu.unideb.nursenotes.service.imp.rules.registration.username.UserNameNotBlankRule;
+import hu.unideb.nursenotes.service.imp.validator.AbstractValidator;
 import hu.unideb.nursenotes.service.imp.validator.LoginValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +55,7 @@ public class LoginServiceImp implements LoginService {
      * The LoginValidator derives from the AbstractValidator class, which validates the class with the help of rules.
      */
     @Autowired
-    private LoginValidator loginValidator;
+    private AbstractValidator<Login> loginValidator;
 
     /**
      * In this implementation, in the method with the help of {@link org.springframework.data.repository.CrudRepository#save(Object) }
@@ -66,6 +68,7 @@ public class LoginServiceImp implements LoginService {
      */
     @Override
     public Login register(Login login) throws BaseException {
+    //    Objects.requireNonNull(login, "UserName Must Not Be Blank!");
         loginValidator.validate(login);
         log.trace(">> save: [login:{}]", login);
         Login convert = conversionService.convert(loginRepository.save(conversionService.convert(login, LoginEntity.class)), Login.class);
@@ -83,7 +86,9 @@ public class LoginServiceImp implements LoginService {
     @Override
     public Login findByUsername(String login){
      LoginEntity loginEntity = loginRepository.findByUserName(login);
-     Login convert = conversionService.convert(loginEntity, Login.class);
-     return convert;
+     if(loginEntity == null)
+         return null;
+     else
+        return conversionService.convert(loginEntity, Login.class);
     }
 }

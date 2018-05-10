@@ -31,5 +31,4 @@ public class AbstractValidator<T> {
             throw new ViolationException(violations);
         }
     }
-
 }

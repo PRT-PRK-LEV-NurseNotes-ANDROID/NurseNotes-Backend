@@ -14,6 +14,9 @@ import static hu.unideb.nursenotes.commons.pojo.table.TableName.*;
 @NoArgsConstructor
 @Entity
 @Table(name = TABLE_NAME_ACTIVITY)
+/**
+ * Activity Entity contains the main variables of an Activity.
+ */
 public class ActivityEntity extends BaseEntity<Long> {
 
     /**

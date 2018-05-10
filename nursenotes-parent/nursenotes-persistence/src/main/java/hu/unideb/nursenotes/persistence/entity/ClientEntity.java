@@ -15,6 +15,9 @@ import static hu.unideb.nursenotes.commons.pojo.table.TableName.*;
 @NoArgsConstructor
 @Entity
 @Table(name = TABLE_NAME_CLIENT)
+/**
+ * Client Entity provides the base values of a Client.
+ */
 public class ClientEntity extends BaseEntity<Long>{
 
     /**

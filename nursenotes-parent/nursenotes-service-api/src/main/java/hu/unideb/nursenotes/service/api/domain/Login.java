@@ -11,6 +11,9 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+/**
+ * Login domain class.
+ */
 public class Login implements Serializable {
 
     /**

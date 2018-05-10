@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Component
-public class ClientNameNotBlank implements Rule<Client> {
+public class ClientNameNotBlankRule implements Rule<Client> {
     @Override
     public List<Violation> validate(Client request) throws BaseException {
         return Strings.isNullOrEmpty(request.getFirstName() + " " + request.getLastName())

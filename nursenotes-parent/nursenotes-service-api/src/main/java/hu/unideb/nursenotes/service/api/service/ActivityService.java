@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * This interface is about the activities.
- * It describes the services of managing a handling the activities.
+ * It describes the services of managing and handling the activities.
  */
 public interface ActivityService {
 
