@@ -16,7 +16,7 @@ public interface ActivityService {
      * This service creates the given activity in the database.
      * Afterwards with the help of ActivityEntity the Activity will be persistent.
      *
-     * @param activity
+     * @param activity is the activity to add.
      * @return This service returns the persistent DB Activity.
      * @throws BaseException
      */
@@ -27,7 +27,7 @@ public interface ActivityService {
     /**
      * This service deletes the given activity from the database by its ID.
      *
-     * @param id
+     * @param id is the ID of the activity to delete.
      * @throws BaseException
      */
     void deleteActivity(Long id) throws BaseException;
@@ -36,7 +36,7 @@ public interface ActivityService {
      * This service is for finding Activities by Name.
      * The right method queries the Name from DB with the matching Name.
      *
-     * @param name
+     * @param name is the name of the Activity to be found.
      * @return Activity from the DB, that has been transformed into domain via conversionService.
      * @throws BaseException
      */
@@ -46,7 +46,7 @@ public interface ActivityService {
      * This service is for finding Activities by ID.
      * The right method queries the ID from DB with the matching ID.
      *
-     * @param id
+     * @param id is the ID of the activity to be found.
      * @return Activity from the DB, that has been transformed into domain via conversionService.
      * @throws BaseException
      */
@@ -54,7 +54,7 @@ public interface ActivityService {
 
     /**
      *
-     * @param client
+     * @param client is to find the Activity by Client name.
      * @return It returns a list of Activities of a chosen Client.
      */
     List<Activity> findByClientActivity(Client client);

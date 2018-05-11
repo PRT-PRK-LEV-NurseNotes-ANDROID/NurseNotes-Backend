@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * This interface communicates with the Database of the Activities.
+ */
 @Repository
 public interface ActivityRepository extends JpaRepository<ActivityEntity, Long> {
 

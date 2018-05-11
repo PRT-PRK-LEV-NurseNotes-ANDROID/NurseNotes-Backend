@@ -5,6 +5,9 @@ import hu.unideb.nursenotes.service.api.domain.Client;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+/**
+ * This class converts the {@link Client} with the help of {Link {@link Converter}} to a {@link ClientEntity}.
+ */
 @Component
 public class ClientToClientEntityConverter implements Converter<Client,ClientEntity> {
     @Override

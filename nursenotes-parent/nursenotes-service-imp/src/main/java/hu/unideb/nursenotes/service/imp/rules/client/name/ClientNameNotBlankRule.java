@@ -11,6 +11,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * This class checks if the Client name is blank or not.
+ * If it is blank, it returns with a {@link Violation} message,
+ * else it will proceed.
+ */
 @Component
 public class ClientNameNotBlankRule implements Rule<Client> {
     @Override

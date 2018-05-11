@@ -5,6 +5,10 @@ import hu.unideb.nursenotes.commons.pojo.exceptions.ViolationException;
 import hu.unideb.nursenotes.service.api.domain.Login;
 import hu.unideb.nursenotes.service.api.exception.ServiceException;
 
+/**
+ * This interface is for the login.
+ * It handles and manages the login.
+ */
 public interface LoginService {
 
     /**

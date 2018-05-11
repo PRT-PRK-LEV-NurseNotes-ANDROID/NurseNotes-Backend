@@ -5,6 +5,9 @@ import hu.unideb.nursenotes.service.api.domain.Login;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+/**
+ * This class converts the {@link Login} with the help of {Link {@link Converter}} to {@link LoginEntity}.
+ */
 @Component
 public class LoginToLoginEntityConverter implements Converter<Login, LoginEntity> {
     @Override

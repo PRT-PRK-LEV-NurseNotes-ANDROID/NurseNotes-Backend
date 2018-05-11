@@ -28,7 +28,7 @@ import java.util.Objects;
  */
 
 /**
- * {@link org.slf4j.Logger Logger} is needed for logging.
+ * {@link lombok.extern.slf4j.Slf4j Logger} is needed for logging.
  */
 @Slf4j
 @Service
@@ -67,7 +67,7 @@ public class ClientServiceImp implements ClientService {
      * In this implementation, in the method with the help of {@link org.springframework.data.repository.CrudRepository#save(Object) }
      * method, the client is stored in the DB with a generated ID. This method returns the stored client with its ID.
      *
-     * @param client
+     * @param client is the Client.
      * @return It returns the result of the conversion via conversionService.
      *
      * @throws BaseException
@@ -86,7 +86,7 @@ public class ClientServiceImp implements ClientService {
      * In this implementation, in the method with the help of {@link org.springframework.data.repository.CrudRepository#save(Object) }
      * method, the client is saved and already has an ID. So no new member will be created, but updated via its ID.
      *
-     * @param client
+     * @param client is the Client.
      * @return It returns the result of the conversion via conversionService.
      *
      * @throws BaseException
@@ -103,7 +103,7 @@ public class ClientServiceImp implements ClientService {
     /**
      * In this implementation a client can be deleted by finding it by its ID.
      *
-     * @param id
+     * @param id is the ID of the Client.
      * @throws BaseException
      *
      */
@@ -132,7 +132,7 @@ public class ClientServiceImp implements ClientService {
     /**
      *The {@Link hu.unideb.inf.nursenotes.persistence.repository.ClientRepository#findById} method gives back the result.
      *
-     * @param id
+     * @param id is the ID of the Client.
      * @return It returns the result of findById method, that returns the desired client by its ID from the DB.
      *
      * @throws BaseException

@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * This class converts the {@link LoginEntity} with the help of {Link {@link Converter}} to LoginList.
+ */
 @Component
 public class LoginEntityToLoginListConverter implements Converter<List<LoginEntity>, List<Login>> {
 

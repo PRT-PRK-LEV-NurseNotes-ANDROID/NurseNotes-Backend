@@ -6,6 +6,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+/**
+ * This interface communicates with the Database of the Login.
+ */
 @Repository
 public interface LoginRepository extends JpaRepository<LoginEntity, Long> {
 

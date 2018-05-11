@@ -29,7 +29,7 @@ import java.util.Objects;
  */
 
 /**
- * {@link org.slf4j.Logger Logger} is needed for logging.
+ * {@link lombok.extern.slf4j.Slf4j Logger} is needed for logging.
  */
 @Slf4j
 @Service
@@ -99,8 +99,8 @@ public class ActivityServiceImp implements ActivityService{
     /**
      * In this implementation an activity can be deleted by finding it by its ID.
      *
-     * @param id
-     * @throws BaseException
+     * @param id the ID of the activity.
+     * @throws BaseException in case of Exception.
      *
      */
     @Override
@@ -152,7 +152,7 @@ public class ActivityServiceImp implements ActivityService{
     /**
      * The {@Link hu.unideb.inf.nursenotes.persistence.repository.ActivityRepository#findById} method gives back the result.
      *
-     * @param id
+     * @param id the ID of the activity.
      * @return It returns the result of findById method, that returns the desired activity by its ID from the DB.
      *
      * @throws BaseException
@@ -202,5 +202,4 @@ public class ActivityServiceImp implements ActivityService{
         List<ActivityEntity> findAllActivities = activityRepository.findAll();
         return activityEntityToActivityListConverter.convert(findAllActivities);
     }
-
 }

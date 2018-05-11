@@ -12,6 +12,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * This class checks if the Username is unique at the login.
+ * If it is not unique, it returns a {@link Violation},
+ * else it will proceed.
+ */
 @Component
 public class UserNameMustBeUniqueRule implements Rule<Login> {
 

@@ -11,6 +11,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * This class checks if the Password is blank or not at registration.
+ * It it is blank, it returns with a {@link Violation} message,
+ * else it will proceed.
+ */
 @Component
 public class PasswordNotBlankRule implements Rule<Login> {
     @Override

@@ -11,6 +11,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * This rule checks if the Activity Field is blank or not. If it is blank, it will
+ * return with a {@link Violation} message, else it will proceed.
+ */
 @Component
 public class ActivityNotBlankRule implements Rule<Activity> {
 

@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * This class converts the {@link ClientEntity} with the help of {Link {@link Converter}} to ClientList.
+ */
 @Component
 public class ClientEntityToClientListConverter  implements Converter<List<ClientEntity>, List<Client>> {
 

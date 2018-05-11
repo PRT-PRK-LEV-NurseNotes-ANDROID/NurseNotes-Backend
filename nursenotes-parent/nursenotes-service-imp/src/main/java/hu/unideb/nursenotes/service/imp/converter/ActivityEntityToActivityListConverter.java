@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * This class converts the {@link ActivityEntity} with the help of {Link {@link Converter}} to a List.
+ */
 @Component
 public class ActivityEntityToActivityListConverter implements Converter<List<ActivityEntity>, List<Activity>> {
 

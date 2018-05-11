@@ -5,13 +5,17 @@ import hu.unideb.nursenotes.service.api.domain.Client;
 
 import java.util.List;
 
+/**
+ * This interface is for the Client.
+ * It handles and manages the Client-connected services.
+ */
 public interface ClientService {
 
     /**
      * This service adds the given client to the database.
      * Afterwards with the help of ClientEntity the Client will be persistent.
      *
-     * @param client
+     * @param client is the Client to add.
      * @return This service returns the persistent DB Client.
      * @throws BaseException
      */
