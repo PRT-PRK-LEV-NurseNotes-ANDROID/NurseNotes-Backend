@@ -7,11 +7,17 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ * Activity validator class.
+ */
 @Component
 public class ActivityValidator extends AbstractValidator<Activity> {
 
+    /**
+     * @param rules of superclass.
+     */
     @Autowired
-    public ActivityValidator(List<Rule<Activity>> rules){
+    public ActivityValidator(final List<Rule<Activity>> rules) {
         super(rules);
     }
 }

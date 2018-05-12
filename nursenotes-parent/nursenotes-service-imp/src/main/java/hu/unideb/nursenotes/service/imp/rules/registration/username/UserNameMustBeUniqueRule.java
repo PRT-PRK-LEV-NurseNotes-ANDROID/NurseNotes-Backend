@@ -1,6 +1,5 @@
 package hu.unideb.nursenotes.service.imp.rules.registration.username;
 
-import hu.unideb.nursenotes.commons.pojo.exceptions.BaseException;
 import hu.unideb.nursenotes.commons.pojo.validator.Violation;
 import hu.unideb.nursenotes.service.api.domain.Login;
 import hu.unideb.nursenotes.service.api.service.LoginService;
@@ -20,19 +19,22 @@ import java.util.List;
 @Component
 public class UserNameMustBeUniqueRule implements Rule<Login> {
 
+    /**
+     * Login service.
+     */
     @Autowired
     private LoginService loginService;
 
     @Override
-    public List<Violation> validate(Login request){
+    public final List<Violation> validate(final Login request) {
         List<Violation> result = Collections.<Violation>emptyList();
         String username = request.getUserName();
         Login login;
-        if(username != null){
+        if (username != null) {
             login = loginService.findByUsername(username);
-            if (login != null){
+            if (login != null) {
                 result = Arrays.asList(Violation.builder()
-                        .field("Username")
+                        .vField("Username")
                         .validationMessage("Choose an other username!")
                         .build());
             }

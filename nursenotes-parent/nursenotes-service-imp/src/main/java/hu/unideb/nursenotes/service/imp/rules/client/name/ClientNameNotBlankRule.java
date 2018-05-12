@@ -19,12 +19,14 @@ import java.util.List;
 @Component
 public class ClientNameNotBlankRule implements Rule<Client> {
     @Override
-    public List<Violation> validate(Client request) throws BaseException {
-        return Strings.isNullOrEmpty(request.getFirstName() + " " + request.getLastName())
+    public final List<Violation> validate(final Client request)
+            throws BaseException {
+        return Strings.isNullOrEmpty(request.getFirstName()
+                + " " + request.getLastName())
                 ? Arrays.asList(Violation.builder()
-                .field("Client name")
+                .vField("Client name")
                 .validationMessage("Should not be blank!")
                 .build())
-                :Collections.<Violation>emptyList();
+                : Collections.<Violation>emptyList();
     }
 }

@@ -10,16 +10,27 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * This class converts the {@link ClientEntity} with the help of {Link {@link Converter}} to ClientList.
+ * This class converts the {@link ClientEntity} with
+ * the help of {Link {@link Converter}} to ClientList.
  */
 @Component
-public class ClientEntityToClientListConverter  implements Converter<List<ClientEntity>, List<Client>> {
+public class ClientEntityToClientListConverter
+        implements Converter<List<ClientEntity>, List<Client>> {
 
+    /**
+     * Client Entity.
+     */
     @Autowired
     private ClientEntityToClientConverter clientEntityToClientConverter;
 
+    /**
+     * @param source Client entity.
+     * @return Client list.
+     */
     @Override
-    public List<Client> convert(List<ClientEntity> source){
-        return source.stream().map(client -> clientEntityToClientConverter.convert(client)).collect(Collectors.toList());
+    public final List<Client> convert(final List<ClientEntity> source) {
+        return source.stream().map(client ->
+                clientEntityToClientConverter.convert(client))
+                .collect(Collectors.toList());
     }
 }

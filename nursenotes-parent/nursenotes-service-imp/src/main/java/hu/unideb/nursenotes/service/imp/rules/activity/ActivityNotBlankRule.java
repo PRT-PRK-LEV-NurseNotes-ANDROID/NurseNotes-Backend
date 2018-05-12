@@ -12,19 +12,21 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * This rule checks if the Activity Field is blank or not. If it is blank, it will
+ * This rule checks if the Activity Field is blank or not.
+ * If it is blank, it will
  * return with a {@link Violation} message, else it will proceed.
  */
 @Component
 public class ActivityNotBlankRule implements Rule<Activity> {
 
     @Override
-    public List<Violation> validate(Activity request) throws BaseException {
+    public final List<Violation> validate(final Activity request)
+            throws BaseException {
         return Strings.isNullOrEmpty(request.getType())
                 ? Arrays.asList(Violation.builder()
-                .field("Activity name")
+                .vField("Activity name")
                 .validationMessage("Should not be blank!")
                 .build())
-                :Collections.<Violation>emptyList();
+                : Collections.<Violation>emptyList();
     }
 }

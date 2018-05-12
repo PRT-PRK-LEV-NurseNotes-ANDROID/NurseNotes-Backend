@@ -7,11 +7,17 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ * Client validator class.
+ */
 @Component
-public class ClientValidator extends AbstractValidator<Client>{
+public class ClientValidator extends AbstractValidator<Client> {
 
+    /**
+     * @param rules of superclass.
+     */
     @Autowired
-    public ClientValidator(List<Rule<Client>> rules){
+    public ClientValidator(final List<Rule<Client>> rules) {
         super(rules);
     }
 }

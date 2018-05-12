@@ -6,12 +6,19 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 /**
- * This class converts with the help of {Link {@link Converter}} the {@link ClientEntity} to a {@link Client}.
+ * This class converts with the help of {Link {@link Converter}}
+ * the {@link ClientEntity} to a {@link Client}.
  */
 @Component
-public class ClientEntityToClientConverter implements Converter<ClientEntity,Client> {
+public class ClientEntityToClientConverter
+        implements Converter<ClientEntity, Client> {
+
+    /**
+     * @param source client entity.
+     * @return built client.
+     */
     @Override
-    public Client convert(ClientEntity source) {
+    public final Client convert(final ClientEntity source) {
         return Client.builder()
                 .id(source.getId())
                 .firstName(source.getFirstName())

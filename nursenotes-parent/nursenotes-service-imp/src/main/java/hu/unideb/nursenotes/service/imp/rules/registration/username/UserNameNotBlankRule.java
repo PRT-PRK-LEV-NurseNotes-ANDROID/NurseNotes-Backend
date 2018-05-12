@@ -21,16 +21,20 @@ import java.util.List;
 @Component
 public class UserNameNotBlankRule implements Rule<Login> {
 
+    /**
+     * Login service.
+     */
     @Autowired
-    LoginService loginService;
+    private LoginService loginService;
 
     @Override
-    public List<Violation> validate(Login request) throws BaseException {
-        return Strings.isNullOrEmpty(request.getUserName()) ?
-                Arrays.asList(Violation.builder()
-                        .field("Username")
+    public final List<Violation> validate(final Login request)
+            throws BaseException {
+        return Strings.isNullOrEmpty(request.getUserName())
+                ? Arrays.asList(Violation.builder()
+                        .vField("Username")
                         .validationMessage("Cannot be blank!")
-                        .build()) :
-                Collections.<Violation>emptyList();
+                        .build())
+                : Collections.<Violation>emptyList();
     }
 }

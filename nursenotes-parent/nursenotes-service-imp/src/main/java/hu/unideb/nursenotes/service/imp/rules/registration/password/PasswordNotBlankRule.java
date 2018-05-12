@@ -19,12 +19,13 @@ import java.util.List;
 @Component
 public class PasswordNotBlankRule implements Rule<Login> {
     @Override
-    public List<Violation> validate(Login request) throws BaseException {
-        return Strings.isNullOrEmpty(request.getPassword()) ?
-                Arrays.asList(Violation.builder()
-                        .field("Password")
+    public final List<Violation> validate(final Login request)
+            throws BaseException {
+        return Strings.isNullOrEmpty(request.getPassword())
+                 ? Arrays.asList(Violation.builder()
+                        .vField("Password")
                         .validationMessage("Cannot be blank!")
-                        .build()) :
-        Collections.<Violation>emptyList();
+                        .build())
+                : Collections.<Violation>emptyList();
     }
 }

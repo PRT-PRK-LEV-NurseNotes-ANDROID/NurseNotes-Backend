@@ -10,20 +10,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Abstract validator class.
+ * @param <T> validator.
+ */
 @Slf4j
 public class AbstractValidator<T> {
 
+    /**
+     * List of rules.
+     */
     @Autowired
     private List<Rule<T>> rules;
 
-    public AbstractValidator(List<Rule<T>> rules){
+    /**
+     * Abstract validator list.
+     * @param absRules of validator.
+     */
+    public AbstractValidator(final List<Rule<T>> absRules) {
         super();
-        this.rules = rules;
+        this.rules = absRules;
     }
 
-    public void validate(T request) throws BaseException{
+    /**
+     * Validation.
+     * @param request of validation.
+     * @throws BaseException as the exception.
+     */
+    public final void validate(final T request)
+            throws BaseException {
         List<Violation> violations = new LinkedList<>();
-        for (Rule<T> rule: rules){
+        for (Rule<T> rule : rules) {
             log.trace("Executing {} rule.", rule.getClass().getSimpleName());
             violations.addAll(rule.validate(request));
         }

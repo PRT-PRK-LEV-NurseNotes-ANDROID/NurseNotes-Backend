@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ActivityEntityToActivityConverter implements
-        Converter<ActivityEntity,Activity> {
+        Converter<ActivityEntity, Activity> {
     @Override
-    public Activity convert(ActivityEntity source) {
+    public final Activity convert(final ActivityEntity source) {
         return Activity.builder()
                 .id(source.getId())
                 .travelTime(source.getTravelTime())

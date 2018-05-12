@@ -10,16 +10,28 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * This class converts the {@link LoginEntity} with the help of {Link {@link Converter}} to LoginList.
+ * This class converts the {@link LoginEntity} with
+ * the help of {Link {@link Converter}} to LoginList.
  */
 @Component
-public class LoginEntityToLoginListConverter implements Converter<List<LoginEntity>, List<Login>> {
+public class LoginEntityToLoginListConverter
+        implements Converter<List<LoginEntity>, List<Login>> {
 
+    /**
+     * Login entity.
+     */
     @Autowired
     private LoginEntityToLoginConverter loginEntityToLoginConverter;
 
+    /**
+     * @param source login entity.
+     * @return login entity list.
+     */
     @Override
-    public List<Login> convert(List<LoginEntity> source){
-        return source.stream().map(login -> loginEntityToLoginConverter.convert(login)).collect(Collectors.toList());
+    public final List<Login> convert(final List<LoginEntity> source) {
+        return source.stream().map(login ->
+                loginEntityToLoginConverter
+                        .convert(login))
+                .collect(Collectors.toList());
     }
 }

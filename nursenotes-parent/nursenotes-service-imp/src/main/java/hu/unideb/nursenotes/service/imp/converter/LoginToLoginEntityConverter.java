@@ -6,12 +6,19 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 /**
- * This class converts the {@link Login} with the help of {Link {@link Converter}} to {@link LoginEntity}.
+ * This class converts the {@link Login} with
+ * the help of {Link {@link Converter}} to {@link LoginEntity}.
  */
 @Component
-public class LoginToLoginEntityConverter implements Converter<Login, LoginEntity> {
+public class LoginToLoginEntityConverter
+        implements Converter<Login, LoginEntity> {
+
+    /**
+     * @param source login.
+     * @return login entity.
+     */
     @Override
-    public LoginEntity convert(Login source) {
+    public final LoginEntity convert(final Login source) {
         return LoginEntity.builder()
                 .logId(source.getId())
                 .logUserName(source.getUserName())

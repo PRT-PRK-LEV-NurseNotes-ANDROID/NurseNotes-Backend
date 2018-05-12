@@ -7,11 +7,17 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ * Login validator class.
+ */
 @Component
 public class LoginValidator extends AbstractValidator<Login> {
 
+    /**
+     * @param rules of superclass.
+     */
     @Autowired
-    public LoginValidator(List<Rule<Login>> rules) {
+    public LoginValidator(final List<Rule<Login>> rules) {
         super(rules);
     }
 }
