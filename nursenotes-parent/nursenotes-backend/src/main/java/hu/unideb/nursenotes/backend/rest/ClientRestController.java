@@ -15,22 +15,38 @@ import org.springframework.web.bind.annotation.RestController;
 
 import static path.client.ClientPath.CLIENT_PATH;
 
+/**
+ * Client rest controller class.
+ */
 @RestController
 public class ClientRestController {
 
+    /**
+     * Client service.
+     */
     @Autowired
     private ClientService clientService;
 
-    @RequestMapping(path = CLIENT_PATH, method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity addClient(@RequestBody Client client) throws BaseException{
+    /**
+     * @param client is the client.
+     * @return with response.
+     * @throws BaseException is the exception.
+     */
+    @RequestMapping(path = CLIENT_PATH, method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public final ResponseEntity addClient(@RequestBody final Client client)
+            throws BaseException {
 
         ResponseEntity responseEntity;
 
-        try{
+        try {
             clientService.addClient(client);
-            responseEntity = ResponseEntity.accepted().body("Successful client insertion");
-        }catch (ServiceException e){
-            responseEntity = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+            responseEntity = ResponseEntity.accepted()
+                    .body("Successful client insertion");
+        } catch (ServiceException e) {
+            responseEntity = ResponseEntity.status(HttpStatus
+                    .INTERNAL_SERVER_ERROR)
+                    .body(e.getMessage());
         }
         return responseEntity;
     }

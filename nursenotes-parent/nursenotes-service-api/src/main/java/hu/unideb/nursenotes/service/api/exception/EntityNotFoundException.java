@@ -1,16 +1,32 @@
 package hu.unideb.nursenotes.service.api.exception;
 
+/**
+ * Entity not found exception class.
+ */
 public class EntityNotFoundException extends ServiceException {
 
-    public EntityNotFoundException(){
+    /**
+     * Inherits from superclass.
+     */
+    public EntityNotFoundException() {
         super();
     }
 
-    public EntityNotFoundException(String message){
+    /**
+     *
+     * @param message of superclass exception.
+     */
+    public EntityNotFoundException(final String message) {
         super(message);
     }
 
-    public EntityNotFoundException(String message, Throwable cause){
+    /**
+     *
+     * @param message of superclass exception.
+     * @param cause of superclass exception.
+     */
+    public EntityNotFoundException(final String message,
+                                   final Throwable cause) {
         super(message, cause);
     }
 }

@@ -16,35 +16,56 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import java.util.List;
 
+/**
+ * Web configuration class.
+ */
 @Configuration
-@Import({ServiceConfiguration.class,SecurityConfiguration.class})
+@Import({ServiceConfiguration.class, SecurityConfiguration.class})
 @ComponentScan("hu.unideb.nursenotes.backend")
 public class WebConfiguration extends WebMvcConfigurerAdapter {
 
-    public void addViewControllers(ViewControllerRegistry registry) {
+    /**
+     * View controller add.
+     * @param registry for register.
+     */
+    public final void addViewControllers(
+            final ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");
     }
 
+    /**
+     * @param converters for configuring messages.
+     */
     @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+    public final void configureMessageConverters(
+            final List<HttpMessageConverter<?>> converters) {
         converters.add(mappingJackson2HttpMessageConverter());
         //super.addDefaultHttpMessageConverters();
     }
 
+    /**
+     * @return object mapper.
+     */
     @Bean
-    public ObjectMapper objectMapper() {
+    protected final ObjectMapper objectMapper() {
         return new ObjectMapper()
                 .registerModule(new JavaTimeModule())
                 .enable(SerializationFeature.INDENT_OUTPUT)
                 .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     }
 
+    /**
+     * @return Json converter.
+     */
     @Bean
-    public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
+    protected final MappingJackson2HttpMessageConverter
+    mappingJackson2HttpMessageConverter() {
 
-        MappingJackson2HttpMessageConverter jsonConverter = new MappingJackson2HttpMessageConverter();
+        MappingJackson2HttpMessageConverter jsonConverter =
+                new MappingJackson2HttpMessageConverter();
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        objectMapper.configure(DeserializationFeature.
+                FAIL_ON_UNKNOWN_PROPERTIES, false);
         jsonConverter.setObjectMapper(objectMapper);
         return jsonConverter;
     }

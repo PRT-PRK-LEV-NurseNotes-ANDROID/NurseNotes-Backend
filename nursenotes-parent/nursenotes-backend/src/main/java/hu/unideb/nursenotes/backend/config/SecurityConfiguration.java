@@ -1,7 +1,9 @@
 package hu.unideb.nursenotes.backend.config;
 
-import hu.unideb.nursenotes.backend.security.NurseNotesUserDetails;
 import hu.unideb.nursenotes.backend.security.NurseNotesUserDetailsService;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,10 +22,17 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import java.util.LinkedHashMap;
 
+/**
+ * Security configuration class.
+ */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public abstract class SecurityConfiguration
+        extends WebSecurityConfigurerAdapter {
 
 //    @Override
 //    protected void configure(HttpSecurity http) throws Exception {
@@ -39,55 +48,102 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                .permitAll();
 //    }
 //    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication().withUser("admin").password("admin").roles(new String[]{"ADMIN"});
+//    public void configureGlobal(AuthenticationManagerBuilder auth)
+// throws Exception {
+//        auth.inMemoryAuthentication().withUser("admin")
+//             .password("admin")
+//             .roles(new String[]{"ADMIN"});
 //    }
 
+    /**
+     * Basic authority name for login.
+     */
     private static final String BASIC_AUTH_REALM_NAME = "nursenotes";
 
+    /**
+     * Login path.
+     */
     private static final String LOGIN_FORM_PATH = "/login";
 
+    /**
+     * Rest path.
+     */
     private static final String REST_PATH_PREFIX = "/rest";
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected final void configure(final HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.httpBasic().and().exceptionHandling().authenticationEntryPoint(delegatingAuthenticationEntryPoint());
+        http.httpBasic().and().exceptionHandling()
+                .authenticationEntryPoint(delegatingAuthenticationEntryPoint());
     }
+
+    /**
+     * @param auth Authentication parameter.
+     * @throws Exception if exception occurs.
+     */
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    public final void configureGlobal(final AuthenticationManagerBuilder auth)
+            throws Exception {
         auth.userDetailsService(userDetailsService());
     }
+
+    /**
+     * @return Authentication entry point.
+     */
     @Bean
-    public AuthenticationEntryPoint delegatingAuthenticationEntryPoint() {
-        DelegatingAuthenticationEntryPoint delegatingAuthenticationEntryPoint = new DelegatingAuthenticationEntryPoint(entryPoints());
-        delegatingAuthenticationEntryPoint.setDefaultEntryPoint(loginUrlAuthenticationEntryPoint());
+    private AuthenticationEntryPoint delegatingAuthenticationEntryPoint() {
+        DelegatingAuthenticationEntryPoint delegatingAuthenticationEntryPoint =
+                new DelegatingAuthenticationEntryPoint(entryPoints());
+        delegatingAuthenticationEntryPoint.setDefaultEntryPoint(
+                loginUrlAuthenticationEntryPoint());
         return delegatingAuthenticationEntryPoint;
     }
+
+    /**
+     * @return basic authentication entry point.
+     */
     @Bean
-    public AuthenticationEntryPoint basicAuthenticationEntryPoint() {
-        BasicAuthenticationEntryPoint basicAuthenticationEntryPoint = new BasicAuthenticationEntryPoint();
+    private AuthenticationEntryPoint basicAuthenticationEntryPoint() {
+        BasicAuthenticationEntryPoint basicAuthenticationEntryPoint =
+                new BasicAuthenticationEntryPoint();
         basicAuthenticationEntryPoint.setRealmName(BASIC_AUTH_REALM_NAME);
         return basicAuthenticationEntryPoint;
     }
+
+    /**
+     * @return a login URL for entry point.
+     */
     @Bean
-    public AuthenticationEntryPoint loginUrlAuthenticationEntryPoint() {
+    private AuthenticationEntryPoint loginUrlAuthenticationEntryPoint() {
         return new LoginUrlAuthenticationEntryPoint(LOGIN_FORM_PATH);
     }
+
+    /**
+     * @return Path request matcher.
+     */
     @Bean
-    public RequestMatcher basicAuthenticationRequestMatcher() {
+    private RequestMatcher basicAuthenticationRequestMatcher() {
         return new AntPathRequestMatcher(REST_PATH_PREFIX);
     }
 
+    /**
+     * @return User details.
+     */
     @Bean
-    public UserDetailsService userDetailsService() {
+    protected final UserDetailsService userDetailsService() {
         return new NurseNotesUserDetailsService();
     }
 
+    /**
+     * @return the entry points.
+     */
     @Bean
-    public LinkedHashMap<RequestMatcher, AuthenticationEntryPoint> entryPoints() {
-        LinkedHashMap<RequestMatcher, AuthenticationEntryPoint> entryPoints = new LinkedHashMap<>();
-        entryPoints.put(basicAuthenticationRequestMatcher(), basicAuthenticationEntryPoint());
+    protected final LinkedHashMap<RequestMatcher, AuthenticationEntryPoint>
+    entryPoints() {
+        LinkedHashMap<RequestMatcher, AuthenticationEntryPoint> entryPoints =
+                new LinkedHashMap<>();
+        entryPoints.put(basicAuthenticationRequestMatcher(),
+                basicAuthenticationEntryPoint());
         return entryPoints;
     }
 }

@@ -8,17 +8,28 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+/**
+ * Nurse notes user details service class.
+ */
 @Service
 public class NurseNotesUserDetailsService implements UserDetailsService {
 
+    /**
+     * User login service.
+     */
     @Autowired
     private LoginService loginService;
 
+    /**
+     * @param nurseNoteLoginName user login name.
+     * @return user details.
+     */
     @Override
-    public UserDetails loadUserByUsername(String nurseNoteLoginName) {
+    public final UserDetails loadUserByUsername(
+            final String nurseNoteLoginName) {
         Login login = loginService.findByUsername(nurseNoteLoginName);
 
-        if (login == null){
+        if (login == null) {
             throw new UsernameNotFoundException("User was not found.");
         }
         return new NurseNotesUserDetails(login);

@@ -34,7 +34,6 @@
         <module>nursenotes-service-api</module>
         <module>nursenotes-service-imp</module>
         <module>nursenotes-backend</module>
-        <module>tools</module>
     </modules>
 
     <properties>

@@ -13,12 +13,12 @@ public class LoginToLoginEntityConverter implements Converter<Login, LoginEntity
     @Override
     public LoginEntity convert(Login source) {
         return LoginEntity.builder()
-                .id(source.getId())
-                .userName(source.getUserName())
-                .password(source.getPassword())
-                .firstName(source.getFirstName())
-                .lastName(source.getLastName())
-                .email(source.getEmail())
+                .logId(source.getId())
+                .logUserName(source.getUserName())
+                .logPassword(source.getPassword())
+                .logFirstName(source.getFirstName())
+                .logLastName(source.getLastName())
+                .logEmail(source.getEmail())
                 .build();
     }
 }

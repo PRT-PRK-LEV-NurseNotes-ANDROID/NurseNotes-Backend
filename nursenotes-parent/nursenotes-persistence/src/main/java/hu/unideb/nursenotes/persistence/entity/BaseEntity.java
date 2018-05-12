@@ -11,17 +11,20 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 
+/**
+ * Base Entity which provides the primary key.
+ * @param <T> is id.
+ */
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @MappedSuperclass
+public class BaseEntity<T extends Serializable> implements Serializable {
 
-/**
- * Base Entity which provides the primary key.
- */
-public class BaseEntity <T extends Serializable> implements  Serializable{
-
+    /**
+     * Generated Id.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    protected T id;
+    private T id;
 }

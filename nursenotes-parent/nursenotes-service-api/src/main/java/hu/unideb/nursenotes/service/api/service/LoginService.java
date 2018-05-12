@@ -17,9 +17,12 @@ public interface LoginService {
      *
      * @param login is the employee to be registered.
      * @return It saves the employee in the DB.
-     * @throws BaseException
+     * @throws BaseException as exception.
+     * @throws ViolationException as exception.
+     * @throws ServiceException as exception.
      */
-    Login register(Login login) throws ViolationException, ServiceException, BaseException;
+    Login register(Login login) throws ViolationException,
+            ServiceException, BaseException;
 
     /**
      *

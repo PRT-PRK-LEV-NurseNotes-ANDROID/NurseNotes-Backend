@@ -5,42 +5,62 @@ import hu.unideb.nursenotes.commons.pojo.exceptions.ViolationException;
 import hu.unideb.nursenotes.service.api.domain.Login;
 import hu.unideb.nursenotes.service.api.exception.ServiceException;
 import hu.unideb.nursenotes.service.api.service.LoginService;
-import hu.unideb.nursenotes.service.imp.rules.registration.username.UserNameNotBlankRule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
-import javax.xml.bind.ValidationException;
-import java.util.Objects;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import static path.register.RegisterPath.REGISTER_PATH;
 
+/**
+ * Registration rest controller class.
+ */
 @RestController
 public class RegistrationRestController {
 
+    /**
+     * Login service.
+     */
     @Autowired
     private LoginService loginService;
 
-    @RequestMapping(path = REGISTER_PATH, method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity register(@RequestBody Login login) throws BaseException {
+    /**
+     * @param login is the employee.
+     * @return response.
+     * @throws BaseException is the exception.
+     */
+    @RequestMapping(path = REGISTER_PATH, method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public final ResponseEntity register(@RequestBody final Login login)
+            throws BaseException {
         ResponseEntity responseEntity;
 
         try {
             loginService.register(login);
-            responseEntity = ResponseEntity.accepted().body("Successful registration");
+            responseEntity = ResponseEntity.accepted().
+                    body("Successful registration");
         } catch (ServiceException e) {
-            responseEntity = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+            responseEntity = ResponseEntity.status(HttpStatus.
+                    INTERNAL_SERVER_ERROR).body(e.getMessage());
         } catch (ViolationException e) {
-            responseEntity = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getViolationList());
+            responseEntity = ResponseEntity.status(HttpStatus.
+                    INTERNAL_SERVER_ERROR).body(e.getViolationList());
         }
-            return responseEntity;
-        }
+        return responseEntity;
+    }
+
+    /**
+     * @return login response.
+     */
     @GetMapping("/login")
     @PreAuthorize("hasRole('USER')")
-    public String hello() {
+    public final String hello() {
         return "hello";
     }
 }

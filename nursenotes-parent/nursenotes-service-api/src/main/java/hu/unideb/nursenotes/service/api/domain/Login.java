@@ -6,14 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-
+/**
+ * Login domain class.
+ */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-/**
- * Login domain class.
- */
 public class Login implements Serializable {
 
     /**

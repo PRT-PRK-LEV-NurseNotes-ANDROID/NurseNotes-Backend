@@ -7,14 +7,14 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+/**
+ * Client domain class.
+ */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-/**
- * Client domain class.
- */
-public class Client implements Serializable{
+public class Client implements Serializable {
 
     /**
      * ID of the Client.
@@ -55,7 +55,6 @@ public class Client implements Serializable{
      * Wage of the Client.
      */
     private int wage;
-
 
 
 }

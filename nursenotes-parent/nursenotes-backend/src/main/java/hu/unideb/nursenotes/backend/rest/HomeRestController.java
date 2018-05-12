@@ -12,18 +12,30 @@ import org.springframework.web.bind.annotation.RestController;
 
 import static path.home.HomePath.HOME_PATH;
 
+/**
+ * Home rest controller.
+ */
 @RestController
 public class HomeRestController {
 
+    /**
+     * Client service.
+     */
     @Autowired
-    ClientService clientService;
+    private ClientService clientService;
 
-    @RequestMapping(path = HOME_PATH, method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity home(@RequestBody Client client){
+    /**
+     * @param client is the client.
+     * @return response.
+     */
+    @RequestMapping(path = HOME_PATH, method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public final ResponseEntity home(@RequestBody final Client client) {
         ResponseEntity responseEntity;
 
         clientService.findAllClient();
-        responseEntity = ResponseEntity.accepted().body("Successful registration");
+        responseEntity = ResponseEntity.accepted()
+                .body("Successful registration");
         return responseEntity;
     }
 }
