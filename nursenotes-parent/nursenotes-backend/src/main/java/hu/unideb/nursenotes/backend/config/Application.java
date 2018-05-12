@@ -13,9 +13,6 @@ import org.springframework.context.annotation.Import;
 /**
  * Spring component lombok.
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @SpringBootApplication
 @Import({PersistenceConfiguration.class, WebConfiguration.class})
 public class Application extends SpringBootServletInitializer {

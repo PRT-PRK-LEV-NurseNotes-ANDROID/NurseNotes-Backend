@@ -25,9 +25,6 @@ import java.util.LinkedHashMap;
 /**
  * Security configuration class.
  */
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -91,7 +88,7 @@ public abstract class SecurityConfiguration
      * @return Authentication entry point.
      */
     @Bean
-    private AuthenticationEntryPoint delegatingAuthenticationEntryPoint() {
+    public AuthenticationEntryPoint delegatingAuthenticationEntryPoint() {
         DelegatingAuthenticationEntryPoint delegatingAuthenticationEntryPoint =
                 new DelegatingAuthenticationEntryPoint(entryPoints());
         delegatingAuthenticationEntryPoint.setDefaultEntryPoint(
@@ -103,7 +100,7 @@ public abstract class SecurityConfiguration
      * @return basic authentication entry point.
      */
     @Bean
-    private AuthenticationEntryPoint basicAuthenticationEntryPoint() {
+    public AuthenticationEntryPoint basicAuthenticationEntryPoint() {
         BasicAuthenticationEntryPoint basicAuthenticationEntryPoint =
                 new BasicAuthenticationEntryPoint();
         basicAuthenticationEntryPoint.setRealmName(BASIC_AUTH_REALM_NAME);
@@ -114,7 +111,7 @@ public abstract class SecurityConfiguration
      * @return a login URL for entry point.
      */
     @Bean
-    private AuthenticationEntryPoint loginUrlAuthenticationEntryPoint() {
+    public AuthenticationEntryPoint loginUrlAuthenticationEntryPoint() {
         return new LoginUrlAuthenticationEntryPoint(LOGIN_FORM_PATH);
     }
 
@@ -122,7 +119,7 @@ public abstract class SecurityConfiguration
      * @return Path request matcher.
      */
     @Bean
-    private RequestMatcher basicAuthenticationRequestMatcher() {
+    public RequestMatcher basicAuthenticationRequestMatcher() {
         return new AntPathRequestMatcher(REST_PATH_PREFIX);
     }
 
@@ -130,7 +127,7 @@ public abstract class SecurityConfiguration
      * @return User details.
      */
     @Bean
-    protected final UserDetailsService userDetailsService() {
+    public UserDetailsService userDetailsService() {
         return new NurseNotesUserDetailsService();
     }
 
@@ -138,7 +135,7 @@ public abstract class SecurityConfiguration
      * @return the entry points.
      */
     @Bean
-    protected final LinkedHashMap<RequestMatcher, AuthenticationEntryPoint>
+    public LinkedHashMap<RequestMatcher, AuthenticationEntryPoint>
     entryPoints() {
         LinkedHashMap<RequestMatcher, AuthenticationEntryPoint> entryPoints =
                 new LinkedHashMap<>();
