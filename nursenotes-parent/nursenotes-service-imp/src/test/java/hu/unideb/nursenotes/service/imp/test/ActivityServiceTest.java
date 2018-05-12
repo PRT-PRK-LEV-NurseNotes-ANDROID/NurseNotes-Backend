@@ -1,86 +1,62 @@
 package hu.unideb.nursenotes.service.imp.test;
 
-import hu.unideb.nursenotes.commons.pojo.exceptions.BaseException;
-import hu.unideb.nursenotes.persistence.entity.ActivityEntity;
-import hu.unideb.nursenotes.persistence.repository.ActivityRepository;
 import hu.unideb.nursenotes.service.api.domain.Activity;
+import hu.unideb.nursenotes.service.config.TestConfiguration;
 import hu.unideb.nursenotes.service.imp.imp.ActivityServiceImp;
-import hu.unideb.nursenotes.service.imp.validator.ActivityValidator;
-import org.aopalliance.intercept.Invocation;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
-import org.mockito.*;
-import org.mockito.runners.MockitoJUnitRunner;
-import org.mockito.exceptions.base.MockitoException;
+import org.hamcrest.Matchers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.xml.bind.ValidationException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@RunWith(MockitoJUnitRunner.class)
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {TestConfiguration.class})
 public class ActivityServiceTest {
 
-    @Mock
-    private ActivityRepository activityRepository;
+    private static final LocalDateTime TRAVELTIME = LocalDateTime.now();
 
-    @Spy
-    @InjectMocks
+    private static final String TIMESPENT = "10";
+
+    private static final String TYPE = "test";
+
+    private static final LocalDate DATE = LocalDate.now();
+
+
+    @Autowired
     private ActivityServiceImp activityServiceImp;
 
-    @Mock
-    private ConversionService conversionService;
+    private Activity activity;
 
-    @Mock
-    private ActivityValidator activityValidator;
+    private Activity added;
 
     @Before
-    public void initMocks() throws BaseException {
-        MockitoAnnotations.initMocks(this);
+    public void setUp() {
+        activity = Activity.builder()
+                .travelTime(TRAVELTIME)
+                .timeSpent(TIMESPENT)
+                .type(TYPE)
+                .date(DATE)
+                .build();
 
-        Mockito.when(activityRepository.save(Mockito.any(ActivityEntity.class)))
-                .thenAnswer(invocation -> {
-                    Object[] args = invocation.getArguments();
-                    if (((ActivityEntity) args[0]).getId() == null) {
-                        ((ActivityEntity) args[0]).setId(91L);
-                    }
-                    return args[0];
-                });
-
-        Mockito.doNothing().when(activityValidator).validate(Mockito.any(Activity.class));
-        Mockito.when(conversionService.convert(Mockito.any(Activity.class), ActivityEntity.class)).thenReturn(Mockito.any(ActivityEntity.class));
-        Mockito.when(conversionService.convert(Mockito.any(ActivityEntity.class),Activity.class)).thenReturn(Mockito.any(Activity.class));
-        Mockito.doThrow(ValidationException.class).when(conversionService.convert(Mockito.any(Activity.class), ActivityEntity.class));
+        added = Activity.builder()
+                .id(1L)
+                .travelTime(TRAVELTIME)
+                .timeSpent(TIMESPENT)
+                .type(TYPE)
+                .date(DATE)
+                .build();
     }
 
-
-
-//    @Test
-    public void createActivityTest(){
-        Assert.assertNotNull(activityRepository);
-
-        Activity activity = new Activity();
-        activity.setDate(LocalDate.now());
-        activity.setTimeSpent("20");
-        activity.setType("Shopping");
-        activity.setTravelTime(LocalDateTime.now());
-
-        try {
-            Activity saveActivity = activityServiceImp.addActivity(activity);
-            Assert.assertNotNull(saveActivity);
-            Assert.assertNotNull(saveActivity.getId());
-            Assert.assertNotNull(saveActivity.getType());
-            Assert.assertNotNull(saveActivity.getDate());
-            Assert.assertNotNull(saveActivity.getTimeSpent());
-            Assert.assertNotNull(saveActivity.getTravelTime());
-        } catch (BaseException e) {
-            e.printStackTrace();
-        }
+    @Test
+    public void testAddActivtyWithNoViolation() throws Exception {
+        Activity addedActivty = activityServiceImp.addActivity(activity);
+        Assert.assertThat(addedActivty, Matchers.is(added));
     }
+
 }
