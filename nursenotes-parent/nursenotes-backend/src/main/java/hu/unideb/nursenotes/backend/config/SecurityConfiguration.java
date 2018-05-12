@@ -58,7 +58,7 @@ public abstract class SecurityConfiguration
     private static final String BASIC_AUTH_REALM_NAME = "nursenotes";
 
     /**
-     * Login path.
+     * User path.
      */
     private static final String LOGIN_FORM_PATH = "/login";
 

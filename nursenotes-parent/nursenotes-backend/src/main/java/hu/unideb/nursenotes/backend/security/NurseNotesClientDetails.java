@@ -1,6 +1,6 @@
 package hu.unideb.nursenotes.backend.security;
 
-import hu.unideb.nursenotes.service.api.domain.User;
+import hu.unideb.nursenotes.service.api.domain.Client;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,30 +8,27 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Arrays;
 import java.util.Collection;
 
-/**
- * Employee user details.
- */
-public class NurseNotesUserDetails implements UserDetails {
+public class NurseNotesClientDetails implements UserDetails {
 
     /**
      * User.
      */
-    private final User user;
+    private final Client client;
 
     /**
-     * @param userUser is the user.
+     * @param client is the Client.
      */
-    public NurseNotesUserDetails(final User userUser) {
+    public NurseNotesClientDetails(final Client client) {
         super();
-        this.user = userUser;
+        this.client = client;
     }
 
     /**
-     * @return list of users.
+     * @return list of clients.
      */
     @Override
     public final Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("USER"));
+        return Arrays.asList(new SimpleGrantedAuthority("CLIENT"));
     }
 
     /**
@@ -42,11 +39,16 @@ public class NurseNotesUserDetails implements UserDetails {
         return null;
     }
 
+    @Override
+    public String getUsername() {
+        return null;
+    }
+
     /**
      * @return username
      */
-    @Override
-    public final String getUsername() {
+   // @Override
+    public final String getFirstname() {
         return null;
     }
 
@@ -82,7 +84,8 @@ public class NurseNotesUserDetails implements UserDetails {
         return false;
     }
 
-    public User getUser() {
-        return user;
+    public Client getClient() {
+        return client;
     }
+
 }

@@ -54,7 +54,7 @@ public class ActivityEntity extends BaseEntity<Long> {
      * Login to activities.
      */
     @ManyToOne
-    private LoginEntity login;
+    private UserEntity login;
 
     /**
      * Client to activities.

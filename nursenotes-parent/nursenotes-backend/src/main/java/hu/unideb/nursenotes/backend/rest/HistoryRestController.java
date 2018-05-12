@@ -7,6 +7,7 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,18 +34,26 @@ public class HistoryRestController {
     @Autowired
     private ActivityService activityService;
 
-    /**
-     * @param client is the client.
-     * @return response.
-     */
-    @RequestMapping(path = HISTORY_PATH, method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_VALUE)
-    public final ResponseEntity history(@RequestBody final Client client) {
+//    /**
+//     * @param client is the client.
+//     * @return response.
+//     */
+//    @RequestMapping(path = HISTORY_PATH, method = RequestMethod.POST,
+//            consumes = MediaType.APPLICATION_JSON_VALUE)
+//    public final ResponseEntity history(@RequestBody final Client client) {
+//        ResponseEntity responseEntity;
+//
+//        clientService.findAllClient();
+//        responseEntity = ResponseEntity.accepted()
+//                .body("ClientList");
+//        return responseEntity;
+//    }
+
+    @GetMapping(path = HISTORY_PATH)
+    public final ResponseEntity history(){
         ResponseEntity responseEntity;
 
-        clientService.findAllClient();
-        responseEntity = ResponseEntity.accepted()
-                .body("ClientList");
+        responseEntity = ResponseEntity.accepted().body(clientService.findAllClient());
         return responseEntity;
     }
 }

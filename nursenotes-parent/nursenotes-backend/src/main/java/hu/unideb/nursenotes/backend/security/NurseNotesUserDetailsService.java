@@ -1,7 +1,7 @@
 package hu.unideb.nursenotes.backend.security;
 
-import hu.unideb.nursenotes.service.api.domain.Login;
-import hu.unideb.nursenotes.service.api.service.LoginService;
+import hu.unideb.nursenotes.service.api.domain.User;
+import hu.unideb.nursenotes.service.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,7 +18,7 @@ public class NurseNotesUserDetailsService implements UserDetailsService {
      * User login service.
      */
     @Autowired
-    private LoginService loginService;
+    private UserService userService;
 
     /**
      * @param nurseNoteLoginName user login name.
@@ -27,11 +27,11 @@ public class NurseNotesUserDetailsService implements UserDetailsService {
     @Override
     public final UserDetails loadUserByUsername(
             final String nurseNoteLoginName) {
-        Login login = loginService.findByUsername(nurseNoteLoginName);
+        User user = userService.findByUsername(nurseNoteLoginName);
 
-        if (login == null) {
+        if (user == null) {
             throw new UsernameNotFoundException("User was not found.");
         }
-        return new NurseNotesUserDetails(login);
+        return new NurseNotesUserDetails(user);
     }
 }

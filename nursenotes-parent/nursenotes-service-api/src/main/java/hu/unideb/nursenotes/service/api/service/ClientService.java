@@ -2,6 +2,7 @@ package hu.unideb.nursenotes.service.api.service;
 
 import hu.unideb.nursenotes.commons.pojo.exceptions.BaseException;
 import hu.unideb.nursenotes.service.api.domain.Client;
+import hu.unideb.nursenotes.service.api.domain.User;
 
 import java.util.List;
 
@@ -53,6 +54,16 @@ public interface ClientService {
      * @return It returns a list of all Client.
      */
     List<Client> findAllClient();
+
+    List<Client> findByLoginId(Client client);
+
+    List<Client> findClientOfEmployee(User user);
+
+    Client findByName(String client);
+
+   // Client findByFname(String client);
+
+   // Client findByLname(String client);
 
     /**
      * @return It returns a long type of counted Clients.

@@ -1,5 +1,6 @@
 package hu.unideb.nursenotes.persistence.repository;
 
+import ch.qos.logback.core.net.server.Client;
 import hu.unideb.nursenotes.persistence.entity.ClientEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,11 +14,6 @@ import java.util.List;
  */
 @Repository
 public interface ClientRepository extends JpaRepository<ClientEntity, Long> {
-
-//    @Query("SELECT  c FROM  ClientEntity c WHERE c.email = :email")
-//    ClientEntity findByEmail(@Param("email") String email);
-//
-
     /**
      *
      * @param id is the Client id.
@@ -25,6 +21,14 @@ public interface ClientRepository extends JpaRepository<ClientEntity, Long> {
      */
     @Query("SELECT  c FROM  ClientEntity c WHERE c.id = :id")
     ClientEntity findById(@Param("id") long id);
+
+
+    /**
+     * @param firstName is the Client's first Name.
+     * @return It returns the Client by first name.
+     */
+    @Query("select f from ClientEntity f where f.firstName =: firstName")
+    ClientEntity findByName(@Param("firstName") String firstName);
 
     /**
      *
@@ -40,8 +44,13 @@ public interface ClientRepository extends JpaRepository<ClientEntity, Long> {
     @Query("SELECT  count(c) from ClientEntity c")
     List<ClientEntity> findAllClient();
 
-//
-//    @Query("SELECT  count(c) from ClientEntity c")
-//    List<String> getAllEmail();
+    /**
+     * @param id is login Id.
+     * @return a list of clients of a login.
+     */
+    List<ClientEntity> findByLoginId(@Param("id") long id);
+
+    @Query("select c from ClientEntity c where c.clientName = :clientName")
+    ClientEntity findClientOfEmployee(@Param("clientName") String clientName);
 
 }

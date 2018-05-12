@@ -3,10 +3,13 @@ package hu.unideb.nursenotes.service.imp.imp;
 import hu.unideb.nursenotes.commons.pojo.exceptions.BaseException;
 import hu.unideb.nursenotes.persistence.entity.ClientEntity;
 import hu.unideb.nursenotes.persistence.repository.ClientRepository;
+import hu.unideb.nursenotes.persistence.repository.UserRepository;
 import hu.unideb.nursenotes.service.api.domain.Client;
+import hu.unideb.nursenotes.service.api.domain.User;
 import hu.unideb.nursenotes.service.api.exception.EntityNotFoundException;
 import hu.unideb.nursenotes.service.api.exception.ServiceException;
 import hu.unideb.nursenotes.service.api.service.ClientService;
+import hu.unideb.nursenotes.service.imp.converter.ClientEntityListToClientListConverter;
 import hu.unideb.nursenotes.service.imp.converter.ClientEntityToClientListConverter;
 import hu.unideb.nursenotes.service.imp.validator.ClientValidator;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +37,7 @@ import java.util.Objects;
  */
 @Slf4j
 @Service
-public class ClientServiceImp implements ClientService {
+public abstract class ClientServiceImp implements ClientService {
 
     /**
      * The ClientRepository derives from
@@ -50,6 +53,18 @@ public class ClientServiceImp implements ClientService {
      * The ClientValidator derives from the AbstractValidator class,
      * which validates the class with the help of rules.
      */
+
+    /**
+     * The LoginRepository derives from
+     * {@Link LoginRepository} LoginRepository.
+     * This data memeber is wired with the help of
+     * {Link {@link Autowired}} annotation, by Spring.
+     * The needful operations of an employee,
+     * can be reached by via this data member.
+     */
+    @Autowired
+    private UserRepository userRepository;
+
     @Autowired
     private ClientValidator clientValidator;
     /**
@@ -71,6 +86,9 @@ public class ClientServiceImp implements ClientService {
      */
     @Autowired
     private ClientEntityToClientListConverter clientEntityToClientListConverter;
+
+    @Autowired
+    private ClientEntityListToClientListConverter clientEntityListToClientListConverter;
 
     /**
      * In this implementation, in the method with the help of
@@ -186,14 +204,24 @@ public class ClientServiceImp implements ClientService {
 
     /**
      * In this implementation the method looks for all the Clients by
-     * {@Link findAllClient} method.
+     * {@Link findByLoginId} method.
      *
      * @return It returns a list of Clients.
      */
     @Override
-    public final List<Client> findAllClient() {
-        List<ClientEntity> findAllClient = clientRepository.findAllClient();
-        return clientEntityToClientListConverter.convert(findAllClient);
+    public final List<Client> findByLoginId(final Client client) {
+        List<ClientEntity> findByLoginId = clientRepository.findByLoginId(client.getId());
+        return clientEntityToClientListConverter.convert(findByLoginId);
+    }
+
+    /**
+     * @param user is the employee.
+     * @return the Client of an employee.
+     */
+    @Override
+    public final List<Client> findClientOfEmployee(final User user){
+        List<ClientEntity> findClientOfEmployee = clientRepository.findByLoginId(user.getId());
+        return clientEntityListToClientListConverter.convert(findClientOfEmployee);
     }
 
     /**
@@ -204,4 +232,34 @@ public class ClientServiceImp implements ClientService {
         Long countAllClient = clientRepository.countClients();
         return countAllClient;
     }
+
+    /**
+     * @param client the client's first name.
+     * @return The first name converted into Entity.
+     * @throws BaseException is the exception.
+     */
+    @Override
+    public final Client findByName(final String client){
+        ClientEntity clientEntity = clientRepository.findByName(client);
+        if (clientEntity == null) {
+            return null;
+        } else {
+            return conversionService.convert(clientEntity, Client.class);
+        }
+    }
+
+    /**
+     * @param client the client's last name.
+     * @return The last name, converted into Entity.
+     * @throws BaseException is the exception.
+     */
+//    @Override
+//    public final Client findByLname(final String client) throws BaseException{
+//        ClientEntity clientEntity = clientRepository.findByLname(client);
+//        if (clientEntity == null) {
+//            return null;
+//        } else {
+//            return conversionService.convert(clientEntity, Client.class);
+//        }
+//    }
 }

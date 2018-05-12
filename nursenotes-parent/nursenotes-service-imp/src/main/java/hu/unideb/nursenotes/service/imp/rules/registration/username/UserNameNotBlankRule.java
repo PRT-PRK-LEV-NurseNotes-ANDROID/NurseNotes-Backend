@@ -3,8 +3,8 @@ package hu.unideb.nursenotes.service.imp.rules.registration.username;
 import com.google.common.base.Strings;
 import hu.unideb.nursenotes.commons.pojo.exceptions.BaseException;
 import hu.unideb.nursenotes.commons.pojo.validator.Violation;
-import hu.unideb.nursenotes.service.api.domain.Login;
-import hu.unideb.nursenotes.service.api.service.LoginService;
+import hu.unideb.nursenotes.service.api.domain.User;
+import hu.unideb.nursenotes.service.api.service.UserService;
 import hu.unideb.nursenotes.service.api.validator.rule.Rule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,16 +19,16 @@ import java.util.List;
  * else it will proceed.
  */
 @Component
-public class UserNameNotBlankRule implements Rule<Login> {
+public class UserNameNotBlankRule implements Rule<User> {
 
     /**
-     * Login service.
+     * User service.
      */
     @Autowired
-    private LoginService loginService;
+    private UserService userService;
 
     @Override
-    public final List<Violation> validate(final Login request)
+    public final List<Violation> validate(final User request)
             throws BaseException {
         return Strings.isNullOrEmpty(request.getUserName())
                 ? Arrays.asList(Violation.builder()

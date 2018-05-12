@@ -1,14 +1,23 @@
 package hu.unideb.nursenotes.backend.rest;
 
+import hu.unideb.nursenotes.backend.security.NurseNotesClientDetails;
+import hu.unideb.nursenotes.commons.pojo.exceptions.ViolationException;
+import hu.unideb.nursenotes.commons.pojo.response.ClientListResponse;
 import hu.unideb.nursenotes.service.api.domain.Client;
 import hu.unideb.nursenotes.service.api.service.ClientService;
+import hu.unideb.nursenotes.service.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 import static path.home.HomePath.HOME_PATH;
 
@@ -25,6 +34,12 @@ public class HomeRestController {
     private ClientService clientService;
 
     /**
+     * User service.
+     */
+    @Autowired
+    private UserService userService;
+
+    /**
      * @param client is the client.
      * @return response.
      */
@@ -38,4 +53,16 @@ public class HomeRestController {
                 .body("Successful registration");
         return responseEntity;
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping(path = HOME_PATH)
+    public ResponseEntity<?> findClient() throws ViolationException {
+        List<Client> clientByLogin = clientService.findByLoginId(getClient());
+        return ResponseEntity.accepted().body(new ClientListResponse(clientByLogin));
+    }
+
+    private Client getClient() {
+        return ((NurseNotesClientDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getClient();
+    }
+
 }

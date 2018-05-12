@@ -1,15 +1,18 @@
 package hu.unideb.nursenotes.service.imp.imp;
 
 import hu.unideb.nursenotes.commons.pojo.exceptions.BaseException;
-import hu.unideb.nursenotes.persistence.entity.LoginEntity;
-import hu.unideb.nursenotes.persistence.repository.LoginRepository;
-import hu.unideb.nursenotes.service.api.domain.Login;
-import hu.unideb.nursenotes.service.api.service.LoginService;
+import hu.unideb.nursenotes.persistence.entity.UserEntity;
+import hu.unideb.nursenotes.persistence.repository.UserRepository;
+import hu.unideb.nursenotes.service.api.domain.User;
+import hu.unideb.nursenotes.service.api.service.UserService;
+import hu.unideb.nursenotes.service.imp.converter.UserEntityToUserListConverter;
 import hu.unideb.nursenotes.service.imp.validator.AbstractValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * This class manages the users/employees.
@@ -27,17 +30,17 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
-public class LoginServiceImp implements LoginService {
+public class UserServiceImp implements UserService {
 
     /**
-     * The LoginRepository derives from {@link LoginRepository} LoginRepository.
+     * The LoginRepository derives from {@link UserRepository} LoginRepository.
      * This data member is wired with the help of
      * {@link Autowired} annotation, by Spring.
      * The needful operations of a registration
      * can be reached by via this data member.
      */
     @Autowired
-    private LoginRepository loginRepository;
+    private UserRepository userRepository;
 
     /**
      * A service interface for type conversion.
@@ -52,12 +55,15 @@ public class LoginServiceImp implements LoginService {
     @Autowired
     private ConversionService conversionService;
 
+    @Autowired
+    private UserEntityToUserListConverter userEntityToUserListConverter;
+
     /**
      * The LoginValidator derives from the AbstractValidator class,
      * which validates the class with the help of rules.
      */
     @Autowired
-    private AbstractValidator<Login> loginValidator;
+    private AbstractValidator<User> userValidator;
 
     /**
      * In this implementation, in the method with the help of
@@ -65,21 +71,21 @@ public class LoginServiceImp implements LoginService {
      * method, the employee is stored in the DB with a generated ID.
      * This method returns the stored employee with its ID.
      *
-     * @param login is the Username of the employee.
+     * @param user is the Username of the employee.
      * @return It returns the result of the conversion via conversionService.
      * @throws BaseException
      */
     @Override
-    public final Login register(final Login login) throws BaseException {
-        //    Objects.requireNonNull(login, "UserName Must Not Be Blank!");
-        loginValidator.validate(login);
-        log.trace(">> save: [login:{}]", login);
-        Login convert = conversionService
-                .convert(loginRepository
+    public final User register(final User user) throws BaseException {
+        //    Objects.requireNonNull(user, "UserName Must Not Be Blank!");
+        userValidator.validate(user);
+        log.trace(">> save: [user:{}]", user);
+        User convert = conversionService
+                .convert(userRepository
                                 .save(conversionService
-                                        .convert(login, LoginEntity.class)),
-                        Login.class);
-        log.trace("<< save: [login:{}]", login);
+                                        .convert(user, UserEntity.class)),
+                        User.class);
+        log.trace("<< save: [user:{}]", user);
         return convert;
     }
 
@@ -88,16 +94,26 @@ public class LoginServiceImp implements LoginService {
      * that returns the desired employee by its ID from the DB.
      * The {@Link findByUsername} method gives back the result.
      *
-     * @param login is the Username of the employee.
+     * @param user is the Username of the employee.
      * @return It returns an employee.
      */
     @Override
-    public final Login findByUsername(final String login) {
-        LoginEntity loginEntity = loginRepository.findByUserName(login);
-        if (loginEntity == null) {
+    public final User findByUsername(final String user) {
+        UserEntity userEntity = userRepository.findByUserName(user);
+        if (userEntity == null) {
             return null;
         } else {
-            return conversionService.convert(loginEntity, Login.class);
+            return conversionService.convert(userEntity, User.class);
         }
+    }
+
+    /**
+     *
+     * @return every user.
+     */
+    @Override
+    public List<User> findAllUser() {
+        List<UserEntity> findAllUser = userRepository.findAll();
+        return userEntityToUserListConverter.convert(findAllUser);
     }
 }

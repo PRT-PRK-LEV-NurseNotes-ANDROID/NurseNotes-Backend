@@ -7,13 +7,13 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 /**
- * Login domain class.
+ * User domain class.
  */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Login implements Serializable {
+public class User implements Serializable {
 
     /**
      * ID of the login/registration.

@@ -26,7 +26,7 @@ import static hu.unideb.nursenotes.commons.pojo.table.TableName.TABLE_NAME_LOGIN
 @NoArgsConstructor
 @Entity
 @Table(name = TABLE_NAME_LOGIN)
-public class LoginEntity extends BaseEntity<Long> {
+public class UserEntity extends BaseEntity<Long> {
 
     /**
      * User name of the employee.
@@ -76,9 +76,9 @@ public class LoginEntity extends BaseEntity<Long> {
      * @param logLastName user last name.
      */
     @Builder
-    public LoginEntity(final Long logId, final String logUserName,
-                       final String logPassword, final String logEmail,
-                       final String logFirstName, final String logLastName) {
+    public UserEntity(final Long logId, final String logUserName,
+                      final String logPassword, final String logEmail,
+                      final String logFirstName, final String logLastName) {
         super(logId);
         this.userName = logUserName;
         this.password = logPassword;
