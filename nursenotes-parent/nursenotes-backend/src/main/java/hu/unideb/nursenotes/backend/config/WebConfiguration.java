@@ -47,7 +47,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
      * @return object mapper.
      */
     @Bean
-    protected final ObjectMapper objectMapper() {
+    protected ObjectMapper objectMapper() {
         return new ObjectMapper()
                 .registerModule(new JavaTimeModule())
                 .enable(SerializationFeature.INDENT_OUTPUT)
@@ -58,7 +58,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
      * @return Json converter.
      */
     @Bean
-    protected final MappingJackson2HttpMessageConverter
+    protected MappingJackson2HttpMessageConverter
     mappingJackson2HttpMessageConverter() {
 
         MappingJackson2HttpMessageConverter jsonConverter =

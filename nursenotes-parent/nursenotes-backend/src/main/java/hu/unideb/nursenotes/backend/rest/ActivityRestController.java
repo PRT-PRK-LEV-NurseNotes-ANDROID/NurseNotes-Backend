@@ -19,7 +19,8 @@ import static path.activity.ActivityPath.ACTIVITY_PATH;
  * Class for activity rest point.
  */
 @RestController
-public class ActivityRestController {
+public class
+ActivityRestController {
 
     /**
      * Activity service.

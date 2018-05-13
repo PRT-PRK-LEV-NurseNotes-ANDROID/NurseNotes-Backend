@@ -1,11 +1,13 @@
 package hu.unideb.nursenotes.persistence.repository;
 
 import hu.unideb.nursenotes.persistence.entity.ActivityEntity;
+import hu.unideb.nursenotes.persistence.entity.ClientEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -17,31 +19,14 @@ public interface ActivityRepository extends
 
     /**
      *
-     * @param type is the name of finding by.
-     * @return It returns the Activity by a chosen Client.
+     * @param date is the Client's activity-date.
+     * @return It returns the Activity of chosen Client.
      */
-    @Query("SELECT  a FROM  ActivityEntity a WHERE a.type = :type")
-    ActivityEntity findByName(@Param("type") String type);
+    ActivityEntity findByDate(LocalDate date);
 
     /**
-     *
-     * @param id is the identification for finding an Acitivity.
-     * @return It returns an Activity by its ID.
+     * Finds every activity of a client.
      */
-    @Query("SELECT  a FROM  ActivityEntity a WHERE a.id = :id")
-    ActivityEntity findById(@Param("id") long id);
 
-    /**
-     *
-     * @param id is the Client's id.
-     * @return It returns a list of the Activity of chosen Client.
-     */
-    List<ActivityEntity> findByClientId(@Param("id") long id);
-
-    /**
-     * It counts the Activities.
-     * @return a list of all Activities.
-     */
-    @Query("SELECT  count(a) from ActivityEntity a")
-    Long countActivities();
+    List<ActivityEntity> findByClientActivity(ClientEntity client);
 }

@@ -2,15 +2,14 @@ package hu.unideb.nursenotes.service.imp.imp;
 
 import hu.unideb.nursenotes.commons.pojo.exceptions.BaseException;
 import hu.unideb.nursenotes.persistence.entity.ClientEntity;
+import hu.unideb.nursenotes.persistence.entity.UserEntity;
 import hu.unideb.nursenotes.persistence.repository.ClientRepository;
 import hu.unideb.nursenotes.persistence.repository.UserRepository;
 import hu.unideb.nursenotes.service.api.domain.Client;
 import hu.unideb.nursenotes.service.api.domain.User;
-import hu.unideb.nursenotes.service.api.exception.EntityNotFoundException;
-import hu.unideb.nursenotes.service.api.exception.ServiceException;
 import hu.unideb.nursenotes.service.api.service.ClientService;
-import hu.unideb.nursenotes.service.imp.converter.ClientEntityListToClientListConverter;
 import hu.unideb.nursenotes.service.imp.converter.ClientEntityToClientListConverter;
+import hu.unideb.nursenotes.service.imp.converter.UserToUserEntityConverter;
 import hu.unideb.nursenotes.service.imp.validator.ClientValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 /**
  * This class manages the clients.
  * This class is annotated by
@@ -62,8 +60,6 @@ public abstract class ClientServiceImp implements ClientService {
      * The needful operations of an employee,
      * can be reached by via this data member.
      */
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private ClientValidator clientValidator;
@@ -84,11 +80,12 @@ public abstract class ClientServiceImp implements ClientService {
      * ClientEntity to a ClientList, in this case
      * we can collect the ClientEntities into one list.
      */
+
     @Autowired
     private ClientEntityToClientListConverter clientEntityToClientListConverter;
 
     @Autowired
-    private ClientEntityListToClientListConverter clientEntityListToClientListConverter;
+    private UserToUserEntityConverter userToUserEntityConverter;
 
     /**
      * In this implementation, in the method with the help of
@@ -101,136 +98,50 @@ public abstract class ClientServiceImp implements ClientService {
      * @throws BaseException
      */
     @Override
-    //@Transactional(propagation = Propagation.REQUIRES_NEW)
     public final Client addClient(final Client client) throws BaseException {
         clientValidator.validate(client);
         log.trace(">> save: [client:{}]", client);
         Client convert = conversionService
                 .convert(clientRepository
-                        .save(conversionService
-                                .convert(client, ClientEntity.class)),
+                                .save(conversionService
+                                        .convert(client, ClientEntity.class)),
                         Client.class);
         log.trace("<< save: [client:{}]", client);
         return convert;
     }
 
     /**
-     * In this implementation, in the method with the help of
-     * {@link org.springframework.data.repository.CrudRepository#save(Object) }
-     * method, the client is saved and already has an ID.
-     * So no new member will be created, but updated via its ID.
-     *
-     * @param client is the Client.
-     * @return It returns the result of the conversion via conversionService.
-     * @throws BaseException
+     * @param phoneNumber of the Client to find by.
+     * @return It returns the client by phone number.
+     * @throws BaseException as exception.
      */
     @Override
-    //@Transactional(propagation = Propagation.REQUIRES_NEW)
-    public final Client updateClient(final Client client) throws BaseException {
-        clientValidator.validate(client);
-        log.trace(">> update: [client:{}]", client);
-        Client convert = conversionService
-                .convert(clientRepository
-                        .save(conversionService
-                                .convert(client, ClientEntity.class)),
-                        Client.class);
-        log.trace("<< update: [client:{}]", client);
-        return convert;
-    }
-
-    /**
-     * In this implementation a client can be deleted by finding it by its ID.
-     *
-     * @param id is the ID of the Client.
-     * @throws BaseException
-     */
-    @Override
-    //@Transactional(propagation = Propagation.REQUIRES_NEW)
-    public final void deleteClient(final Long id) throws BaseException {
-        log.trace(">> deleting Client: [id:{}]", id);
-        if (Objects.isNull(id)) {
-            throw new ServiceException("id is null");
-        }
-        ClientEntity clientEntity;
-        try {
-            clientEntity = clientRepository.findById(id);
-        } catch (Exception e) {
-            String errMsg = String
-                    .format("Error when finding client by id:%d.", id);
-            throw new ServiceException(errMsg, e);
-        }
-        if (Objects.isNull(clientEntity)) {
-            String errMsg = String
-                    .format("Client with id:%d was not found.", id);
-            throw new EntityNotFoundException(errMsg);
+    public Client findByPhone(String phoneNumber) throws BaseException {
+        ClientEntity clientEntity = clientRepository.findByPhone(phoneNumber);
+        if (clientEntity == null) {
+            return null;
         } else {
-            log.trace("<< deleting Customer: [id:{}]", id);
-            clientRepository.delete(id);
+            return conversionService.convert(clientEntity, Client.class);
         }
-    }
-
-    /**
-     * The {@Link findById} method gives back the result.
-     *
-     * @param id is the ID of the Client.
-     * @return It returns the result of findById method,
-     * that returns the desired client by its ID from the DB.
-     * @throws BaseException
-     */
-    @Override
-    public final Client findById(final Long id) throws BaseException {
-        log.trace(">> findClientById: [id:{}]", id);
-        if (Objects.isNull(id)) {
-            throw new ServiceException("id is NULL");
-        }
-        ClientEntity clientEntity;
-        try {
-            clientEntity = clientRepository.findById(id);
-        } catch (Exception e) {
-            String errMsg = String
-                    .format("Error when finding client by id:%d.", id);
-            throw new ServiceException(errMsg, e);
-        }
-        if (Objects.isNull(clientEntity)) {
-            String errMsg = String
-                    .format("Client with id:%d not found.", id);
-            throw new EntityNotFoundException(errMsg);
-        }
-        Client result = conversionService
-                .convert(clientEntity, Client.class);
-        log.trace("<< finding Client By Id: [id:{}]", id);
-        return result;
-    }
-
-    /**
-     * In this implementation the method looks for all the Clients by
-     * {@Link findByLoginId} method.
-     *
-     * @return It returns a list of Clients.
-     */
-    @Override
-    public final List<Client> findByLoginId(final Client client) {
-        List<ClientEntity> findByLoginId = clientRepository.findByLoginId(client.getId());
-        return clientEntityToClientListConverter.convert(findByLoginId);
     }
 
     /**
      * @param user is the employee.
-     * @return the Client of an employee.
+     * @return It returns the clients of an employee.
      */
-    @Override
-    public final List<Client> findClientOfEmployee(final User user){
-        List<ClientEntity> findClientOfEmployee = clientRepository.findByLoginId(user.getId());
-        return clientEntityListToClientListConverter.convert(findClientOfEmployee);
-    }
+//    @Override
+//    public List<Client> findByUser(User user) {
+//        UserEntity findUser = userToUserEntityConverter.convert(user);
+//
+//        List<ClientEntity> foundClients = clientRepository
+//                .findByUser(findUser);
+//
+//        return clientEntityToClientListConverter.convert(foundClients);
+//    }
 
-    /**
-     * @return It returns a Long value, with the number of Clients.
-     */
     @Override
-    public final Long countClients() {
-        Long countAllClient = clientRepository.countClients();
-        return countAllClient;
+    public List<Client> findClientOfEmployee(User user) {
+        return null;
     }
 
     /**
@@ -239,8 +150,8 @@ public abstract class ClientServiceImp implements ClientService {
      * @throws BaseException is the exception.
      */
     @Override
-    public final Client findByName(final String client){
-        ClientEntity clientEntity = clientRepository.findByName(client);
+    public final Client findByFName(final String client) {
+        ClientEntity clientEntity = clientRepository.findByFName(client);
         if (clientEntity == null) {
             return null;
         } else {
@@ -250,16 +161,42 @@ public abstract class ClientServiceImp implements ClientService {
 
     /**
      * @param client the client's last name.
-     * @return The last name, converted into Entity.
+     * @return The last name converted into Entity.
      * @throws BaseException is the exception.
      */
+    @Override
+    public final Client findByLName(final String client) {
+        ClientEntity clientEntity = clientRepository.findByLName(client);
+        if (clientEntity == null) {
+            return null;
+        } else {
+            return conversionService.convert(clientEntity, Client.class);
+        }
+    }
+
+    //    /**
+//     * In this implementation the method looks for all the Clients by
+//     * {@Link findByLoginId} method.
+//     *
+//     * @return It returns a list of Clients.
+//     */
 //    @Override
-//    public final Client findByLname(final String client) throws BaseException{
-//        ClientEntity clientEntity = clientRepository.findByLname(client);
-//        if (clientEntity == null) {
-//            return null;
-//        } else {
-//            return conversionService.convert(clientEntity, Client.class);
-//        }
+//    public final List<Client> findByUser(User user) {
+//        UserEntity foundUser = userToUserEntityConverter.convert(user);
+//
+//        List<ClientEntity> findByLoginId = clientRepository.findByUser(foundUser);
+//        return clientEntityToClientListConverter.convert(findByLoginId);
+//    }
+
+//    /**
+//     * @param user is the employee.
+//     * @return the Client of an employee.
+//     */
+//    @Override
+//    public final List<Client> findClientOfEmployee(final User user) {
+//        UserEntity foundUser = userToUserEntityConverter.convert(user);
+//
+//        List<ClientEntity> findClientOfEmployee = clientRepository.findByUser(foundUser);
+//        return clientEntityListToClientListConverter.convert(findClientOfEmployee);
 //    }
 }

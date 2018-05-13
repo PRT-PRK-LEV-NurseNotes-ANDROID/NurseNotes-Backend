@@ -25,7 +25,7 @@ public class ClientRestController {
      * Client service.
      */
     @Autowired
-    private ClientService clientService;
+    ClientService clientService;
 
     /**
      * @param client is the client.

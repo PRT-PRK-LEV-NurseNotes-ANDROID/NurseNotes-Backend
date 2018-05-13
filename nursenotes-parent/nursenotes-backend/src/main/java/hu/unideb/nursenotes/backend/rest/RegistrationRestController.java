@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import static path.login.LoginPath.LOGIN_PATH;
 import static path.register.RegisterPath.REGISTER_PATH;
 
 /**
@@ -64,3 +65,4 @@ public class RegistrationRestController {
         return "hello";
     }
 }
+

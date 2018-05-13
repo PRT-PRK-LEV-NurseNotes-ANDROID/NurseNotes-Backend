@@ -1,9 +1,11 @@
 package hu.unideb.nursenotes.backend.rest;
 
 import hu.unideb.nursenotes.backend.security.NurseNotesClientDetails;
+import hu.unideb.nursenotes.backend.security.NurseNotesUserDetails;
 import hu.unideb.nursenotes.commons.pojo.exceptions.ViolationException;
 import hu.unideb.nursenotes.commons.pojo.response.ClientListResponse;
 import hu.unideb.nursenotes.service.api.domain.Client;
+import hu.unideb.nursenotes.service.api.domain.User;
 import hu.unideb.nursenotes.service.api.service.ClientService;
 import hu.unideb.nursenotes.service.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,21 +50,21 @@ public class HomeRestController {
     public final ResponseEntity home(@RequestBody final Client client) {
         ResponseEntity responseEntity;
 
-        clientService.findAllClient();
+//        clientService.findByUser(getUser());
         responseEntity = ResponseEntity.accepted()
                 .body("Successful registration");
         return responseEntity;
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping(path = HOME_PATH)
-    public ResponseEntity<?> findClient() throws ViolationException {
-        List<Client> clientByLogin = clientService.findByLoginId(getClient());
-        return ResponseEntity.accepted().body(new ClientListResponse(clientByLogin));
-    }
+//    @PreAuthorize("isAuthenticated()")
+//    @GetMapping(path = HOME_PATH)
+//    public ResponseEntity<?> findClient() throws ViolationException {
+//        List<Client> clientByUser = clientService.findByUser(getUser());
+//        return ResponseEntity.accepted().body(new ClientListResponse(clientByUser));
+//    }
 
-    private Client getClient() {
-        return ((NurseNotesClientDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getClient();
+    private User getUser() {
+        return ((NurseNotesUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
     }
 
 }

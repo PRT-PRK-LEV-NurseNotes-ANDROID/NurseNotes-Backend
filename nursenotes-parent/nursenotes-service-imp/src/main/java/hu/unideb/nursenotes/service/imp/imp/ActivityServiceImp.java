@@ -2,6 +2,7 @@ package hu.unideb.nursenotes.service.imp.imp;
 
 import hu.unideb.nursenotes.commons.pojo.exceptions.BaseException;
 import hu.unideb.nursenotes.persistence.entity.ActivityEntity;
+import hu.unideb.nursenotes.persistence.entity.ClientEntity;
 import hu.unideb.nursenotes.persistence.repository.ActivityRepository;
 import hu.unideb.nursenotes.service.api.domain.Activity;
 import hu.unideb.nursenotes.service.api.domain.Client;
@@ -9,12 +10,14 @@ import hu.unideb.nursenotes.service.api.exception.EntityNotFoundException;
 import hu.unideb.nursenotes.service.api.exception.ServiceException;
 import hu.unideb.nursenotes.service.api.service.ActivityService;
 import hu.unideb.nursenotes.service.imp.converter.ActivityEntityToActivityListConverter;
+import hu.unideb.nursenotes.service.imp.converter.ClientToClientEntityConverter;
 import hu.unideb.nursenotes.service.imp.validator.ActivityValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -78,6 +81,9 @@ public class ActivityServiceImp implements ActivityService {
     private ActivityEntityToActivityListConverter
             activityEntityToActivityListConverter;
 
+    @Autowired
+    private ClientToClientEntityConverter clientToClientEntityConverter;
+
     /**
      * In this implementation, in the method with the help of
      * {@link org.springframework.data.repository.CrudRepository#save(Object) }
@@ -89,120 +95,41 @@ public class ActivityServiceImp implements ActivityService {
      * @throws BaseException as an exception.
      */
     @Override
-  //  @Transactional(propagation = Propagation.REQUIRES_NEW)
     public final Activity addActivity(final Activity activity)
             throws BaseException {
         activityValidator.validate(activity);
         log.trace(">> save: [activity:{}", activity);
         Activity convert = conversionService.convert(activityRepository.
-                save(conversionService.convert(activity, ActivityEntity.class)),
+                        save(conversionService.convert(activity, ActivityEntity.class)),
                 Activity.class);
         log.trace("<< save: [activity:{}", activity);
         return convert;
     }
 
-//    @Override
-//    @Transactional(propagation = Propagation.REQUIRES_NEW)
-//    public Activity updateActivity(Activity activity) throws BaseException {
-//        activityValidator.validate(activity);
-//        log.trace(">> update: [activity:{}", activity);
-//        Activity convert = conversionService.convert(activityRepository
-//        .save(conversionService.convert(activity, ActivityEntity.class)),
-//              Activity.class);
-//        log.trace("<< update: [activity:{}", activity);
-//        return convert;
-//    }
-
     /**
-     * In this implementation an activity can be deleted by
-     * finding it by its ID.
-     *
-     * @param id the ID of the activity.
-     * @throws BaseException in case of Exception.
-     */
-    @Override
-    //@Transactional(propagation = Propagation.REQUIRES_NEW)
-    public final void deleteActivity(final Long id) throws BaseException {
-        log.trace(">> deleteActivity: [id:{}]", id);
-        if (Objects.isNull(id)) {
-            throw new ServiceException("Cannot delete because it is NULL");
-        }
-        ActivityEntity activityEntity;
-        try {
-            activityEntity = activityRepository.findById(id);
-        } catch (Exception e) {
-            String errMsg = String
-                    .format("Error when finding activity by id:%d.", id);
-            throw new ServiceException(errMsg, e);
-        }
-        if (Objects.isNull(activityEntity)) {
-            String errMsg = String
-                    .format("Activity with id:%d was not found.", id);
-            throw new EntityNotFoundException(errMsg);
-        } else {
-            log.trace("<< deleteActivity: [id:{}]", id);
-            activityRepository.delete(id);
-        }
-    }
-
-    /**
-     * @param name
-     * @return It returns the result of findByName method,
-     * that returns the desired activity by its name from the DB.
+     * @param date
+     * @return It returns the result of findByDate method,
+     * that returns the desired activity by its date from the DB.
      * @throws BaseException as the exception.
      */
     @Override
-    public final Activity findByName(final String name) throws BaseException {
-        log.trace(">> findByName: [name:{}]", name);
-        if (Objects.isNull(name)) {
+    public final Activity findByDate(final LocalDate date) throws BaseException {
+        log.trace(">> findByDate: [date:{}]", date);
+        if (Objects.isNull(date)) {
             throw new ServiceException(
-                    "Cannot find because the name is NULL");
+                    "Cannot find because the date is NULL");
         }
         ActivityEntity activityEntity;
         try {
-            activityEntity = activityRepository.findByName(name);
+            activityEntity = activityRepository.findByDate(date);
         } catch (Exception e) {
             String errMsg = String
-                    .format("Error when finding activity by name:%s.", name);
+                    .format("Error when finding activity by date:%s.", date);
             throw new ServiceException(errMsg, e);
         }
         Activity result = conversionService.convert(activityEntity,
                 Activity.class);
-        log.trace("<< findByName: [name:{}]", result);
-        return result;
-    }
-
-    /**
-     * The {@Link findById}
-     * method gives back the result.
-     *
-     * @param id the ID of the activity.
-     * @return It returns the result of findById method,
-     * that returns the desired activity by its ID from the DB.
-     * @throws BaseException as the exception.
-     */
-    @Override
-    public final Activity findById(final Long id) throws BaseException {
-        log.trace(">> findById: [id:{}]", id);
-        if (Objects.isNull(id)) {
-            throw new ServiceException("Cannot find because the id is NULL");
-        }
-        ActivityEntity activityEntity;
-        try {
-            activityEntity = activityRepository.findById(id);
-        } catch (Exception e) {
-            String errMsg = String
-                    .format("Error when finding activity by id:%d.", id);
-            throw new ServiceException(errMsg, e);
-        }
-        if (Objects.isNull(activityEntity)) {
-            String errMsg = String
-                    .format("Activity with id:%d was not found.", id);
-            throw new EntityNotFoundException(errMsg);
-        }
-        Activity result = conversionService.convert(activityEntity,
-                Activity.class);
-        log.trace("<< findActivityById: [id:{}]", id);
+        log.trace("<< findByDate: [date:{}]", result);
         return result;
     }
 
@@ -215,8 +142,10 @@ public class ActivityServiceImp implements ActivityService {
      */
     @Override
     public final List<Activity> findByClientActivity(final Client client) {
+        ClientEntity findClient = clientToClientEntityConverter.convert(client);
+
         List<ActivityEntity> findByClient = activityRepository
-                .findByClientId(client.getId());
+                .findByClientActivity(findClient);
         return activityEntityToActivityListConverter.convert(findByClient);
     }
 

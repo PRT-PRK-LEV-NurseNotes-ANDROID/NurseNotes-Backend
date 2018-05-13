@@ -24,7 +24,7 @@ public class NurseNotesClientDetailsService implements UserDetailsService {
     @Override
     public final UserDetails loadUserByUsername(
             final String nurseNotesClientName) {
-        Client client = clientService.findByName(nurseNotesClientName);
+        Client client = clientService.findByFName(nurseNotesClientName);
 
         if (client == null) {
             throw new UsernameNotFoundException("Client name was not found.");

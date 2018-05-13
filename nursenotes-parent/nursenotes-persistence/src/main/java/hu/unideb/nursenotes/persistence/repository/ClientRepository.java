@@ -2,6 +2,7 @@ package hu.unideb.nursenotes.persistence.repository;
 
 import ch.qos.logback.core.net.server.Client;
 import hu.unideb.nursenotes.persistence.entity.ClientEntity;
+import hu.unideb.nursenotes.persistence.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,41 +17,29 @@ import java.util.List;
 public interface ClientRepository extends JpaRepository<ClientEntity, Long> {
     /**
      *
-     * @param id is the Client id.
-     * @return It returns the Client by ID.
+     * @param phoneNumber is the Client's phone number.
+     * @return It returns the Client by phone number.
      */
-    @Query("SELECT  c FROM  ClientEntity c WHERE c.id = :id")
-    ClientEntity findById(@Param("id") long id);
-
+    @Query("SELECT p FROM  ClientEntity p WHERE p.phoneNumber = :phoneNumber")
+    ClientEntity findByPhone(@Param("phoneNumber") String phoneNumber);
 
     /**
      * @param firstName is the Client's first Name.
      * @return It returns the Client by first name.
      */
-    @Query("select f from ClientEntity f where f.firstName =: firstName")
-    ClientEntity findByName(@Param("firstName") String firstName);
+    @Query("select f from ClientEntity f where f.firstName = :firstName")
+    ClientEntity findByFName(@Param("firstName") String firstName);
 
     /**
-     *
-     * @return It counts all Client.
+     * @param lastName is the Client's last Name.
+     * @return It returns the Client by last name.
      */
-    @Query("SELECT  count(c) from ClientEntity c")
-    Long countClients();
+    @Query("select l from ClientEntity l where l.lastName = :lastName")
+    ClientEntity findByLName(@Param("lastName") String lastName);
 
     /**
-     *
-     * @return a list of every Client.
-     */
-    @Query("SELECT  count(c) from ClientEntity c")
-    List<ClientEntity> findAllClient();
-
-    /**
-     * @param id is login Id.
+     * @param user is the logged in user.
      * @return a list of clients of a login.
      */
-    List<ClientEntity> findByLoginId(@Param("id") long id);
-
-    @Query("select c from ClientEntity c where c.clientName = :clientName")
-    ClientEntity findClientOfEmployee(@Param("clientName") String clientName);
-
+  //  List<ClientEntity> findByUser(UserEntity user);
 }

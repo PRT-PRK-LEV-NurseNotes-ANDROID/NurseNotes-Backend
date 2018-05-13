@@ -20,12 +20,12 @@ public class UserToUserEntityConverter
     @Override
     public final UserEntity convert(final User source) {
         return UserEntity.builder()
-                .logId(source.getId())
-                .logUserName(source.getUserName())
-                .logPassword(source.getPassword())
-                .logFirstName(source.getFirstName())
-                .logLastName(source.getLastName())
-                .logEmail(source.getEmail())
+                .id(source.getId())
+                .userName(source.getUserName())
+                .password(source.getPassword())
+                .firstName(source.getFirstName())
+                .lastName(source.getLastName())
+                .email(source.getEmail())
                 .build();
     }
 }

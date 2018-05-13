@@ -20,11 +20,11 @@ public class ActivityToActivityEntityConverter
     @Override
     public final ActivityEntity convert(final Activity source) {
         return ActivityEntity.builder()
-                .actId(source.getId())
-                .actTravelTime(source.getTravelTime())
-                .actTimeSpent(source.getTimeSpent())
-                .actType(source.getType())
-                .actDate(source.getDate())
+                .id(source.getId())
+                .travelTime(source.getTravelTime())
+                .timeSpent(source.getTimeSpent())
+                .type(source.getType())
+                .date(source.getDate())
                 .build();
     }
 }

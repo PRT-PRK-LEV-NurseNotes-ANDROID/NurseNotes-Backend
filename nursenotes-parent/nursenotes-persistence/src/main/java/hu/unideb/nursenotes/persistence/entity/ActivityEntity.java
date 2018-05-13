@@ -6,10 +6,12 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.AcitivityColumName.COLUMN_NAME_ACTIVITY_DATE;
 import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.AcitivityColumName.COLUMN_NAME_ACTIVITY_TIMESPENT;
@@ -51,34 +53,27 @@ public class ActivityEntity extends BaseEntity<Long> {
     private LocalDate date;
 
     /**
-     * Login to activities.
+     * Clients to activities.
      */
-    @ManyToOne
-    private UserEntity login;
+    @ManyToMany(mappedBy = TABLE_NAME_ACTIVITY, fetch = FetchType.LAZY)
+    private List<ClientEntity> client;
 
     /**
-     * Client to activities.
-     */
-    @ManyToOne
-    private ClientEntity client;
-
-    /**
-     *
-     * @param actId activity id.
-     * @param actTravelTime of employee to client.
-     * @param actTimeSpent at client.
-     * @param actType of activity.
-     * @param actDate of activity.
+     * @param id         activity id.
+     * @param travelTime of employee to client.
+     * @param timeSpent  at client.
+     * @param type       of activity.
+     * @param date       of activity.
      */
     @Builder
-    protected ActivityEntity(final Long actId,
-                             final LocalDateTime actTravelTime,
-                             final String actTimeSpent, final String actType,
-                             final LocalDate actDate) {
-        super(actId);
-        this.travelTime = actTravelTime;
-        this.timeSpent = actTimeSpent;
-        this.type = actType;
-        this.date = actDate;
+    protected ActivityEntity(final Long id,
+                             final LocalDateTime travelTime,
+                             final String timeSpent, final String type,
+                             final LocalDate date) {
+        super(id);
+        this.travelTime = travelTime;
+        this.timeSpent = timeSpent;
+        this.type = type;
+        this.date = date;
     }
 }

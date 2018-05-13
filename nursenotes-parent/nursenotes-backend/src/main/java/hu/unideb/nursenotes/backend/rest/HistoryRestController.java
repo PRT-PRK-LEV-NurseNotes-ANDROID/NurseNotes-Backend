@@ -1,12 +1,15 @@
 package hu.unideb.nursenotes.backend.rest;
 
+import hu.unideb.nursenotes.backend.security.NurseNotesUserDetails;
 import hu.unideb.nursenotes.service.api.domain.Client;
+import hu.unideb.nursenotes.service.api.domain.User;
 import hu.unideb.nursenotes.service.api.service.ActivityService;
 import hu.unideb.nursenotes.service.api.service.ClientService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,11 +52,15 @@ public class HistoryRestController {
 //        return responseEntity;
 //    }
 
-    @GetMapping(path = HISTORY_PATH)
-    public final ResponseEntity history(){
-        ResponseEntity responseEntity;
+//    @GetMapping(path = HISTORY_PATH)
+//    public final ResponseEntity history(){
+//        ResponseEntity responseEntity;
 
-        responseEntity = ResponseEntity.accepted().body(clientService.findAllClient());
-        return responseEntity;
+//        responseEntity = ResponseEntity.accepted().body(clientService.findClientOfEmployee(getUser()));
+//        return responseEntity;
+//    }
+
+    private User getUser() {
+        return ((NurseNotesUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
     }
 }

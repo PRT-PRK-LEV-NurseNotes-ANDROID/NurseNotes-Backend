@@ -54,9 +54,9 @@ public class ActivityServiceTest {
     }
 
     @Test
-    public void testAddActivtyWithNoViolation() throws Exception {
-        Activity addedActivty = activityServiceImp.addActivity(activity);
-        Assert.assertThat(addedActivty, Matchers.is(added));
+    public void testAddActivityWithNoViolation() throws Exception {
+        Activity addedActivity = activityServiceImp.addActivity(activity);
+        Assert.assertThat(addedActivity, Matchers.is(added));
     }
 
 }

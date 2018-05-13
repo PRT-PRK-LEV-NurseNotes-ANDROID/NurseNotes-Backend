@@ -20,14 +20,14 @@ public class ClientToClientEntityConverter
     @Override
     public final ClientEntity convert(final Client source) {
         return ClientEntity.builder()
-                .cliId(source.getId())
-                .cliFirstName(source.getFirstName())
-                .cliLastName(source.getLastName())
-                .cliAge(source.getAge())
-                .cliSignature(source.getSignature())
-                .cliPhoneNumber(source.getPhoneNumber())
-                .cliAddress(source.getAddress())
-                .cliWage(source.getWage())
+                .id(source.getId())
+                .firstName(source.getFirstName())
+                .lastName(source.getLastName())
+                .age(source.getAge())
+                .signature(source.getSignature())
+                .phoneNumber(source.getPhoneNumber())
+                .address(source.getAddress())
+                .wage(source.getWage())
                 .build();
     }
 }

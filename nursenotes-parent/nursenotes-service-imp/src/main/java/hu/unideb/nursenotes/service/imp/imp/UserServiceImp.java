@@ -77,7 +77,6 @@ public class UserServiceImp implements UserService {
      */
     @Override
     public final User register(final User user) throws BaseException {
-        //    Objects.requireNonNull(user, "UserName Must Not Be Blank!");
         userValidator.validate(user);
         log.trace(">> save: [user:{}]", user);
         User convert = conversionService
@@ -105,15 +104,5 @@ public class UserServiceImp implements UserService {
         } else {
             return conversionService.convert(userEntity, User.class);
         }
-    }
-
-    /**
-     *
-     * @return every user.
-     */
-    @Override
-    public List<User> findAllUser() {
-        List<UserEntity> findAllUser = userRepository.findAll();
-        return userEntityToUserListConverter.convert(findAllUser);
     }
 }

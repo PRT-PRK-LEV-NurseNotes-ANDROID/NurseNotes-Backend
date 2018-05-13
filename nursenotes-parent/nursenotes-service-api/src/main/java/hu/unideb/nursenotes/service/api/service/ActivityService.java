@@ -4,6 +4,8 @@ import hu.unideb.nursenotes.commons.pojo.exceptions.BaseException;
 import hu.unideb.nursenotes.service.api.domain.Activity;
 import hu.unideb.nursenotes.service.api.domain.Client;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -23,37 +25,16 @@ public interface ActivityService {
      */
     Activity addActivity(Activity activity) throws BaseException;
 
-    //Activity updateActivity(Activity activity) throws BaseException;
-
     /**
-     * This service deletes the given activity from the database by its ID.
+     * This service is for finding Activities by Date.
+     * The right method queries the Date from DB with the matching Date.
      *
-     * @param id is the ID of the activity to delete.
-     * @throws BaseException as exception.
-     */
-    void deleteActivity(Long id) throws BaseException;
-
-    /**
-     * This service is for finding Activities by Name.
-     * The right method queries the Name from DB with the matching Name.
-     *
-     * @param name is the name of the Activity to be found.
+     * @param date is the date of the Activity to be found.
      * @return Activity from the DB, that has been transformed into
-     *         domain via conversionService.
+     * domain via conversionService.
      * @throws BaseException as exception.
      */
-    Activity findByName(String name) throws BaseException;
-
-    /**
-     * This service is for finding Activities by ID.
-     * The right method queries the ID from DB with the matching ID.
-     *
-     * @param id is the ID of the activity to be found.
-     * @return Activity from the DB, that has been transformed
-     *         into domain via conversionService.
-     * @throws BaseException as exception.
-     */
-    Activity findById(Long id) throws BaseException;
+    Activity findByDate(LocalDate date) throws BaseException;
 
     /**
      * @param client is to find the Activity by Client name.

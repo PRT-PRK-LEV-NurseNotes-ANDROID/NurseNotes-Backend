@@ -12,20 +12,21 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
 
-import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.LoginColumName.COLUMN_NAME_EMAIL;
-import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.LoginColumName.COLUMN_NAME_FIRSTNAME;
-import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.LoginColumName.COLUMN_NAME_LASTNAME;
-import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.LoginColumName.COLUMN_NAME_PASSWORD;
-import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.LoginColumName.COLUMN_NAME_USER;
-import static hu.unideb.nursenotes.commons.pojo.table.TableName.TABLE_NAME_LOGIN;
+import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.UserColumName.COLUMN_NAME_EMAIL;
+import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.UserColumName.COLUMN_NAME_FIRSTNAME;
+import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.UserColumName.COLUMN_NAME_LASTNAME;
+import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.UserColumName.COLUMN_NAME_PASSWORD;
+import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.UserColumName.COLUMN_NAME_USER;
+import static hu.unideb.nursenotes.commons.pojo.table.TableName.TABLE_NAME_USER;
+import static javax.persistence.CascadeType.ALL;
 
 /**
- * Login Entity class contains the values of a Login.
+ * Login Entity class contains the values of a User.
  */
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = TABLE_NAME_LOGIN)
+@Table(name = TABLE_NAME_USER)
 public class UserEntity extends BaseEntity<Long> {
 
     /**
@@ -61,29 +62,29 @@ public class UserEntity extends BaseEntity<Long> {
     /**
      * Activity list to login.
      */
-    @OneToMany(cascade = CascadeType.PERSIST,
-            fetch = FetchType.LAZY,
-            mappedBy = TABLE_NAME_LOGIN)
-    private List<ActivityEntity> activity;
+    @OneToMany(cascade = ALL,
+            mappedBy = "userEntity")
+    private List<ClientEntity> client;
 
     /**
      *
-     * @param logId Login ID.
-     * @param logUserName Username.
-     * @param logPassword Password.
-     * @param logEmail email.
-     * @param logFirstName user first name.
-     * @param logLastName user last name.
+     * @param id Login ID.
+     * @param userName Username.
+     * @param password Password.
+     * @param email email.
+     * @param firstName user first name.
+     * @param lastName user last name.
      */
     @Builder
-    public UserEntity(final Long logId, final String logUserName,
-                      final String logPassword, final String logEmail,
-                      final String logFirstName, final String logLastName) {
-        super(logId);
-        this.userName = logUserName;
-        this.password = logPassword;
-        this.email = logEmail;
-        this.firstName = logFirstName;
-        this.lastName = logLastName;
+    public UserEntity(final Long id, final String userName,
+                      final String password, final String email,
+                      final String firstName, final String lastName, List<ClientEntity> client) {
+        super(id);
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.client = client;
     }
 }

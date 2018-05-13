@@ -23,50 +23,25 @@ public interface ClientService {
     Client addClient(Client client) throws BaseException;
 
     /**
-     * This service updates the data a Client who is already in the DB.
-     *
-     * @param client the modified Client, to be persisted.
-     * @return The updated client, who is already in the DB.
-     * @throws BaseException as exception.
-     */
-    Client updateClient(Client client) throws BaseException;
-
-    /**
-     * This service deletes the given Client from the database by its ID.
-     *
-     * @param id of the Client to be deleted.
-     * @throws BaseException as exception.
-     */
-    void deleteClient(Long id) throws BaseException;
-
-    /**
      * This service is for finding Clients by ID.
      * The right method queries the ID from DB with the matching ID.
      *
-     * @param id of the Client to find by.
+     * @param phoneNumber of the Client to find by.
      * @return Client from the DB, that has been transformed
-     *         into domain via conversionService.
+     * into domain via conversionService.
      * @throws BaseException as exception.
      */
-    Client findById(Long id) throws BaseException;
+    Client findByPhone(String phoneNumber) throws BaseException;
 
     /**
      * @return It returns a list of all Client.
      */
-    List<Client> findAllClient();
 
-    List<Client> findByLoginId(Client client);
+    List<Client> findByUser(User user);
 
     List<Client> findClientOfEmployee(User user);
 
-    Client findByName(String client);
+    Client findByFName(String client);
 
-   // Client findByFname(String client);
-
-   // Client findByLname(String client);
-
-    /**
-     * @return It returns a long type of counted Clients.
-     */
-    Long countClients();
+    Client findByLName(String client);
 }

@@ -22,18 +22,4 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Query("select u from UserEntity u where u.userName = :userName")
     UserEntity findByUserName(@Param("userName") String userName);
 
-    /**
-     * @param Id is the login Id.
-     * @return it returns the employee by login.
-     */
-    @Query("select i from UserEntity i where i.id =: Id")
-    UserEntity findAllBy(@Param("Id") String Id);
-
-    /**
-     *
-     * @param id of login.
-     * @return every user by the given Id.
-     */
-    List<UserEntity> findByLoginId(@Param("id") long id);
-
 }
