@@ -5,29 +5,20 @@ import hu.unideb.nursenotes.service.api.domain.Client;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-/**
- * This class converts with the help of {Link {@link Converter}}
- * the {@link ClientEntity} to a {@link Client}.
- */
 @Component
-public class ClientEntityToClientConverter
-        implements Converter<ClientEntity, Client> {
+public class ClientEntityToClientConverter implements Converter<ClientEntity, Client> {
 
-    /**
-     * @param source client entity.
-     * @return built client.
-     */
     @Override
-    public final Client convert(final ClientEntity source) {
+    public Client convert(ClientEntity clientEntity) {
         return Client.builder()
-                .id(source.getId())
-                .firstName(source.getFirstName())
-                .lastName(source.getLastName())
-                .age(source.getAge())
-                .signature(source.getSignature())
-                .phoneNumber(source.getPhoneNumber())
-                .address(source.getAddress())
-                .wage(source.getWage())
+                .id(clientEntity.getId())
+                .firstName(clientEntity.getFirstName())
+                .lastName(clientEntity.getLastName())
+                .age(clientEntity.getAge())
+                .signature(clientEntity.getSignature())
+                .phoneNumber(clientEntity.getPhoneNumber())
+                .address(clientEntity.getAddress())
+                .wage(clientEntity.getWage())
                 .build();
     }
 }

@@ -11,34 +11,28 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Abstract validator class.
- * @param <T> validator.
+ * Generic validator for requests.
+ *
+ * @param <T>
+ *            validated request type.
  */
 @Slf4j
 public class AbstractValidator<T> {
 
-    /**
-     * List of rules.
-     */
     @Autowired
     private List<Rule<T>> rules;
 
-    /**
-     * Abstract validator list.
-     * @param absRules of validator.
-     */
-    public AbstractValidator(final List<Rule<T>> absRules) {
+    public AbstractValidator(List<Rule<T>> rules) {
         super();
-        this.rules = absRules;
+        this.rules = rules;
     }
 
     /**
-     * Validation.
-     * @param request of validation.
-     * @throws BaseException as the exception.
+     * Validates request.
+     *
+     * @param request request to be validated.
      */
-    public final void validate(final T request)
-            throws BaseException {
+    public void validate(T request) throws BaseException {
         List<Violation> violations = new LinkedList<>();
         for (Rule<T> rule : rules) {
             log.trace("Executing {} rule.", rule.getClass().getSimpleName());
@@ -48,4 +42,5 @@ public class AbstractValidator<T> {
             throw new ViolationException(violations);
         }
     }
+
 }

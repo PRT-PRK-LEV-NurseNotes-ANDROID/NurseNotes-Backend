@@ -10,18 +10,32 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>nursenotes-service-api</artifactId>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
+    <dependencies>
+        <dependency>
+            <groupId>hu.unideb</groupId>
+            <artifactId>nursenotes-commons-pojo</artifactId>
+            <version>${nursenotes.project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>hu.unideb</groupId>
+            <artifactId>nursenotes-commons-path</artifactId>
+            <version>${nursenotes.project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>4.2.3.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>4.2.3.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>hu.unideb</groupId>
+            <artifactId>nursenotes-persistence</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

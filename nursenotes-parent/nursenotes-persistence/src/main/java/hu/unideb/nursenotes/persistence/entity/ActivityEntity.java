@@ -1,22 +1,14 @@
 package hu.unideb.nursenotes.persistence.entity;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
-import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.AcitivityColumName.COLUMN_NAME_ACTIVITY_DATE;
-import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.AcitivityColumName.COLUMN_NAME_ACTIVITY_TIMESPENT;
-import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.AcitivityColumName.COLUMN_NAME_ACTIVITY_TRAVELTIME;
-import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.AcitivityColumName.COLUMN_NAME_ACTIVITY_TYPE;
+import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.AcitivityColumName.*;
+import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.ClientdataColumName.COLUMN_NAME_CLIENT_ID;
+import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.ReferencedColumName.REFERENCED_COLUM_NAME_ID;
 import static hu.unideb.nursenotes.commons.pojo.table.TableName.TABLE_NAME_ACTIVITY;
 
 /**
@@ -24,6 +16,8 @@ import static hu.unideb.nursenotes.commons.pojo.table.TableName.TABLE_NAME_ACTIV
  */
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 @Entity
 @Table(name = TABLE_NAME_ACTIVITY)
 public class ActivityEntity extends BaseEntity<Long> {
@@ -32,7 +26,7 @@ public class ActivityEntity extends BaseEntity<Long> {
      * Traveling time to a Client.
      */
     @Column(name = COLUMN_NAME_ACTIVITY_TRAVELTIME)
-    private LocalDateTime travelTime;
+    private Integer travelTime;
 
     /**
      * Spent time at a Client.
@@ -52,11 +46,11 @@ public class ActivityEntity extends BaseEntity<Long> {
     @Column(name = COLUMN_NAME_ACTIVITY_DATE)
     private LocalDate date;
 
-    /**
-     * Clients to activities.
-     */
-    @ManyToMany(mappedBy = TABLE_NAME_ACTIVITY, fetch = FetchType.LAZY)
-    private List<ClientEntity> client;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "client_has_activity",
+            joinColumns = @JoinColumn(name = COLUMN_NAME_CLIENT_ID, referencedColumnName = REFERENCED_COLUM_NAME_ID),
+            inverseJoinColumns = @JoinColumn(name = COLUMN_NAME_ACTIVITY_ID, referencedColumnName = REFERENCED_COLUM_NAME_ID))
+    private List<ClientEntity> clientEntities;
 
     /**
      * @param id         activity id.
@@ -66,14 +60,12 @@ public class ActivityEntity extends BaseEntity<Long> {
      * @param date       of activity.
      */
     @Builder
-    protected ActivityEntity(final Long id,
-                             final LocalDateTime travelTime,
-                             final String timeSpent, final String type,
-                             final LocalDate date) {
+    public ActivityEntity(Long id, Integer travelTime, String timeSpent, String type, LocalDate date, List<ClientEntity> clientEntities) {
         super(id);
         this.travelTime = travelTime;
         this.timeSpent = timeSpent;
         this.type = type;
         this.date = date;
+        this.clientEntities = clientEntities;
     }
 }

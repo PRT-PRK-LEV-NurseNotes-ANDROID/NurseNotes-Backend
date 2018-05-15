@@ -1,90 +1,77 @@
 package hu.unideb.nursenotes.persistence.entity;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
-import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.UserColumName.COLUMN_NAME_EMAIL;
-import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.UserColumName.COLUMN_NAME_FIRSTNAME;
-import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.UserColumName.COLUMN_NAME_LASTNAME;
-import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.UserColumName.COLUMN_NAME_PASSWORD;
-import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.UserColumName.COLUMN_NAME_USER;
+import static hu.unideb.nursenotes.commons.pojo.exclusion.FieldExclusion.EXCLUDE_PASSWORD;
+import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.UserColumName.*;
 import static hu.unideb.nursenotes.commons.pojo.table.TableName.TABLE_NAME_USER;
 import static javax.persistence.CascadeType.ALL;
 
 /**
- * Login Entity class contains the values of a User.
+ * UserEntity which represents the user.
  */
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true, exclude = EXCLUDE_PASSWORD)
 @Entity
-@Table(name = TABLE_NAME_USER)
+@Table(name = TABLE_NAME_USER, uniqueConstraints = @UniqueConstraint(columnNames = COLUMN_NAME_USERNAME))
 public class UserEntity extends BaseEntity<Long> {
 
     /**
-     * User name of the employee.
+     * The username of the user.
      */
-    @Column(name = COLUMN_NAME_USER)
-    private String userName;
+    @Column(name = COLUMN_NAME_USERNAME)
+    private String username;
 
     /**
-     * Password of the employee.
-     */
-    @Column(name = COLUMN_NAME_PASSWORD)
-    private String password;
-
-    /**
-     * E-mail address of the employee.
+     * The email of the user.
      */
     @Column(name = COLUMN_NAME_EMAIL)
     private String email;
 
     /**
-     * First name of the employee.
+     * The password of the user.
      */
-    @Column(name = COLUMN_NAME_FIRSTNAME)
+    @Column(name = COLUMN_NAME_PASSWORD)
+    private String password;
+
+    /**
+     * First name of the user.
+     */
+    @Column(name = COLUMN_NAME_FIRST_NAME)
     private String firstName;
 
     /**
-     * Last name of the employee.
+     * Last name of the user.
      */
-    @Column(name = COLUMN_NAME_LASTNAME)
+    @Column(name = COLUMN_NAME_LAST_NAME)
     private String lastName;
 
     /**
-     * Activity list to login.
+     * User created date.
      */
-    @OneToMany(cascade = ALL,
-            mappedBy = "userEntity")
-    private List<ClientEntity> client;
+    @Column(name = COLUMN_NAME_CREATED_DATE)
+    private LocalDate createdDate;
+
+    @OneToMany(cascade=ALL, mappedBy="userEntity")
+    private List<ClientEntity> clientEntities;
 
     /**
-     *
-     * @param id Login ID.
-     * @param userName Username.
-     * @param password Password.
-     * @param email email.
-     * @param firstName user first name.
-     * @param lastName user last name.
+     * Builder pattern for creating user.
      */
     @Builder
-    public UserEntity(final Long id, final String userName,
-                      final String password, final String email,
-                      final String firstName, final String lastName, List<ClientEntity> client) {
+    public UserEntity(Long id, String username, String email, String password, String firstName, String lastName, LocalDate createdDate) {
         super(id);
-        this.userName = userName;
-        this.password = password;
+        this.username = username;
         this.email = email;
+        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.client = client;
+        this.createdDate = createdDate;
     }
 }

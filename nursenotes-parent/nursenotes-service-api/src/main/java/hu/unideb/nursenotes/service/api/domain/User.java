@@ -1,49 +1,51 @@
 package hu.unideb.nursenotes.service.api.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+
 /**
  * User domain class.
  */
 @Data
-@Builder
 @AllArgsConstructor
-@NoArgsConstructor
+@EqualsAndHashCode(exclude = "password")
+@ToString(exclude = "password")
+@Builder
 public class User implements Serializable {
 
-    /**
-     * ID of the login/registration.
-     */
     private Long id;
 
     /**
-     * Username of the login/employee.
+     * The username of the user.
      */
-    private String userName;
+    private String username;
 
     /**
-     * Password for the employee.
+     * The email of the user.
+     */
+    private String email;
+
+    /**
+     * The password of the user.
      */
     private String password;
 
     /**
-     * First name of the employee.
+     * First name of the user.
      */
     private String firstName;
 
     /**
-     * Last name of the employee.
+     * Last name of the user.
      */
     private String lastName;
 
     /**
-     * E-mail address of the employee.
+     * User created date.
      */
-    private String email;
+    private LocalDate createdDate;
 
 
 }

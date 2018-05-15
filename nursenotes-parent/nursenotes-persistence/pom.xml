@@ -23,12 +23,6 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>6.0.8.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>5.2.15.Final</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -55,6 +49,12 @@
             <artifactId>nursenotes-commons-pojo</artifactId>
             <version>${nursenotes.project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>hu.unideb</groupId>
+            <artifactId>nursenotes-commons-path</artifactId>
+            <version>${nursenotes.project.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -67,14 +67,6 @@
                         <delimiter>@</delimiter>
                     </delimiters>
                     <useDefaultDelimiters>false</useDefaultDelimiters>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
                 </configuration>
             </plugin>
         </plugins>

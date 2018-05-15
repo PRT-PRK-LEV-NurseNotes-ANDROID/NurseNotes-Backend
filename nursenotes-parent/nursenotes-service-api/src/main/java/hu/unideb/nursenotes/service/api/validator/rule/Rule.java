@@ -6,15 +6,15 @@ import hu.unideb.nursenotes.commons.pojo.validator.Violation;
 import java.util.List;
 
 /**
- * Rule interface.
- * @param <T> for validation.
+ * Rule created for Validators.
  */
 public interface Rule<T> {
 
     /**
-     * @param request validation request.
-     * @return validation message.
-     * @throws BaseException as an exception.
+     * Validates request.
+     *
+     * @param request request to be validated.
+     * @return violation list if the request does not fit the rule.
      */
     List<Violation> validate(T request) throws BaseException;
 }

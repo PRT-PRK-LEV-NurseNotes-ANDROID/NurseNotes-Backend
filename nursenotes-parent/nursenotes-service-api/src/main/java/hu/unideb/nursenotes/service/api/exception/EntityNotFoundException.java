@@ -13,7 +13,6 @@ public class EntityNotFoundException extends ServiceException {
     }
 
     /**
-     *
      * @param message of superclass exception.
      */
     public EntityNotFoundException(final String message) {
@@ -21,12 +20,10 @@ public class EntityNotFoundException extends ServiceException {
     }
 
     /**
-     *
      * @param message of superclass exception.
-     * @param cause of superclass exception.
+     * @param cause   of superclass exception.
      */
-    public EntityNotFoundException(final String message,
-                                   final Throwable cause) {
+    public EntityNotFoundException(String message, Throwable cause) {
         super(message, cause);
     }
 }

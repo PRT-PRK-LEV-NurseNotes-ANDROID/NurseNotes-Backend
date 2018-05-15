@@ -5,27 +5,19 @@ import hu.unideb.nursenotes.service.api.domain.User;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-/**
- * This class converts the {@link UserEntity} with
- * the help of {Link {@link Converter}} to UserConverter.
- */
 @Component
-public class UserEntityToUserConverter
-        implements Converter<UserEntity, User> {
+public class UserEntityToUserConverter implements Converter<UserEntity, User> {
 
-    /**
-     * @param source login entity.
-     * @return built user.
-     */
     @Override
-    public final User convert(final UserEntity source) {
+    public User convert(UserEntity userEntity) {
         return User.builder()
-                .id(source.getId())
-                .userName(source.getUserName())
-                .password(source.getPassword())
-                .email(source.getEmail())
-                .firstName(source.getFirstName())
-                .lastName(source.getLastName())
+                .id(userEntity.getId())
+                .username(userEntity.getUsername())
+                .email(userEntity.getEmail())
+                .password(userEntity.getPassword())
+                .firstName(userEntity.getFirstName())
+                .lastName(userEntity.getLastName())
+                .createdDate(userEntity.getCreatedDate())
                 .build();
     }
 }

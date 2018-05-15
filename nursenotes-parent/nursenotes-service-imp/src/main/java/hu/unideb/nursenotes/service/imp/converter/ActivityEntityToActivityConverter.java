@@ -5,21 +5,17 @@ import hu.unideb.nursenotes.service.api.domain.Activity;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-/**
- * This class converts an {@link ActivityEntity} with the help
- * of {Link {@link Converter}} to an {@link Activity} and provides an ID to it.
- */
 @Component
-public class ActivityEntityToActivityConverter implements
-        Converter<ActivityEntity, Activity> {
+public class ActivityEntityToActivityConverter implements Converter<ActivityEntity, Activity> {
+
     @Override
-    public final Activity convert(final ActivityEntity source) {
+    public Activity convert(ActivityEntity activityEntity) {
         return Activity.builder()
-                .id(source.getId())
-                .travelTime(source.getTravelTime())
-                .timeSpent(source.getTimeSpent())
-                .type(source.getType())
-                .date(source.getDate())
+                .id(activityEntity.getId())
+                .travelTime(activityEntity.getTravelTime())
+                .timeSpent(activityEntity.getTimeSpent())
+                .type(activityEntity.getType())
+                .date(activityEntity.getDate())
                 .build();
     }
 }

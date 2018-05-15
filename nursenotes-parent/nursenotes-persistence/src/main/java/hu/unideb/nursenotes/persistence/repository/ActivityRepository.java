@@ -17,16 +17,16 @@ import java.util.List;
 public interface ActivityRepository extends
         JpaRepository<ActivityEntity, Long> {
 
-    /**
-     *
-     * @param date is the Client's activity-date.
-     * @return It returns the Activity of chosen Client.
-     */
-    ActivityEntity findByDate(LocalDate date);
-
-    /**
-     * Finds every activity of a client.
-     */
-
-    List<ActivityEntity> findByClientActivity(ClientEntity client);
+//    /**
+//     *
+//     * @param date is the Client's activity-date.
+//     * @return It returns the Activity of chosen Client.
+//     */
+//    ActivityEntity findByDate(LocalDate date);
+//
+//    /**
+//     * Finds every activity of a client.
+//     */
+//
+//    List<ActivityEntity> findByClientActivity(ClientEntity client);
 }

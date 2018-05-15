@@ -1,7 +1,8 @@
 package hu.unideb.nursenotes.backend.rest;
 
 import hu.unideb.nursenotes.commons.pojo.exceptions.BaseException;
-import hu.unideb.nursenotes.service.api.domain.Client;
+import hu.unideb.nursenotes.commons.pojo.exceptions.ViolationException;
+import hu.unideb.nursenotes.commons.pojo.request.ClientRequest;
 import hu.unideb.nursenotes.service.api.exception.ServiceException;
 import hu.unideb.nursenotes.service.api.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,44 +11,39 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import static path.client.ClientPath.CLIENT_PATH;
 
-/**
- * Client rest controller class.
- */
 @RestController
 public class ClientRestController {
 
-    /**
-     * Client service.
-     */
     @Autowired
-    ClientService clientService;
+    private ClientService clientService;
 
     /**
      * @param client is the client.
      * @return with response.
      * @throws BaseException is the exception.
      */
-    @RequestMapping(path = CLIENT_PATH, method = RequestMethod.POST,
+    @RequestMapping(path = CLIENT_PATH, method = org.springframework.web.bind.annotation.RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public final ResponseEntity addClient(@RequestBody final Client client)
+    public final ResponseEntity addClient(@RequestBody ClientRequest client)
             throws BaseException {
 
-        ResponseEntity responseEntity;
+        ResponseEntity result;
 
         try {
             clientService.addClient(client);
-            responseEntity = ResponseEntity.accepted()
-                    .body("Successful client insertion");
+            result = ResponseEntity.accepted().
+                    body("Successful add client");
         } catch (ServiceException e) {
-            responseEntity = ResponseEntity.status(HttpStatus
-                    .INTERNAL_SERVER_ERROR)
-                    .body(e.getMessage());
+            result = ResponseEntity.status(HttpStatus.
+                    INTERNAL_SERVER_ERROR).body(e.getMessage());
+        } catch (ViolationException e) {
+            result = ResponseEntity.status(HttpStatus.
+                    INTERNAL_SERVER_ERROR).body(e.getViolationList());
         }
-        return responseEntity;
+        return result;
     }
 }

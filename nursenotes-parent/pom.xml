@@ -15,20 +15,6 @@
         <version>1.5.10.RELEASE</version>
     </parent>
 
-    <name>NurseNotes</name>
-
-    <description>Stores information about nursing.</description>
-
-    <developers>
-        <developer>
-            <name>Nikolett Szentmiklósi</name>
-            <email>sz.niki05@live.com</email>
-            <roles>
-                <role>Developer</role>
-            </roles>
-        </developer>
-    </developers>
-
     <modules>
         <module>nursenotes-persistence</module>
         <module>nursenotes-service-api</module>
@@ -42,6 +28,20 @@
         <nursenotes.project.version>0.0.1-SNAPSHOT</nursenotes.project.version>
         <java.version>1.8</java.version>
     </properties>
+
+    <name>NurseNotes</name>
+
+    <description>Stores information about nursing.</description>
+
+    <developers>
+        <developer>
+            <name>Nikolett Szentmiklósi</name>
+            <email>sz.niki05@live.com</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
 
     <scm>
         <connection>scm:https://github.com/PRT-PRK-LEV-NurseNotes-ANDROID/NurseNotes-Backend.git</connection>
@@ -63,20 +63,36 @@
     </organization>
 
 
+    <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>1.16.20</version>
+                <groupId>hu.unideb</groupId>
+                <artifactId>nursenotes-persistence</artifactId>
+                <version>${nursenotes.project.version}</version>
             </dependency>
-            <!--<dependency>-->
-                <!--<groupId>hu.unideb</groupId>-->
-                <!--<artifactId>nursenotes-commons-parent</artifactId>-->
-                <!--<version>${nursenotes.project.version}</version>-->
-            <!--</dependency>-->
             <dependency>
                 <groupId>hu.unideb</groupId>
-                <artifactId>nursenotes-commons-path</artifactId>
+                <artifactId>nursenotes-service-api</artifactId>
+                <version>${nursenotes.project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>hu.unideb</groupId>
+                <artifactId>nursenotes-service-imp</artifactId>
+                <version>${nursenotes.project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>hu.unideb</groupId>
+                <artifactId>nursenotes-backendb</artifactId>
+                <version>${nursenotes.project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.reflections</groupId>
+                <artifactId>reflections</artifactId>
+                <version>0.9.7</version>
+            </dependency>
+            <dependency>
+                <groupId>hu.unideb</groupId>
+                <artifactId>nursenotes-commons-parent</artifactId>
                 <version>${nursenotes.project.version}</version>
             </dependency>
             <dependency>
@@ -85,80 +101,68 @@
                 <version>${nursenotes.project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
-                <version>1.5.10.RELEASE</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-starter-tomcat</artifactId>
-                    </exclusion>
-                </exclusions>
+                <groupId>hu.unideb</groupId>
+                <artifactId>nursenotes-commons-path</artifactId>
+                <version>${nursenotes.project.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-security</artifactId>
-                <version>1.5.10.RELEASE</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.apache.tomcat</groupId>
-                        <artifactId>tomcat-jdbc</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-thymeleaf</artifactId>
-                <version>1.5.10.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.mobile</groupId>
-                <artifactId>spring-mobile-device</artifactId>
-                <version>1.1.5.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-lang3</artifactId>
-                <version>3.4</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-configuration-processor</artifactId>
-                <optional>true</optional>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security.oauth</groupId>
-                <artifactId>spring-security-oauth2</artifactId>
-                <version>2.2.1.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-test</artifactId>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>org.reflections</groupId>
-                <artifactId>reflections</artifactId>
-                <version>0.9.10</version>
-            </dependency>
-
         </dependencies>
+    </dependencyManagement>
 
-    <reporting>
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.0</version>
+        </dependency>
+
+    </dependencies>
+
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.3</version>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.17</version>
-                <configuration>
-                    <configLocation>checkstyle.xml</configLocation>
-                </configuration>
+                <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
         </plugins>
-    </reporting>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
 
 </project>

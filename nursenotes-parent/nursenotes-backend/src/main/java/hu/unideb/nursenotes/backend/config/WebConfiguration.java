@@ -24,60 +24,22 @@ import java.util.List;
 @ComponentScan("hu.unideb.nursenotes.backend")
 public class WebConfiguration extends WebMvcConfigurerAdapter {
 
-    /**
-     * View controller add.
-     * @param registry for register.
-     */
-    public final void addViewControllers(
-            final ViewControllerRegistry registry) {
-        registry.addViewController("/login").setViewName("login");
-    }
-
-    /**
-     * @param converters for configuring messages.
-     */
     @Override
-    public final void configureMessageConverters(
-            final List<HttpMessageConverter<?>> converters) {
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.add(mappingJackson2HttpMessageConverter());
-        //super.addDefaultHttpMessageConverters();
     }
 
-    /**
-     * @return object mapper.
-     */
     @Bean
-    protected ObjectMapper objectMapper() {
+    public ObjectMapper objectMapper() {
         return new ObjectMapper()
                 .registerModule(new JavaTimeModule())
                 .enable(SerializationFeature.INDENT_OUTPUT)
                 .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     }
 
-    /**
-     * @return Json converter.
-     */
     @Bean
-    protected MappingJackson2HttpMessageConverter
-    mappingJackson2HttpMessageConverter() {
-
-        MappingJackson2HttpMessageConverter jsonConverter =
-                new MappingJackson2HttpMessageConverter();
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(DeserializationFeature.
-                FAIL_ON_UNKNOWN_PROPERTIES, false);
-        jsonConverter.setObjectMapper(objectMapper);
-        return jsonConverter;
+    public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
+        return new MappingJackson2HttpMessageConverter(objectMapper());
     }
-//    @Bean
-//    public WebMvcConfigurer corsConfigurer() {
-//        return new WebMvcConfigurerAdapter() {
-//            @Override
-//            public void addCorsMappings(CorsRegistry registry) {
-//                registry.addMapping("/**")
-//                        .allowedOrigins("*");
-//            }
-//        };
-//    }
 
 }

@@ -1,19 +1,18 @@
 package hu.unideb.nursenotes.service.api.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import java.io.Serializable;
+
+import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.ClientdataColumName.*;
 
 /**
  * Client domain class.
  */
 @Data
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class Client implements Serializable {
 
     /**
@@ -55,6 +54,5 @@ public class Client implements Serializable {
      * Wage of the Client.
      */
     private int wage;
-
 
 }

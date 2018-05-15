@@ -1,23 +1,20 @@
 package hu.unideb.nursenotes.service.api.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.AcitivityColumName.*;
 
 /**
  * Activity domain class.
  */
 @Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@JsonFormat
 public class Activity implements Serializable {
 
     /**
@@ -28,20 +25,20 @@ public class Activity implements Serializable {
     /**
      * Traveling time to a Client.
      */
-    private LocalDateTime travelTime;
+    private Integer travelTime;
 
     /**
-     * Time spent during the activities at a Client.
+     * Spent time at a Client.
      */
     private String timeSpent;
 
     /**
-     * The type of the activities.
+     * Type of Activity at a Client.
      */
     private String type;
 
     /**
-     * The date of the activities.
+     * Date of Activity.
      */
     private LocalDate date;
 

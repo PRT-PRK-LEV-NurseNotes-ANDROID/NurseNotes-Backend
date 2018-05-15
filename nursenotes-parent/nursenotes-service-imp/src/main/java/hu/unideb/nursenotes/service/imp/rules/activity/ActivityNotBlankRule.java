@@ -24,7 +24,7 @@ public class ActivityNotBlankRule implements Rule<Activity> {
             throws BaseException {
         return Strings.isNullOrEmpty(request.getType())
                 ? Arrays.asList(Violation.builder()
-                .vField("Activity name")
+                .field("Activity name")
                 .validationMessage("Should not be blank!")
                 .build())
                 : Collections.<Violation>emptyList();
