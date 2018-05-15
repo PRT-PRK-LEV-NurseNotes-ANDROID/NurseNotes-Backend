@@ -20,7 +20,7 @@ import java.util.List;
 @Component
 public class ClientNameNotBlankRule implements Rule<ClientRequest> {
     @Override
-    public final List<Violation> validate(final ClientRequest request)
+    public final List<Violation> validate(ClientRequest request)
             throws BaseException {
         return Strings.isNullOrEmpty(request.getFirstName()
                 + " " + request.getLastName())
@@ -30,4 +30,5 @@ public class ClientNameNotBlankRule implements Rule<ClientRequest> {
                 .build())
                 : Collections.<Violation>emptyList();
     }
+
 }

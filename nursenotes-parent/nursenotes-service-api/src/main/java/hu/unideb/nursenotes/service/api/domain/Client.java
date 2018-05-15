@@ -3,10 +3,7 @@ package hu.unideb.nursenotes.service.api.domain;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.persistence.Column;
 import java.io.Serializable;
-
-import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.ClientdataColumName.*;
 
 /**
  * Client domain class.
@@ -54,5 +51,7 @@ public class Client implements Serializable {
      * Wage of the Client.
      */
     private int wage;
+
+    private User user;
 
 }

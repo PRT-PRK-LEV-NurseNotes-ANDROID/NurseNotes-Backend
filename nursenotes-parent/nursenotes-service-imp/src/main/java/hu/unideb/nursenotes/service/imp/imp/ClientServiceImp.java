@@ -57,8 +57,8 @@ public class ClientServiceImp implements ClientService {
     @Autowired
     private ConversionService conversionService;
 
-    @Autowired
-    private AbstractValidator<ClientRequest> clientRequestAbstractValidator;
+//    @Autowired
+//    private AbstractValidator<ClientRequest> clientRequestAbstractValidator;
 
     /**
      * In this implementation, in the method with the help of
@@ -66,109 +66,29 @@ public class ClientServiceImp implements ClientService {
      * method, the client is stored in the DB with a generated ID. This method
      * returns the stored client with its ID.
      *
-     * @param clientRequest is the Client.
+     * @param client is the Client.
      * @return It returns the result of the conversion via conversionService.
      * @throws BaseException
      */
+//    @Override
+//    public Client addClient(ClientRequest client) throws BaseException {
+//        Objects.requireNonNull(client, "clientrequest not null");
+//        log.trace(">> save: [client:{}]", client);
+//        clientRequestAbstractValidator.validate(client);
+//        Client convert = conversionService.convert(client, Client.class);
+//        ClientEntity clientEntity = conversionService.convert(client, ClientEntity.class);
+////        Client convert = conversionService.convert(clientEntity,Client.class);
+//        clientRepository.save(clientEntity);
+//        log.trace("<< save: [client:{}]", client);
+//        return convert;
+//    }
     @Override
-    public Client addClient(ClientRequest clientRequest) throws BaseException {
-        Objects.requireNonNull(clientRequest, "clientrequest not null");
-        log.trace(">> save: [client:{}]", clientRequest);
-        clientRequestAbstractValidator.validate(clientRequest);
-        Client convert = conversionService.convert(clientRequest, Client.class);
-        ClientEntity clientEntity = conversionService.convert(convert, ClientEntity.class);
-        clientRepository.save(clientEntity);
-        log.trace("<< save: [client:{}]", clientRequest);
+    public Client addClient(Client gym) throws BaseException {
+//        clientRequestAbstractValidator.validate(gym);
+        log.trace(">> save: [gym:{}]", gym);
+        Client convert = conversionService.convert(clientRepository.save(conversionService.convert(gym, ClientEntity.class)), Client.class);
+        log.trace("<< save: [gym:{}]", gym);
         return convert;
     }
 
-//    /**
-//     * @param phoneNumber of the Client to find by.
-//     * @return It returns the client by phone number.
-//     * @throws BaseException as exception.
-//     */
-//    @Override
-//    public Client findByPhone(String phoneNumber) throws BaseException {
-//        ClientEntity clientEntity = clientRepository.findByPhone(phoneNumber);
-//        if (clientEntity == null) {
-//            return null;
-//        } else {
-//            return conversionService.convert(clientEntity, Client.class);
-//        }
-//    }
-//
-//    /**
-//     * @param user is the employee.
-//     * @return It returns the clients of an employee.
-//     */
-////    @Override
-////    public List<Client> findByUser(User user) {
-////        UserEntity findUser = userToUserEntityConverter.convert(user);
-////
-////        List<ClientEntity> foundClients = clientRepository
-////                .findByUser(findUser);
-////
-////        return clientEntityToClientListConverter.convert(foundClients);
-////    }
-//
-//    @Override
-//    public List<Client> findClientOfEmployee(User user) {
-//        return null;
-//    }
-//
-//    /**
-//     * @param client the client's first name.
-//     * @return The first name converted into Entity.
-//     * @throws BaseException is the exception.
-//     */
-//    @Override
-//    public final Client findByFName(final String client) {
-//        ClientEntity clientEntity = clientRepository.findByFName(client);
-//        if (clientEntity == null) {
-//            return null;
-//        } else {
-//            return conversionService.convert(clientEntity, Client.class);
-//        }
-//    }
-//
-//    /**
-//     * @param client the client's last name.
-//     * @return The last name converted into Entity.
-//     * @throws BaseException is the exception.
-//     */
-//    @Override
-//    public final Client findByLName(final String client) {
-//        ClientEntity clientEntity = clientRepository.findByLName(client);
-//        if (clientEntity == null) {
-//            return null;
-//        } else {
-//            return conversionService.convert(clientEntity, Client.class);
-//        }
-//    }
-
-    //    /**
-//     * In this implementation the method looks for all the Clients by
-//     * {@Link findByLoginId} method.
-//     *
-//     * @return It returns a list of Clients.
-//     */
-//    @Override
-//    public final List<Client> findByUser(User user) {
-//        UserEntity foundUser = userToUserEntityConverter.convert(user);
-//
-//        List<ClientEntity> findByLoginId = clientRepository.findByUser(foundUser);
-//        return clientEntityToClientListConverter.convert(findByLoginId);
-//    }
-
-//    /**
-//     * @param user is the employee.
-//     * @return the Client of an employee.
-//     */
-//    @Override
-//    public final List<Client> findClientOfEmployee(final User user) {
-//        UserEntity foundUser = userToUserEntityConverter.convert(user);
-//
-//        List<ClientEntity> findClientOfEmployee = clientRepository.findByUser(foundUser);
-//        return clientEntityListToClientListConverter.convert(findClientOfEmployee);
-//    }
 }

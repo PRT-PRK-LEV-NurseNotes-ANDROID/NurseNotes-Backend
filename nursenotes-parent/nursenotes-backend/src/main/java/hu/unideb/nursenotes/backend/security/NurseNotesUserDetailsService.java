@@ -28,6 +28,6 @@ public class NurseNotesUserDetailsService implements UserDetailsService {
         } catch (BaseException e) {
             throw new AuthenticationServiceException("Error on authenticating internal user.", e);
         }
-        return new NuresNotesUserDetails(user);
+        return new NurseNotesUserDetails(user);
     }
 }

@@ -63,7 +63,7 @@ public class ClientEntity extends BaseEntity<Long> {
     private int wage;
 
     @ManyToOne
-    @JoinColumn(name = COLUMN_NAME_USER_ID, nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private UserEntity userEntity;
 
     @ManyToMany(mappedBy = "clientEntities", fetch = FetchType.LAZY)
