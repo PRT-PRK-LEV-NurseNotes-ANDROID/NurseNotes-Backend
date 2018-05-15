@@ -1,7 +1,9 @@
 package hu.unideb.nursenotes.service.imp.converter;
 
+import hu.unideb.nursenotes.persistence.entity.ActivityEntity;
 import hu.unideb.nursenotes.persistence.entity.ClientEntity;
 import hu.unideb.nursenotes.persistence.entity.UserEntity;
+import hu.unideb.nursenotes.service.api.domain.Activity;
 import hu.unideb.nursenotes.service.api.domain.Client;
 import hu.unideb.nursenotes.service.api.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,8 @@ public class ClientEntityToClientConverter implements Converter<ClientEntity, Cl
                 .build();
     }
 
-    private User userEntityToUser(UserEntity source){
+
+    private User userEntityToUser(UserEntity source) {
         return userEntityToUserConverter.convert(source);
     }
 }

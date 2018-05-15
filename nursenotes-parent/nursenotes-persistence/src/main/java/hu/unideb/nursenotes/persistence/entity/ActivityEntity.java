@@ -9,6 +9,7 @@ import java.util.List;
 import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.AcitivityColumName.*;
 import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.ClientdataColumName.COLUMN_NAME_CLIENT_ID;
 import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.ReferencedColumName.REFERENCED_COLUM_NAME_ID;
+import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.UserColumName.COLUMN_NAME_USER_ID;
 import static hu.unideb.nursenotes.commons.pojo.table.TableName.TABLE_NAME_ACTIVITY;
 
 /**
@@ -38,7 +39,8 @@ public class ActivityEntity extends BaseEntity<Long> {
      * Type of Activity at a Client.
      */
     @Column(name = COLUMN_NAME_ACTIVITY_TYPE)
-    private String type;
+    @ElementCollection(targetClass=String.class)
+    private List<String> type;
 
     /**
      * Date of Activity.
@@ -46,11 +48,9 @@ public class ActivityEntity extends BaseEntity<Long> {
     @Column(name = COLUMN_NAME_ACTIVITY_DATE)
     private LocalDate date;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "client_has_activity",
-            joinColumns = @JoinColumn(name = COLUMN_NAME_CLIENT_ID, referencedColumnName = REFERENCED_COLUM_NAME_ID),
-            inverseJoinColumns = @JoinColumn(name = COLUMN_NAME_ACTIVITY_ID, referencedColumnName = REFERENCED_COLUM_NAME_ID))
-    private List<ClientEntity> clientEntities;
+    @ManyToOne
+    @JoinColumn(name = COLUMN_NAME_CLIENT_ID, nullable = false)
+    private ClientEntity client;
 
     /**
      * @param id         activity id.
@@ -60,12 +60,12 @@ public class ActivityEntity extends BaseEntity<Long> {
      * @param date       of activity.
      */
     @Builder
-    public ActivityEntity(Long id, Integer travelTime, String timeSpent, String type, LocalDate date, List<ClientEntity> clientEntities) {
+    public ActivityEntity(Long id, Integer travelTime, String timeSpent, List<String> type, LocalDate date, ClientEntity clientEntity) {
         super(id);
         this.travelTime = travelTime;
         this.timeSpent = timeSpent;
         this.type = type;
         this.date = date;
-        this.clientEntities = clientEntities;
+        this.client = clientEntity;
     }
 }

@@ -5,13 +5,20 @@ import hu.unideb.nursenotes.commons.pojo.request.ClientRequest;
 import hu.unideb.nursenotes.persistence.entity.ClientEntity;
 import hu.unideb.nursenotes.persistence.repository.ClientRepository;
 import hu.unideb.nursenotes.service.api.domain.Client;
+import hu.unideb.nursenotes.service.api.domain.User;
+import hu.unideb.nursenotes.service.api.exception.EntityNotFoundException;
+import hu.unideb.nursenotes.service.api.exception.ServiceException;
 import hu.unideb.nursenotes.service.api.service.ClientService;
+import hu.unideb.nursenotes.service.imp.converter.ClientEntityListToClientListConverter;
 import hu.unideb.nursenotes.service.imp.validator.AbstractValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Objects;
 /**
  * This class manages the clients.
@@ -57,8 +64,11 @@ public class ClientServiceImp implements ClientService {
     @Autowired
     private ConversionService conversionService;
 
-//    @Autowired
-//    private AbstractValidator<ClientRequest> clientRequestAbstractValidator;
+    @Autowired
+    private AbstractValidator<Client> clientAbstractValidator;
+
+    @Autowired
+    private ClientEntityListToClientListConverter clientEntityListToClientListConverter;
 
     /**
      * In this implementation, in the method with the help of
@@ -70,25 +80,50 @@ public class ClientServiceImp implements ClientService {
      * @return It returns the result of the conversion via conversionService.
      * @throws BaseException
      */
-//    @Override
-//    public Client addClient(ClientRequest client) throws BaseException {
-//        Objects.requireNonNull(client, "clientrequest not null");
-//        log.trace(">> save: [client:{}]", client);
-//        clientRequestAbstractValidator.validate(client);
-//        Client convert = conversionService.convert(client, Client.class);
-//        ClientEntity clientEntity = conversionService.convert(client, ClientEntity.class);
-////        Client convert = conversionService.convert(clientEntity,Client.class);
-//        clientRepository.save(clientEntity);
-//        log.trace("<< save: [client:{}]", client);
-//        return convert;
-//    }
     @Override
-    public Client addClient(Client gym) throws BaseException {
-//        clientRequestAbstractValidator.validate(gym);
-        log.trace(">> save: [gym:{}]", gym);
-        Client convert = conversionService.convert(clientRepository.save(conversionService.convert(gym, ClientEntity.class)), Client.class);
-        log.trace("<< save: [gym:{}]", gym);
+    public Client addClient(Client client) throws BaseException {
+        clientAbstractValidator.validate(client);
+        log.trace(">> save: [client:{}]", client);
+        Client convert = conversionService.convert(clientRepository.save(conversionService.convert(client, ClientEntity.class)), Client.class);
+        log.trace("<< save: [client:{}]", client);
         return convert;
+    }
+
+    @Override
+    public Client updateClient(Client client) throws BaseException {
+        clientAbstractValidator.validate(client);
+        log.trace(">> update: [client:{}]", client);
+        Client convert = conversionService.convert(clientRepository.save(conversionService.convert(client, ClientEntity.class)), Client.class);
+        log.trace("<< update: [client:{}]", client);
+        return convert;
+    }
+
+    @Override
+    public Client findClientById(Long id) throws BaseException {
+        log.trace(">> findClientById: [id:{}]", id);
+        if (Objects.isNull(id)) {
+            throw new ServiceException("id is NULL");
+        }
+        ClientEntity clientEntity;
+        try {
+            clientEntity = clientRepository.findById(id);
+        } catch (Exception e) {
+            String errorMsg = String.format("Error on finding client by id:%d.", id);
+            throw new ServiceException(errorMsg, e);
+        }
+        if (Objects.isNull(clientEntity)) {
+            String errorMsg = String.format("Client with id:%d not found.", id);
+            throw new EntityNotFoundException(errorMsg);
+        }
+        Client result = conversionService.convert(clientEntity, Client.class);
+        log.trace("<< findClientById: [id:{}]", id);
+        return result;
+    }
+
+    @Override
+    public List<Client> findUsersClient(User user) {
+        List<ClientEntity> byUsers = clientRepository.findByuserEntityId(user.getId());
+        return clientEntityListToClientListConverter.convert(byUsers);
     }
 
 }

@@ -22,11 +22,18 @@ import java.util.List;
 @ComponentScan("hu.unideb.nursenotes.backend")
 public class WebConfiguration extends WebMvcConfigurerAdapter {
 
+    /**
+     * @param converters message converter.
+     */
     @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+    public final void configureMessageConverters(
+            List<HttpMessageConverter<?>> converters) {
         converters.add(mappingJackson2HttpMessageConverter());
     }
 
+    /**
+     * @return mapped object.
+     */
     @Bean
     public ObjectMapper objectMapper() {
         return new ObjectMapper()
@@ -35,8 +42,12 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
                 .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     }
 
+    /**
+     * @return converted object mapper.
+     */
     @Bean
-    public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
+    public MappingJackson2HttpMessageConverter
+    mappingJackson2HttpMessageConverter() {
         return new MappingJackson2HttpMessageConverter(objectMapper());
     }
 

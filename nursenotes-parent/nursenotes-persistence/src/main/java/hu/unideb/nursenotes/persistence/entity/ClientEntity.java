@@ -8,6 +8,7 @@ import java.util.List;
 import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.ClientdataColumName.*;
 import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.UserColumName.COLUMN_NAME_USER_ID;
 import static hu.unideb.nursenotes.commons.pojo.table.TableName.TABLE_NAME_CLIENT;
+import static javax.persistence.CascadeType.ALL;
 
 /**
  * Client Entity provides the base values of a Client.
@@ -63,10 +64,10 @@ public class ClientEntity extends BaseEntity<Long> {
     private int wage;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = COLUMN_NAME_USER_ID, nullable = false)
     private UserEntity userEntity;
 
-    @ManyToMany(mappedBy = "clientEntities", fetch = FetchType.LAZY)
+    @OneToMany(cascade=ALL, mappedBy="client")
     private List<ActivityEntity> activityEntities;
 
     /**
@@ -80,7 +81,7 @@ public class ClientEntity extends BaseEntity<Long> {
      * @param wage        is the wage of client.
      */
     @Builder
-    public ClientEntity(Long id, String firstName, String lastName, int age, String signature, String phoneNumber, String address, int wage, UserEntity userEntity) {
+    public ClientEntity(Long id, String firstName, String lastName, int age, String signature, String phoneNumber, String address, int wage, UserEntity userEntity){
         super(id);
         this.firstName = firstName;
         this.lastName = lastName;

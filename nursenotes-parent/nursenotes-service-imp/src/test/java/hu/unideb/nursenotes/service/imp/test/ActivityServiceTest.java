@@ -37,20 +37,20 @@ public class ActivityServiceTest {
 
     @Before
     public void setUp() {
-        activity = Activity.builder()
-                .travelTime(TRAVELTIME)
-                .timeSpent(TIMESPENT)
-                .type(TYPE)
-                .date(DATE)
-                .build();
-
-        added = Activity.builder()
-                .id(1L)
-                .travelTime(TRAVELTIME)
-                .timeSpent(TIMESPENT)
-                .type(TYPE)
-                .date(DATE)
-                .build();
+//        activity = Activity.builder()
+//                .travelTime(TRAVELTIME)
+//                .timeSpent(TIMESPENT)
+//                .type(TYPE)
+//                .date(DATE)
+//                .build();
+//
+//        added = Activity.builder()
+//                .id(1L)
+//                .travelTime(TRAVELTIME)
+//                .timeSpent(TIMESPENT)
+//                .type(TYPE)
+//                .date(DATE)
+//                .build();
     }
 
     @Test

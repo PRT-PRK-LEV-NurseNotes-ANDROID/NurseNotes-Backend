@@ -1,9 +1,11 @@
 package hu.unideb.nursenotes.service.api.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Client domain class.
@@ -52,6 +54,7 @@ public class Client implements Serializable {
      */
     private int wage;
 
+    @JsonIgnore
     private User user;
 
 }

@@ -17,7 +17,7 @@ public class ActivityValidator extends AbstractValidator<Activity> {
      * @param rules of superclass.
      */
     @Autowired
-    public ActivityValidator(final List<Rule<Activity>> rules) {
+    public ActivityValidator(List<Rule<Activity>> rules) {
         super(rules);
     }
 }

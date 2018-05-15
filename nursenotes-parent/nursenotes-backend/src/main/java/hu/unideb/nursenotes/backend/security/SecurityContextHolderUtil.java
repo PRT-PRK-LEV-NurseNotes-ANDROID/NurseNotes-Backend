@@ -17,7 +17,7 @@ public class SecurityContextHolderUtil {
     }
 
     public static Long getUserIdIfExsistOrReturnNull() {
-        if (isNuresNotesUserDetails() && Objects.nonNull(getUser()) && Objects.nonNull(getUser().getId())) {
+        if (isNurseNotesUserDetails() && Objects.nonNull(getUser()) && Objects.nonNull(getUser().getId())) {
             return getUser().getId().longValue();
         } else {
             return null;
@@ -28,7 +28,7 @@ public class SecurityContextHolderUtil {
         return ((NurseNotesUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
     }
 
-    public static boolean isNuresNotesUserDetails() {
+    public static boolean isNurseNotesUserDetails() {
         return SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof NurseNotesUserDetails;
     }
 

@@ -1,9 +1,6 @@
 package hu.unideb.nursenotes.backend.config;
 
 import hu.unideb.nursenotes.persistence.config.PersistenceConfiguration;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -19,6 +16,7 @@ public class Application extends SpringBootServletInitializer {
 
     /**
      * Main class of Nurse Notes backend.
+     *
      * @param args are the arguments.
      */
     public static void main(final String[] args) {

@@ -22,7 +22,7 @@ public class ActivityNotBlankRule implements Rule<Activity> {
     @Override
     public final List<Violation> validate(final Activity request)
             throws BaseException {
-        return Strings.isNullOrEmpty(request.getType())
+        return Strings.isNullOrEmpty(request.getType().toString())
                 ? Arrays.asList(Violation.builder()
                 .field("Activity name")
                 .validationMessage("Should not be blank!")

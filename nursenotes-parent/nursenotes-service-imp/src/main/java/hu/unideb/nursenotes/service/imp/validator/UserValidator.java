@@ -18,7 +18,7 @@ public class UserValidator extends AbstractValidator<RegistrationRequest> {
      * @param rules of superclass.
      */
     @Autowired
-    public UserValidator(final List<Rule<RegistrationRequest>> rules) {
+    public UserValidator(List<Rule<RegistrationRequest>> rules) {
         super(rules);
     }
 }

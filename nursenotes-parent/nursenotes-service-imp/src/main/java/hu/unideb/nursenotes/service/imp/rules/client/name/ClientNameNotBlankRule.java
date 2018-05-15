@@ -18,9 +18,9 @@ import java.util.List;
  * else it will proceed.
  */
 @Component
-public class ClientNameNotBlankRule implements Rule<ClientRequest> {
+public class ClientNameNotBlankRule implements Rule<Client> {
     @Override
-    public final List<Violation> validate(ClientRequest request)
+    public final List<Violation> validate(Client request)
             throws BaseException {
         return Strings.isNullOrEmpty(request.getFirstName()
                 + " " + request.getLastName())
