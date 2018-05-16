@@ -1,7 +1,7 @@
 package hu.unideb.nursenotes.service.imp.imp;
 
 import hu.unideb.nursenotes.commons.pojo.exceptions.BaseException;
-import hu.unideb.nursenotes.commons.pojo.request.ClientRequest;
+import hu.unideb.nursenotes.commons.pojo.response.ClientResponse;
 import hu.unideb.nursenotes.persistence.entity.ClientEntity;
 import hu.unideb.nursenotes.persistence.repository.ClientRepository;
 import hu.unideb.nursenotes.service.api.domain.Client;
@@ -10,13 +10,12 @@ import hu.unideb.nursenotes.service.api.exception.EntityNotFoundException;
 import hu.unideb.nursenotes.service.api.exception.ServiceException;
 import hu.unideb.nursenotes.service.api.service.ClientService;
 import hu.unideb.nursenotes.service.imp.converter.ClientEntityListToClientListConverter;
+import hu.unideb.nursenotes.service.imp.converter.ClientListToClientResponseListConverter;
 import hu.unideb.nursenotes.service.imp.validator.AbstractValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -70,6 +69,9 @@ public class ClientServiceImp implements ClientService {
     @Autowired
     private ClientEntityListToClientListConverter clientEntityListToClientListConverter;
 
+    @Autowired
+    private ClientListToClientResponseListConverter clientListToClientResponseListConverter;
+
     /**
      * In this implementation, in the method with the help of
      * {@link org.springframework.data.repository.CrudRepository#save(Object) }
@@ -121,9 +123,10 @@ public class ClientServiceImp implements ClientService {
     }
 
     @Override
-    public List<Client> findUsersClient(User user) {
+    public List<ClientResponse> findUsersClient(User user) {
         List<ClientEntity> byUsers = clientRepository.findByuserEntityId(user.getId());
-        return clientEntityListToClientListConverter.convert(byUsers);
+        List<Client> convert = clientEntityListToClientListConverter.convert(byUsers);
+        return clientListToClientResponseListConverter.convert(convert);
     }
 
 }

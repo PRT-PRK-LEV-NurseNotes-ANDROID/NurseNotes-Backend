@@ -3,6 +3,7 @@ package hu.unideb.nursenotes.backend.rest;
 import hu.unideb.nursenotes.backend.security.NurseNotesUserDetails;
 import hu.unideb.nursenotes.commons.pojo.exceptions.BaseException;
 import hu.unideb.nursenotes.commons.pojo.request.ClientRequest;
+import hu.unideb.nursenotes.commons.pojo.response.ClientResponse;
 import hu.unideb.nursenotes.service.api.domain.Activity;
 import hu.unideb.nursenotes.service.api.domain.Client;
 import hu.unideb.nursenotes.service.api.domain.User;
@@ -100,18 +101,14 @@ public class ClientRestController {
                         .build();
 
         clientService.updateClient(clientModified);
-//        return ResponseEntity.accepted().body(new GymSuccessUpdateResponse(gym));
-        return ResponseEntity.accepted().body("Testttt ");
+        return ResponseEntity.accepted().body("Succes ");
     }
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping(path = CLIENT_PATH)
     public ResponseEntity<?> getAllClient() throws BaseException {
-        List<Client> gymByUser = clientService.findUsersClient(getUser());
-
-        List<Activity> allActivityByClient = new ArrayList<>();
-
-        return ResponseEntity.accepted().body(gymByUser);
+        List<ClientResponse> clientByUser = clientService.findUsersClient(getUser());
+        return ResponseEntity.accepted().body(clientByUser);
     }
 
     private User getUser() {

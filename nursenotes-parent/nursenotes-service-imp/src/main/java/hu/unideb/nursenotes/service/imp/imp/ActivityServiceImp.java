@@ -1,6 +1,7 @@
 package hu.unideb.nursenotes.service.imp.imp;
 
 import hu.unideb.nursenotes.commons.pojo.exceptions.BaseException;
+import hu.unideb.nursenotes.commons.pojo.response.ActivityResponse;
 import hu.unideb.nursenotes.persistence.entity.ActivityEntity;
 import hu.unideb.nursenotes.persistence.entity.ClientEntity;
 import hu.unideb.nursenotes.persistence.repository.ActivityRepository;
@@ -8,6 +9,8 @@ import hu.unideb.nursenotes.service.api.domain.Activity;
 import hu.unideb.nursenotes.service.api.domain.Client;
 import hu.unideb.nursenotes.service.api.service.ActivityService;
 import hu.unideb.nursenotes.service.imp.converter.ActivityEntityListToActivityListConverter;
+import hu.unideb.nursenotes.service.imp.converter.ActivityListToActivityResponseListConverter;
+import hu.unideb.nursenotes.service.imp.converter.ActivityToActivityResponseConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
@@ -41,7 +44,10 @@ public class ActivityServiceImp implements ActivityService {
     private ConversionService conversionService;
 
     @Autowired
-    ActivityEntityListToActivityListConverter activityEntityListToActivityListConverter;
+    private ActivityEntityListToActivityListConverter activityEntityListToActivityListConverter;
+
+    @Autowired
+    private ActivityListToActivityResponseListConverter activityListToActivityResponseListConverter;
 
     @Override
     public Activity addActivity(Activity activity) throws BaseException {
@@ -52,8 +58,9 @@ public class ActivityServiceImp implements ActivityService {
         return convert;    }
 
     @Override
-    public List<Activity> getAllActivityByClient(Client client) throws BaseException {
+    public List<ActivityResponse> getAllActivityByClient(Client client) throws BaseException {
         List<ActivityEntity> activities = activityRepository.findByClientId(client.getId());
-        return activityEntityListToActivityListConverter.convert(activities);
+        List<Activity> convert = activityEntityListToActivityListConverter.convert(activities);
+        return activityListToActivityResponseListConverter.convert(convert);
     }
 }

@@ -2,6 +2,7 @@ package hu.unideb.nursenotes.service.api.service;
 
 import hu.unideb.nursenotes.commons.pojo.exceptions.BaseException;
 import hu.unideb.nursenotes.commons.pojo.request.ClientRequest;
+import hu.unideb.nursenotes.commons.pojo.response.ClientResponse;
 import hu.unideb.nursenotes.service.api.domain.Client;
 import hu.unideb.nursenotes.service.api.domain.User;
 
@@ -27,5 +28,5 @@ public interface ClientService {
 
     Client findClientById(Long id) throws BaseException;
 
-    List<Client> findUsersClient(User user) throws BaseException;
+    List<ClientResponse> findUsersClient(User user) throws BaseException;
 }

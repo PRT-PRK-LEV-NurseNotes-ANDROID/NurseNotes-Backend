@@ -1,6 +1,7 @@
 package hu.unideb.nursenotes.service.api.service;
 
 import hu.unideb.nursenotes.commons.pojo.exceptions.BaseException;
+import hu.unideb.nursenotes.commons.pojo.response.ActivityResponse;
 import hu.unideb.nursenotes.service.api.domain.Activity;
 import hu.unideb.nursenotes.service.api.domain.Client;
 
@@ -14,6 +15,6 @@ public interface ActivityService {
 
     Activity addActivity(Activity activity) throws BaseException;
 
-    List<Activity> getAllActivityByClient(Client client) throws BaseException;
+    List<ActivityResponse> getAllActivityByClient(Client client) throws BaseException;
 
 }
