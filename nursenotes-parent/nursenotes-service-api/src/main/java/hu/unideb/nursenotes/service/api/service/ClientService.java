@@ -24,9 +24,28 @@ public interface ClientService {
      */
     Client addClient(Client client) throws BaseException;
 
+    /**
+     * Update a client service.
+     *
+     * @param client the client to be updated.
+     * @return updated client.
+     * @throws BaseException as exception.
+     */
     Client updateClient(Client client) throws BaseException;
 
+    /**
+     * Find client by ID.
+     * @param id the ID of a client.
+     * @return a client.
+     * @throws BaseException as exception.
+     */
     Client findClientById(Long id) throws BaseException;
 
+    /**
+     * It gives back a list of clients, belonging to a user.
+     * @param user the employee.
+     * @return list of clients.
+     * @throws BaseException as exception.
+     */
     List<ClientResponse> findUsersClient(User user) throws BaseException;
 }

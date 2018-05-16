@@ -11,13 +11,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
+/**
+ * Authentication entry point class.
+ */
 @Slf4j
 public class OAuthAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     private HttpMessageConverter messageConverter;
 
-
+    /**
+     * Response
+     *
+     * @param request the request.
+     * @param response the response.
+     * @param exception as exception.
+     * @throws IOException as exception.
+     * @throws ServletException as exception.
+     */
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
                          AuthenticationException exception) throws IOException, ServletException {

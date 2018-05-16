@@ -14,9 +14,21 @@ import java.util.List;
 @Repository
 public interface ClientRepository extends JpaRepository<ClientEntity, Long> {
 
+    /**
+     * This query finds the Client by ID.
+     *
+     * @param id the ID of the Client.
+     * @return client by the given ID.
+     */
     @Query("SELECT g FROM ClientEntity g WHERE g.id = :id")
     ClientEntity findById(@Param("id") long id);
 
-    List<ClientEntity> findByuserEntityId(@Param("id") long id);
+    /**
+     * List of clients of the logged in user.
+     *
+     * @param id the ID of the user.
+     * @return list of clients.
+     */
+    List<ClientEntity> findByUserEntityId(@Param("id") long id);
 
 }

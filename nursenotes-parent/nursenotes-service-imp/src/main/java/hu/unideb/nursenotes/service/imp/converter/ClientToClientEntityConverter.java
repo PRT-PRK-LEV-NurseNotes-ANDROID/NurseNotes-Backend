@@ -8,12 +8,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+/**
+ * Client converter class.
+ */
 @Component
-public class ClientToClientEntityConverter implements Converter<Client, ClientEntity> {
+public class ClientToClientEntityConverter implements
+        Converter<Client, ClientEntity> {
 
+    /**
+     * User entity converter.
+     */
     @Autowired
     private UserToUserEntityConverter userToUserEntityConverter;
 
+    /**
+     * Client converter.
+     *
+     * @param client to convert.
+     * @return client entity.
+     */
     @Override
     public ClientEntity convert(Client client) {
         return ClientEntity.builder()
@@ -29,6 +42,12 @@ public class ClientToClientEntityConverter implements Converter<Client, ClientEn
                 .build();
     }
 
+    /**
+     * User entity.
+     *
+     * @param source user.
+     * @return user entity.
+     */
     private UserEntity userToUserEntity(User source) {
         return userToUserEntityConverter.convert(source);
     }

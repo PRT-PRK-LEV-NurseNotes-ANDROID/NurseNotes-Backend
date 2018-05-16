@@ -10,10 +10,10 @@ import hu.unideb.nursenotes.service.api.exception.ServiceException;
 import hu.unideb.nursenotes.service.api.service.UserService;
 import hu.unideb.nursenotes.service.imp.validator.AbstractValidator;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.Objects;
 
@@ -30,25 +30,44 @@ import java.util.Objects;
 
 /**
  * {@link lombok.extern.slf4j.Slf4j Logger} is needed for logging.
+ * User service implementation class.
  */
 @Slf4j
 @Service
 public class UserServiceImp implements UserService {
 
-    private static final String REGISTRATION_REQUEST_CAN_NOT_BE_NULL = "Registration request can not be NULL.";
+    private static final String REGISTRATION_REQUEST_CAN_NOT_BE_NULL =
+            "Registration request can not be NULL.";
 
+    /**
+     * User repository.
+     */
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * Conversion service.
+     */
     @Autowired
     private ConversionService conversionService;
 
+    /**
+     * Abstract validator.
+     */
     @Autowired
-    private AbstractValidator<RegistrationRequest> registrationRequestValidator;
+    private AbstractValidator<RegistrationRequest>
+            registrationRequestValidator;
 
+    /**
+     * Find by username.
+     *
+     * @param username the user name of the employee.
+     * @return user.
+     * @throws BaseException as exception.
+     */
     @Override
     public User findByUsername(String username) throws BaseException {
-        log.trace(">> findByUsername: [username:{}]", username);
+        log.info(">> findByUsername: [username:{}]", username);
         if (StringUtils.isBlank(username)) {
             throw new ServiceException("username is blank");
         }
@@ -56,28 +75,38 @@ public class UserServiceImp implements UserService {
         try {
             userEntity = userRepository.findByUsername(username);
         } catch (Exception e) {
-            String errorMsg = String.format("Error on finding user by username:%s", username);
+            String errorMsg = String.format(
+                    "Error on finding user by username:%s", username);
             throw new ServiceException(errorMsg, e);
         }
         if (Objects.isNull(userEntity)) {
-            String errorMsg = String.format("User with username:%s not found.", username);
+            String errorMsg = String.format(
+                    "User with username:%s not found.", username);
             throw new EntityNotFoundException(errorMsg);
         }
         User convert = conversionService.convert(userEntity, User.class);
-        log.trace("<< findByUsername: [username:{}]", username);
+        log.info("<< findByUsername: [username:{}]", username);
         return convert;
     }
 
+    /**
+     * Save user.
+     *
+     * @param registrationRequest the request.
+     * @return user.
+     * @throws BaseException as exception.
+     */
     @Override
     public User save(RegistrationRequest registrationRequest) throws BaseException {
         Objects.requireNonNull(registrationRequest, REGISTRATION_REQUEST_CAN_NOT_BE_NULL);
-        log.trace(">> save: [user:{}]", registrationRequest);
+        log.info(">> save: [user:{}]", registrationRequest);
         registrationRequestValidator.validate(registrationRequest);
         User convert = conversionService.convert(registrationRequest, User.class);
         UserEntity userEntity = conversionService.convert(convert, UserEntity.class);
-        userRepository.save(userEntity);
-        log.trace("<< save: [user:{}]", registrationRequest);
-        return convert;
+        User convertedUser = conversionService.convert(
+                userRepository.save(userEntity), User.class);
+        log.info("<< save: [user:{}]", registrationRequest);
+        return convertedUser;
     }
 
 }

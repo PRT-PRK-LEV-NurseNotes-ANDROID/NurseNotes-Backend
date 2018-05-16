@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.List;
-
+/**
+ * Activity converter class.
+ */
 @Component
 public class ActivityToActivityEntityConverter implements Converter<Activity, ActivityEntity> {
 
@@ -29,7 +29,7 @@ public class ActivityToActivityEntityConverter implements Converter<Activity, Ac
                 .build();
     }
 
-    private ClientEntity clientEntityToClient(Client source){
+    private ClientEntity clientEntityToClient(Client source) {
         return clientToClientEntityConverter.convert(source);
     }
 }

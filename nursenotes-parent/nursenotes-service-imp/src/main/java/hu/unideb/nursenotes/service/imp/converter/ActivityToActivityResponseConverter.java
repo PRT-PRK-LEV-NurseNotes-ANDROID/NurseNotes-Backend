@@ -5,6 +5,9 @@ import hu.unideb.nursenotes.service.api.domain.Activity;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+/**
+ * Activity converter class.
+ */
 @Component
 public class ActivityToActivityResponseConverter implements Converter<Activity, ActivityResponse> {
 

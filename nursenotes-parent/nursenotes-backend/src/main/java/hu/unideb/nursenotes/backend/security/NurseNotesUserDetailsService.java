@@ -11,7 +11,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-
+/**
+ * Nurse notes user details service class.
+ */
 @Service
 public class NurseNotesUserDetailsService implements UserDetailsService {
 
@@ -26,7 +28,8 @@ public class NurseNotesUserDetailsService implements UserDetailsService {
         } catch (EntityNotFoundException e) {
             throw new UsernameNotFoundException(e.getMessage(), e);
         } catch (BaseException e) {
-            throw new AuthenticationServiceException("Error on authenticating internal user.", e);
+            throw new AuthenticationServiceException(
+                    "Error on authenticating internal user.", e);
         }
         return new NurseNotesUserDetails(user);
     }

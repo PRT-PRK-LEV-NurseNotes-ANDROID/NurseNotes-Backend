@@ -13,8 +13,22 @@ import java.util.List;
  */
 public interface ActivityService {
 
+    /**
+     * Add activity service.
+     *
+     * @param activity activity.
+     * @return created activity.
+     * @throws BaseException as exception.
+     */
     Activity addActivity(Activity activity) throws BaseException;
 
+    /**
+     * Gives by every activity at a client.
+     *
+     * @param client the client.
+     * @return a list of activities.
+     * @throws BaseException as exception.
+     */
     List<ActivityResponse> getAllActivityByClient(Client client) throws BaseException;
 
 }

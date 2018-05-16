@@ -20,6 +20,7 @@ public class Application extends SpringBootServletInitializer {
      * @param args are the arguments.
      */
     public static void main(final String[] args) {
+
         SpringApplication.run(Application.class, args);
     }
 

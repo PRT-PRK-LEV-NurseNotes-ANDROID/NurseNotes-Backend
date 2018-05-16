@@ -5,9 +5,19 @@ import hu.unideb.nursenotes.service.api.domain.Client;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+/**
+ * Client converter class.
+ */
 @Component
-public class ClientToClientResponseConverter implements Converter<Client, ClientResponse> {
+public class ClientToClientResponseConverter
+        implements Converter<Client, ClientResponse> {
 
+    /**
+     * Client response.
+     *
+     * @param client to be converted.
+     * @return response.
+     */
     @Override
     public ClientResponse convert(Client client) {
         return ClientResponse.builder()

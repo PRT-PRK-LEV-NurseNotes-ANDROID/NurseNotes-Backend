@@ -71,7 +71,8 @@ public class SecurityConfiguration
                 .logoutSuccessUrl("/")
                 .and()
                 .exceptionHandling()
-                .authenticationEntryPoint(delegatingAuthenticationEntryPoint());
+                .authenticationEntryPoint(
+                        delegatingAuthenticationEntryPoint());
 
         http.httpBasic();
     }
@@ -104,6 +105,7 @@ public class SecurityConfiguration
      */
     @Bean
     public PasswordEncoder passwordEncoder() {
+
         return new BCryptPasswordEncoder();
     }
 
@@ -112,7 +114,8 @@ public class SecurityConfiguration
      */
     @Bean
     public AuthenticationEntryPoint delegatingAuthenticationEntryPoint() {
-        DelegatingAuthenticationEntryPoint delegatingAuthenticationEntryPoint =
+        DelegatingAuthenticationEntryPoint
+                delegatingAuthenticationEntryPoint =
                 new DelegatingAuthenticationEntryPoint(entryPoints());
         delegatingAuthenticationEntryPoint.setDefaultEntryPoint(
                 loginUrlAuthenticationEntryPoint());
@@ -120,7 +123,7 @@ public class SecurityConfiguration
     }
 
     /**
-     * @return  basic authentication entry point.
+     * @return basic authentication entry point.
      */
     @Bean
     public AuthenticationEntryPoint basicAuthenticationEntryPoint() {
@@ -162,7 +165,8 @@ public class SecurityConfiguration
     @Bean
     public LinkedHashMap<RequestMatcher, AuthenticationEntryPoint>
     entryPoints() {
-        LinkedHashMap<RequestMatcher, AuthenticationEntryPoint> entryPoints =
+        LinkedHashMap<RequestMatcher,
+                AuthenticationEntryPoint> entryPoints =
                 new LinkedHashMap<>();
         entryPoints.put(basicAuthenticationRequestMatcher(),
                 basicAuthenticationEntryPoint());

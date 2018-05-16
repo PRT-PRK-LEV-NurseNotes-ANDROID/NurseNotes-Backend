@@ -8,7 +8,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Arrays;
 import java.util.Collection;
 
-public class NurseNotesUserDetails implements UserDetails{
+/**
+ * Nurse notes user details class.
+ */
+public class NurseNotesUserDetails implements UserDetails {
 
     private final User user;
 

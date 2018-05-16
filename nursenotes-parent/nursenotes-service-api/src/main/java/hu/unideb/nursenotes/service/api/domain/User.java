@@ -9,6 +9,7 @@ import java.time.LocalDate;
  * User domain class.
  */
 @Data
+//@NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(exclude = "password")
 @ToString(exclude = "password")

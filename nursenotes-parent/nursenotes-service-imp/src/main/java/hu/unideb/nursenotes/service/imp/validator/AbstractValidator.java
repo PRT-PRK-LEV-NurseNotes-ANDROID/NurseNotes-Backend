@@ -22,6 +22,10 @@ public class AbstractValidator<T> {
     @Autowired
     private List<Rule<T>> rules;
 
+    /**
+     * Abstract validator.
+     * @param rules the rules.
+     */
     public AbstractValidator(List<Rule<T>> rules) {
         super();
         this.rules = rules;
@@ -31,6 +35,7 @@ public class AbstractValidator<T> {
      * Validates request.
      *
      * @param request request to be validated.
+     * @throws BaseException as exception.
      */
     public void validate(T request) throws BaseException {
         List<Violation> violations = new LinkedList<>();

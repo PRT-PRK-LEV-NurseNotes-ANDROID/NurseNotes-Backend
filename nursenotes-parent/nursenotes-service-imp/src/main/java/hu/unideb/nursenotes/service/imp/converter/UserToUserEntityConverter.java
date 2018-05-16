@@ -5,9 +5,18 @@ import hu.unideb.nursenotes.service.api.domain.User;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+/**
+ * User converter class.
+ */
 @Component
 public class UserToUserEntityConverter implements Converter<User, UserEntity> {
 
+    /**
+     * User converter.
+     *
+     * @param user to be converted.
+     * @return user entity.
+     */
     @Override
     public UserEntity convert(User user) {
         return UserEntity.builder()

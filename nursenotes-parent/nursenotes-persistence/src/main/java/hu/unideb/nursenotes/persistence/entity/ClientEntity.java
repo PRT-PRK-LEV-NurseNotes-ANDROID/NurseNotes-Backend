@@ -1,11 +1,26 @@
 package hu.unideb.nursenotes.persistence.entity;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
 
-import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.ClientdataColumName.*;
+import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.ClientdataColumName.COLUMN_NAME_CLIENT_ADDRESS;
+import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.ClientdataColumName.COLUMN_NAME_CLIENT_AGE;
+import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.ClientdataColumName.COLUMN_NAME_CLIENT_FIRSTNAME;
+import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.ClientdataColumName.COLUMN_NAME_CLIENT_LASTNAME;
+import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.ClientdataColumName.COLUMN_NAME_CLIENT_PHONENUMBER;
+import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.ClientdataColumName.COLUMN_NAME_CLIENT_SIGNATURE;
+import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.ClientdataColumName.COLUMN_NAME_CLIENT_WAGE;
 import static hu.unideb.nursenotes.commons.pojo.table.ColumnName.UserColumName.COLUMN_NAME_USER_ID;
 import static hu.unideb.nursenotes.commons.pojo.table.TableName.TABLE_NAME_CLIENT;
 import static javax.persistence.CascadeType.ALL;
@@ -67,7 +82,7 @@ public class ClientEntity extends BaseEntity<Long> {
     @JoinColumn(name = COLUMN_NAME_USER_ID, nullable = false)
     private UserEntity userEntity;
 
-    @OneToMany(cascade=ALL, mappedBy="client")
+    @OneToMany(cascade = ALL, mappedBy = "client")
     private List<ActivityEntity> activityEntities;
 
     /**
@@ -79,9 +94,12 @@ public class ClientEntity extends BaseEntity<Long> {
      * @param phoneNumber phone number of client.
      * @param address     is the address of client.
      * @param wage        is the wage of client.
+     * @param userEntity  user entity.
      */
     @Builder
-    public ClientEntity(Long id, String firstName, String lastName, int age, String signature, String phoneNumber, String address, int wage, UserEntity userEntity){
+    public ClientEntity(Long id, String firstName, String lastName,
+                        int age, String signature, String phoneNumber,
+                        String address, int wage, UserEntity userEntity) {
         super(id);
         this.firstName = firstName;
         this.lastName = lastName;

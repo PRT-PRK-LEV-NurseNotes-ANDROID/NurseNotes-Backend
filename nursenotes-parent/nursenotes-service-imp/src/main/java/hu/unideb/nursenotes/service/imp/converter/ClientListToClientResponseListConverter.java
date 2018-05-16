@@ -9,14 +9,29 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Client converer class.
+ */
 @Component
-public class ClientListToClientResponseListConverter implements Converter<List<Client>, List<ClientResponse>> {
+public class ClientListToClientResponseListConverter
+        implements Converter<List<Client>, List<ClientResponse>> {
 
+    /**
+     * Client converter.
+     */
     @Autowired
     private ClientToClientResponseConverter clientToClientResponseConverter;
 
+    /**
+     * Client list converter.
+     *
+     * @param clients list of clients.
+     * @return response list.
+     */
     @Override
     public List<ClientResponse> convert(List<Client> clients) {
-        return clients.stream().map(client -> clientToClientResponseConverter.convert(client)).collect(Collectors.toList());
+        return clients.stream().map(client ->
+                clientToClientResponseConverter.convert(client))
+                .collect(Collectors.toList());
     }
 }

@@ -8,11 +8,25 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
+/**
+ * Registration request class.
+ */
 @Component
-public class RegistrationRequestToUserConverter implements Converter<RegistrationRequest, User> {
+public class RegistrationRequestToUserConverter
+        implements Converter<RegistrationRequest, User> {
 
-    private static final BCryptPasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
+    /**
+     * Password encoder.
+     */
+    private static final BCryptPasswordEncoder PASSWORD_ENCODER =
+            new BCryptPasswordEncoder();
 
+    /**
+     * Registartion request.
+     *
+     * @param source request.
+     * @return user domain.
+     */
     @Override
     public User convert(RegistrationRequest source) {
         if (source == null) {

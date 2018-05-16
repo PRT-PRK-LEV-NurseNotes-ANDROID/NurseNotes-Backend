@@ -31,7 +31,8 @@
 
     <name>NurseNotes</name>
 
-    <description>Stores information about nursing.</description>
+    <description>Stores information about nursing. This application is for nurses in hurry. It makes their everyday job more simple.
+    You can save the activity you did at your client. You can look back the history. Use it and you won't have to do paperwork anymore.</description>
 
     <developers>
         <developer>
@@ -46,7 +47,8 @@
     <scm>
         <connection>scm:https://github.com/PRT-PRK-LEV-NurseNotes-ANDROID/NurseNotes-Backend.git</connection>
         <url>scm:https://github.com/PRT-PRK-LEV-NurseNotes-ANDROID/NurseNotes-Backend.git</url>
-        <developerConnection>scm:git:git@github.com:PRT-PRK-LEV-NurseNotes-ANDROID/NurseNotes-Backend.git</developerConnection>
+        <developerConnection>scm:git:git@github.com:PRT-PRK-LEV-NurseNotes-ANDROID/NurseNotes-Backend.git
+        </developerConnection>
         <tag>HEAD</tag>
     </scm>
 
@@ -62,6 +64,12 @@
         <name>Debreceni Egyetem Informatika Kar</name>
     </organization>
 
+    <distributionManagement>
+        <site>
+            <id>unideb.hu</id>
+            <url>scp://unideb.hu/nursenotes/site/</url>
+        </site>
+    </distributionManagement>
 
     <dependencyManagement>
         <dependencies>
@@ -155,6 +163,52 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>1.4.1</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireJavaVersion>
+                                    <version>[1.8,)</version>
+                                </requireJavaVersion>
+                                <requireProperty>
+                                    <property>
+                                        java.vendor
+                                    </property>
+                                    <regex>.*Oracle.*</regex>
+                                </requireProperty>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.7.4.201502262128</version>
+                <executions>
+                    <execution>
+                        <id>jacoco-initialize</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-site</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
 
         <resources>
@@ -164,5 +218,43 @@
             </resource>
         </resources>
     </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.4</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>2.18.1</version>
+                <configuration>
+                    <aggregate>true</aggregate>
+                    <linkXRef>true</linkXRef>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.17</version>
+                <configuration>
+                    <configLocation>checkstyle.xml</configLocation>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>2.5</version>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.7.4.201502262128</version>
+            </plugin>
+
+        </plugins>
+    </reporting>
 
 </project>

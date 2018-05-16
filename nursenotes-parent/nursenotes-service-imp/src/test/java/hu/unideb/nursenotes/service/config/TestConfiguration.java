@@ -1,5 +1,7 @@
 package hu.unideb.nursenotes.service.config;
 
+import org.junit.FixMethodOrder;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -17,8 +19,9 @@ import org.reflections.Reflections;
 
 
 @Configuration
-@Import({TestPersistenceConfiguration.class,})
+@Import(TestPersistenceConfiguration.class)
 @ComponentScan("hu.unideb.nursenotes")
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestConfiguration {
 
     protected static final String CONVERTER_PACKAGE = "hu.unideb.nursenotes.service.imp.converter";

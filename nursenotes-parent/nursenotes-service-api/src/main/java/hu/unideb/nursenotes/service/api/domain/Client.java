@@ -1,8 +1,11 @@
 package hu.unideb.nursenotes.service.api.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,6 +15,8 @@ import java.util.List;
  */
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Client implements Serializable {
 
     /**
@@ -56,5 +61,4 @@ public class Client implements Serializable {
 
     @JsonIgnore
     private User user;
-
 }

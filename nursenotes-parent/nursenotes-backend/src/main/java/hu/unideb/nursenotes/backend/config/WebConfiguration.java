@@ -48,6 +48,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     public MappingJackson2HttpMessageConverter
     mappingJackson2HttpMessageConverter() {
+
         return new MappingJackson2HttpMessageConverter(objectMapper());
     }
 

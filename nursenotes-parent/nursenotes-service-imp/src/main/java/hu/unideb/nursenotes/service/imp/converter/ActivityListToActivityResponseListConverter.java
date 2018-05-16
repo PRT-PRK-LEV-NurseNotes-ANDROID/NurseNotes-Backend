@@ -9,14 +9,30 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Activity converter class.
+ */
 @Component
-public class ActivityListToActivityResponseListConverter implements Converter<List<Activity>, List<ActivityResponse>> {
+public class ActivityListToActivityResponseListConverter
+        implements Converter<List<Activity>, List<ActivityResponse>> {
 
+    /**
+     * Activity converter.
+     */
     @Autowired
-    private ActivityToActivityResponseConverter activityToActivityResponseConverter;
+    private ActivityToActivityResponseConverter
+            activityToActivityResponseConverter;
 
+    /**
+     * Activity list converter.
+     *
+     * @param source list of activity.
+     * @return activity response list.
+     */
     @Override
     public List<ActivityResponse> convert(List<Activity> source) {
-        return source.stream().map(activity -> activityToActivityResponseConverter.convert(activity)).collect(Collectors.toList());
+        return source.stream().map(activity ->
+                activityToActivityResponseConverter
+                        .convert(activity)).collect(Collectors.toList());
     }
 }

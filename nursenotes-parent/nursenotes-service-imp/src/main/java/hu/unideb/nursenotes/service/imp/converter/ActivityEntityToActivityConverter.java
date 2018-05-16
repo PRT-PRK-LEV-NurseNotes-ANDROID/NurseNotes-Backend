@@ -8,14 +8,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-
+/**
+ * Activity converter class.
+ */
 @Component
-public class ActivityEntityToActivityConverter implements Converter<ActivityEntity, Activity> {
+public class ActivityEntityToActivityConverter
+        implements Converter<ActivityEntity, Activity> {
 
+    /**
+     * Client entity converter.
+     */
     @Autowired
-    private ClientEntityToClientConverter clientEntityToClientConverter;
+    private ClientEntityToClientConverter
+            clientEntityToClientConverter;
 
+    /**
+     * Activity converter.
+     *
+     * @param activityEntity activity entity.
+     * @return activity domain.
+     */
     @Override
     public Activity convert(ActivityEntity activityEntity) {
         return Activity.builder()
@@ -28,7 +40,11 @@ public class ActivityEntityToActivityConverter implements Converter<ActivityEnti
                 .build();
     }
 
-    private Client clientEntityToClient(ClientEntity source){
+    /**
+     * @param source client entity.
+     * @return client domain.
+     */
+    private Client clientEntityToClient(ClientEntity source) {
         return clientEntityToClientConverter.convert(source);
     }
 }

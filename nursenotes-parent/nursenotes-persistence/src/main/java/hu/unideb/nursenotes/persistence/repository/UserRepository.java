@@ -12,6 +12,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
+    /**
+     * This query finds the employee by username.
+     *
+     * @param username the username of employee.
+     * @return username.
+     */
     @Query("SELECT u FROM UserEntity u where u.username =:username")
     UserEntity findByUsername(@Param("username") String username);
 

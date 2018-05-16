@@ -8,9 +8,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import path.login.LoginPath;
 
+/**
+ * Authorization REST controller class.
+ */
 @RestController
 public class AuthorizationRestcontroller {
 
+    /**
+     * @return user builder.
+     */
     @GetMapping(LoginPath.LOGIN_PATH)
     @PreAuthorize("isAuthenticated()")
     public UserDetailsResponse authorizeUser() {
